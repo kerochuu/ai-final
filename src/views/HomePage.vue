@@ -15,7 +15,7 @@
         <div id="aboutUs">
           <h2 class="headline mb-3 text-xs-center">About US</h2>
           <p class="mr-4 text-sm-center">
-            안녕하세요, 서울 SSAFY 1기 이주원입니다.
+            안녕하세요, 서울 SSAFY 1기 10조입니다.
             <br />아보카도 좋아하세요?
           </p>
         </div>
