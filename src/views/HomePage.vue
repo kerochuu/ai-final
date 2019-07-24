@@ -1,13 +1,13 @@
 <template>
   <div>
     <i class="fas fa-pencil-alt"></i>
-    <div v-on:click="changeBannerImg">
+    <!-- <div v-on:click="changeBannerImg"> -->
       <ImgBanner :imgSrc="img">
         <div id="introduce" style="line-height:1.2em; color:#333;" slot="text">
           Do u love Avocado?<br/>Do u love Avocado?
         </div>
       </ImgBanner>
-    </div>
+    <!-- </div> -->
 
     <!-- <v-container> -->
       <!-- About Us -->
@@ -61,8 +61,8 @@ export default {
   data() {
     return {
       showPhoto: false,
-      randomImg: "https://picsum.photos/1080/1920",
-      img: "https://picsum.photos/1080/1920"
+      // randomImg: "https://picsum.photos/1080/1920",
+      // img: "https://picsum.photos/1080/1920"
     };
   },
   components: {
@@ -74,17 +74,17 @@ export default {
     
   },
   methods: {
-    getImgUrl(img) {
-      return require("../assets/" + img);
-    },
-    changeBannerImg() {
-      this.showPhoto = !this.showPhoto;
-      if (this.showPhoto && this.user.photoURL) {
-        this.img = this.user.photoURL;
-      } else {
-        this.img = this.randomImg;
-      }
-    }
+    // getImgUrl(img) {
+    //   return require("../assets/" + img);
+    // },
+    // changeBannerImg() {
+    //   this.showPhoto = !this.showPhoto;
+    //   if (this.showPhoto && this.user.photoURL) {
+    //     this.img = this.user.photoURL;
+    //   } else {
+    //     this.img = this.randomImg;
+    //   }
+    // }
   },
   props: ['user']
 };

@@ -39,8 +39,6 @@ export default {
     Scroll
   },
   mounted() {
-    FirebaseService.signout();
-    FirebaseService.addPageLog("unauthenticated");
     this.$router.push("/pass");
   },
   watch: {
