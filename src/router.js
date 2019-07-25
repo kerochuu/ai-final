@@ -7,6 +7,7 @@ import PortfolioWriterPage from './views/PortfolioWriterPage.vue'
 import SignUpPage from './views/SignUpPage.vue'
 import PortfolioDetail from './views/PortfolioDetail.vue'
 import PassPage from './views/PassPage.vue'
+import AdminPage from './views/AdminPage.vue'
 
 Vue.use(Router)
 
@@ -48,7 +49,11 @@ export default new Router({
 			path: '/pass',
 			name: 'pass',
 			component: PassPage
+		},
+		{
+			path: '/admin',
+			name: 'admin',
+			component: AdminPage
 		}
-
   ]
 })
