@@ -27,30 +27,10 @@ export default {
 <style>
 #bannerImg {
   background-image: linear-gradient(to bottom right, #e39b82, #fef3cb);
+  height: 100vh;
   }
 .text-shadow {
   text-shadow: 0 0 15px rgb(255, 255, 255);
 }
 
-@media screen and (max-width: 760px) {
-  #bannerImg {
-    height: 100vh;
-  }
-}
-@media screen and(max-width: 1920px) {
-  #bannerImg {
-    margin-top: 64px;
-  }
-}
-
-@media screen and(max-width: 960px) {
-  #bannerImg {
-    margin-top: 48px;
-  }
-}
-@media screen and(max-width: 600px) {
-  #bannerImg {
-    margin-top: 64px;
-  }
-}
 </style>
