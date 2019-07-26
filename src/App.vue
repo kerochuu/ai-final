@@ -81,6 +81,7 @@ export default {
         FirebaseService.addPageLog(userId);
         console.log(this.user.uid)
         console.log(this.classname)
+        console.log(this.user)
       }
       
     }

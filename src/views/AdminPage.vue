@@ -19,7 +19,7 @@ export default {
   props: {
       classname: { type: String }
   },
-  beforeCreate() {
+  created() {
       if (this.classname != 'Admin') {
           alert('관리자만 접근 가능한 페이지입니다.')
           this.$router.back(1)

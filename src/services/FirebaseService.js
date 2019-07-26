@@ -6,7 +6,7 @@ import 'firebase/'
 const POSTS = 'POSTS'
 const PORTFOLIOS = 'PORTFOLIOS'
 const WEBVIEWS = 'WEBVIEWS'
-const AUTHORITY = 'AUTHORITY'
+const USERS = 'USERS'
 
 // Setup Firebase
 const config = {
@@ -100,6 +100,7 @@ export default {
 		return firebase.auth().signInWithPopup(provider).then(function (result) {
 			let accessToken = result.credential.accessToken;
 			let user = result.user
+			console.log(user.uid)
 			return result;
 		}).catch(function (error) {
 			console.error('[Facebook Login Error]', error);
@@ -109,7 +110,7 @@ export default {
 		firebase.auth().createUserWithEmailAndPassword(email, password)
 			.then((user) => {
 				const data = {class: 'Visitor'}
-				firestore.collection(AUTHORITY).doc(user.user.uid).set(data)
+				firestore.collection(USERS).doc(user.user.uid).set(data)
 				alert("회원가입이 완료되었습니다.")
 				window.location = "/"
 				console.log(user)
@@ -124,6 +125,9 @@ export default {
 	},
 	signinFirebase(email, password) {
 		return firebase.auth().signInWithEmailAndPassword(email, password)
+			.catch((error) => {
+				alert('로그인에 실패하였습니다.\nID와 비밀번호를 확인하여 주세요.')
+			})
 	},
 	getUserInfo() {
 		const user = firebase.auth().currentUser
@@ -217,9 +221,9 @@ export default {
 	},
 	changeAuthority(user, classname) {
 		const data = { class: classname }
-		firestore.collection(AUTHORITY).doc(user.uid).set(data)
+		firestore.collection(USERS).doc(user.uid).set(data)
 	},
 	async getUserAuthority(userid) {
-		return await firestore.collection(AUTHORITY).doc(userid).get()
+		return await firestore.collection(USERS).doc(userid).get()
 	}
 }
