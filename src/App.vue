@@ -87,7 +87,8 @@ export default {
   }
 };
 
-//<!-- Channel Plugin Scripts -->
+// <!-- Channel Plugin Scripts -->
+// 무료체험판 14일
 ;window.channelPluginSettings = {
     "pluginKey": "4be11479-22fc-46d6-8fb1-fca4277072d2"
   };
