@@ -15,8 +15,11 @@
         <v-btn @click="movePortfolio" flat>
           <div class="link-text">PORTFOLIO</div>
         </v-btn>
-        <v-btn @click="movePortfolioWriter" flat>
+        <v-btn v-if="this.classname != 'Anonymous'" @click="movePortfolioWriter" flat>
           <div class="link-text">PORTFOLIOWRITE</div>
+        </v-btn>
+        <v-btn v-if="this.classname == 'Admin'" @click="moveAdmin" flat>
+          <div class="link-text">ADMIN</div>
         </v-btn>
         <v-btn class="link-button" @click="showLogin" v-if="!user" flat>
           <div class="link-text">login</div>
@@ -80,11 +83,14 @@ export default {
     movePortfolioWriter(){
       this.$router.push('/portfoliowrite');
     },
-
+    moveAdmin(){
+      this.$router.push('/admin');
+    }
   },
   props: {
-    user: { type: Object }
-  }
+    user: { type: Object },
+    classname: { type: String }
+  },
 };
 </script>
 

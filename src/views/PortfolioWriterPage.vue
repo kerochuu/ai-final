@@ -50,6 +50,7 @@
 import ImageUpload from "@/components/ImageUpload";
 import FirebaseService from "@/services/FirebaseService";
 import ImgBanner from "../components/ImgBanner";
+import { Stats } from 'fs';
 export default {
   name: "PortfolioWrite",
   props: {
@@ -62,6 +63,10 @@ export default {
       default: "# body test"
     },
     img: {
+      type: String,
+      default: ""
+    },
+    classname: {
       type: String,
       default: ""
     }
@@ -87,6 +92,12 @@ export default {
           name: "portfolio"
         });
       })
+    }
+  },
+  mounted() {
+    if (this.classname == 'Anonymous') {
+      alert('로그인이 필요합니다.')
+      this.$router.back(1)
     }
   }
 };

@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <Header :user="user" />
+    <Header :user="user" :classname="classname" />
     <Scroll />
     <v-content id="body">
-      <router-view :user="user" />
+      <router-view :user="user" :classname="classname" />
     </v-content>
     
     <Footer />
@@ -31,7 +31,8 @@ export default {
   store,
   data() {
     return {
-      user: ""
+      user: "",
+      classname: "",
     };
   },
   components: {
@@ -42,15 +43,46 @@ export default {
   mounted() {
     this.$router.push("/pass");
   },
+  methods: {
+    getAuthority: async function(param){
+      let data = await FirebaseService.getUserAuthority(param)
+      return data;
+    }
+  },
   watch: {
     $route() {
-      this.user = FirebaseService.getUserInfo();
-      if (this.user) {
-        var id = this.user.uid;
-      } else {
-        var id = "unauthenticated";
+      if (window.location.pathname !== '/pass') {
+        this.user = FirebaseService.getUserInfo();
+        let userId =''
+        if (this.user) {
+          userId = this.user.uid;
+        } else {
+          userId = "unauthenticated";
+        }
+        if (userId === "unauthenticated") {
+          this.classname = "Anonymous"
+        } else {
+          console.log(this.user.uid)
+          FirebaseService.getUserAuthority(this.user.uid)
+          .then((doc) => {
+				    if (doc.exists) {
+              console.log(doc.data()['class'])
+              this.classname = doc.data()['class']
+            } else {
+              this.classname = undefined
+            }
+          })
+          console.log(this.classname)
+          if (this.classname == undefined) {
+            FirebaseService.changeAuthority(this.user, 'Visitor')
+            this.classname = 'Visitor'
+          }
+        }
+        FirebaseService.addPageLog(userId);
+        console.log(this.user.uid)
+        console.log(this.classname)
       }
-      FirebaseService.addPageLog(id);
+      
     }
   }
 };
