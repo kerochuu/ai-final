@@ -26,7 +26,7 @@ export default {
 </script>
 <style>
 #bannerImg {
-  background-image: linear-gradient(to bottom right, #e39b82, #fef3cb);
+ /* background-image: linear-gradient(to bottom right, #e39b82, #fef3cb);*/
   height: 100vh;
   }
 .text-shadow {

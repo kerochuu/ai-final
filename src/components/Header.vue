@@ -96,7 +96,7 @@ export default {
 
 <style scoped>
 .theme--light.v-toolbar {
-  background-color: rgba(238,191,159,0.7);
+  background-color: rgba(179,229,252,0.7);
 }
 
 .link-text {
@@ -104,7 +104,7 @@ export default {
   font-family: "Montserrat", sans-serif;
   font-weight: bolder;
   font-size: 20px;
-  color: #604f3e;
+  color: #01579b ;
 }
 .hbmenu {
   font-weight: bold;
@@ -113,9 +113,9 @@ export default {
   font-family: "Montserrat", sans-serif;
   font-weight: bolder;
   font-size: 23px;
-  color: #604f3e;
+  color: #01579b ;
 }
 .icon {
-  color: #604f3e;
+  color: #01579b ;
 }
 </style>
