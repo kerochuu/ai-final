@@ -4,37 +4,58 @@
       <div class="modal-container">
         <div class="modal-header">
           <slot name="header">
-            <h1>Login</h1>
+            <h1>
+              Sign In
+              <button style="float:right;" @click="close">
+                <v-icon>fa-times</v-icon>
+              </button>
+            </h1>
+
+            <router-link to="/signup">
+              <div id="signUp">or Create Account</div>
+            </router-link>
+
+            <hr />
           </slot>
         </div>
 
         <div class="modal-body">
           <slot name="body">
-            <h4>이메일</h4>
-            <input v-model="email" type="email" @keyup.enter="login" />
-            <h4>비밀번호</h4>
-            <input v-model="password" type="password" @keyup.enter="login" />
+            <div class="inputform">
+              <v-icon>fa-user</v-icon>
+              <input v-model="email" type="email" placeholder=" Email" @keyup.enter="login" />
+            </div>
+            <div class="inputform">
+              <v-icon>fa-lock</v-icon>
+              <input
+                v-model="password"
+                type="password"
+                placeholder=" Password"
+                @keyup.enter="login"
+              />
+            </div>
             <div>
               <button @click="login">Login</button>
             </div>
           </slot>
         </div>
 
+        <div>or Login with</div>
         <v-flex xs12 text-xs-center>
-          <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:100%;">
-            <v-icon size="25" class="mr-2">fa-google</v-icon>Google 로그인
+          <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:50%;">
+            <v-icon size="25" class="mr-2">fa-google</v-icon>
           </v-btn>
-          <v-btn round color="#3b5998" dark v-on:click="loginWithFacebook" style="width:100%;">
-            <v-icon size="25" class="mr-2">fa-facebook</v-icon>Facebook 로그인
+          <v-btn round color="#3b5998" dark v-on:click="loginWithFacebook" style="width:50%;">
+            <v-icon size="25" class="mr-2">fa-facebook</v-icon>
           </v-btn>
         </v-flex>
 
         <div class="modal-footer">
           <slot name="footer">
-            <button class="modal-default-button" @click="close">Cancel</button>
-            <button class="modal-default-button" @click="close">
-              <router-link to="/signup">Sign Up</router-link>
-            </button>
+            <!-- <button class="modal-default-button" @click="close">Cancel</button>
+            <button class="modal-default-button" @click="close">-->
+            <!-- <router-link to="/signup">Sign Up</router-link> -->
+            <!-- </button> -->
           </slot>
         </div>
       </div>
@@ -108,6 +129,7 @@ export default {
 
 .modal-container {
   width: 300px;
+  height: 400px;
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
@@ -148,8 +170,36 @@ export default {
   transform: scale(1.1);
 }
 
+.inputform {
+  padding-bottom: 10px;
+}
+
+i {
+  width: 16px;
+  margin-right: 5px;
+}
+
 input {
-  border: solid 1px #333;
+  width: 90%;
+  height: 24px;
+  border: solid 2px #333;
   border-radius: 5px;
+}
+
+#x-button {
+  width: 1rem;
+  float: right;
+}
+#x-button hover {
+  filter: brightness(0);
+}
+#signUp {
+  text-align: center;
+  font-size: 18px;
+}
+a {
+  text-decoration: none;
+  margin: auto;
+  color: red;
 }
 </style>
