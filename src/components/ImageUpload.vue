@@ -2,12 +2,8 @@
 
     <v-layout>
         <v-flex>
-            <label>
-                <input class="v-btn" outline type="file" id="file" ref="file" @change="handleFileUpload()"/>
-            </label>
-            <v-btn v-on:click="randomImageUpload()">
-                Random Poster Image
-            </v-btn>
+                    <input class="v-btn v-btn--flat" outline type="file" id="file" ref="file" @change="handleFileUpload()"/>
+                    <v-btn v-on:click="randomImageUpload()" flat> Random Poster Image </v-btn>
             <div>
                 <img id="preview" src=""
                      height="200px"
@@ -92,5 +88,4 @@
 </script>
 
 <style scoped>
-
 </style>

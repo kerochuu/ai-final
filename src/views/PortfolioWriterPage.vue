@@ -29,8 +29,10 @@
         <v-layout wrap>
           <v-flex xs6>
             <div v-html="compiledMarkdown"></div>
+          <!--
           </v-flex>
           <v-flex xs6>
+            -->
             <ImageUpload ref="imgUpload" />
           </v-flex>
         </v-layout>
@@ -106,7 +108,7 @@ export default {
 <style>
 #portfolioWrite {
   margin: 30px 200px;
-  background-color: #f0f0f0;
+  /*background-color: #f0f0f0;*/
 }
 #writeCard {
   padding: 40px 30px;

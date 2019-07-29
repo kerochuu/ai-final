@@ -36,7 +36,7 @@ export default {
 
 <style scoped>
 div {
-  background-color: #585151;
+  background-color: #0277bd ;
 }
 footer {
   font-family: "Montserrat", sans-serif;
