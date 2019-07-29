@@ -1,6 +1,5 @@
 {
   "projects": {
-    "staging": "project2-460cc",
     "default": "project2-460cc"
   }
 }
