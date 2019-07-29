@@ -8,6 +8,24 @@
       <h2>{{portfolio.created_at}}</h2>
       <p>{{portfolio.body}}</p>
     </div>
+    <div class="information">
+      <h3>댓글목록</h3>
+      <hr style="margin-top:1px;">
+
+    </div>
+
+  <div class="information">
+    <v-text-field
+      label="댓글입력"
+      placeholder="input comment"
+      outline
+      v-model="comment"
+    ></v-text-field>
+    <v-btn color="info" dark v-on:click="updateProfileComment">
+      <v-icon size="25" class="mr-2">fa-plus</v-icon>
+      댓글등록
+    </v-btn>
+  </div>
     <v-flex xs12 text-xs-center round my-5>
       <v-btn color="info" dark v-on:click="updateProfileImage">
         <v-icon size="25" class="mr-2">fa-plus</v-icon>
@@ -27,6 +45,12 @@ import FirebaseService from "@/services/FirebaseService";
 
 export default {
   name: "PortfolioDetail",
+  props: {
+    comment: {
+      type: String,
+
+    }
+  },
   data() {
     return {
       portfolio: {},
@@ -37,6 +61,11 @@ export default {
   methods: {
     getInfo: function() {
       this.pid = this.$route.params.pid;
+    },
+    updateProfileComment:function() {
+      const user = FirebaseService.getUserInfo();
+      FirebaseService.updateComment(this.$route.params.pid, user);
+      alert("댓글등록!")
     },
     updateProfileImage: function() {
       const user = FirebaseService.getUserInfo();

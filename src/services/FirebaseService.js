@@ -7,6 +7,7 @@ const POSTS = 'POSTS'
 const PORTFOLIOS = 'PORTFOLIOS'
 const WEBVIEWS = 'WEBVIEWS'
 const USERS = 'USERS'
+const COMMENTS = 'COMMENTS'
 
 // Setup Firebase
 const config = {
@@ -48,6 +49,13 @@ export default {
 	deletePost(pid) {
 		return firestore.collection(PORTFOLIOS).doc(pid).delete();
 	},
+	updateComment(pid, user) {
+		return firestore.collection(PORTFOLIOS).doc(pid).add({
+
+		})
+
+
+	},
 	getPortfolios() {
 		const postsCollection = firestore.collection(PORTFOLIOS)
 		return postsCollection
@@ -82,6 +90,8 @@ export default {
 			title,
 			body,
 			img,
+			comments:[],
+			commentsUid:[],
 			created_at: firebase.firestore.FieldValue.serverTimestamp()
 		})
 	},
@@ -173,7 +183,7 @@ export default {
 	postImage(imgLink) {
 		const user = firebase.auth().currentUser
 		user.updateProfile({
-			i: 'Visitor',		
+			i: 'Visitor',
 			photoURL: imgLink
 		})
 	},
