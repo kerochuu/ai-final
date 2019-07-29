@@ -106,10 +106,16 @@ export default {
 			console.error('[Facebook Login Error]', error);
 		})
 	},
-	signupInFirebase(email, password) {
+	signupInFirebase(email, password, displayName, phoneNumber, photoURL) {
 		firebase.auth().createUserWithEmailAndPassword(email, password)
 			.then((user) => {
-				const data = {class: 'Visitor'}
+				const data = {
+					authority: 'Visitor',
+					displayName,
+					phoneNumber,
+					photoURL,
+					email
+				}
 				firestore.collection(USERS).doc(user.user.uid).set(data)
 				alert("회원가입이 완료되었습니다.")
 				window.location = "/"
@@ -219,11 +225,13 @@ export default {
 			}
 		})
 	},
-	changeAuthority(user, classname) {
-		const data = { class: classname }
-		firestore.collection(USERS).doc(user.uid).set(data)
+	changeAuthority(user, authority) {
+		const data = { 'authority': authority }
+		firestore.collection(USERS).doc(user.uid).update(data)
 	},
 	async getUserAuthority(userid) {
+		console.log(userid)
+		console.log(firestore.collection(USERS).doc(userid))
 		return await firestore.collection(USERS).doc(userid).get()
 	}
 }

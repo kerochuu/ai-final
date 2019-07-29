@@ -15,10 +15,10 @@
         <v-btn @click="movePortfolio" flat>
           <div class="link-text">PORTFOLIO</div>
         </v-btn>
-        <v-btn v-if="this.classname != 'Anonymous'" @click="movePortfolioWriter" flat>
+        <v-btn v-if="this.authority != 'Anonymous'" @click="movePortfolioWriter" flat>
           <div class="link-text">PORTFOLIOWRITE</div>
         </v-btn>
-        <v-btn v-if="this.classname == 'Admin'" @click="moveAdmin" flat>
+        <v-btn v-if="this.authority == 'Admin'" @click="moveAdmin" flat>
           <div class="link-text">ADMIN</div>
         </v-btn>
         <v-btn class="link-button" @click="showLogin" v-if="!user" flat>
@@ -38,8 +38,8 @@
         <v-list class="hbmenu">
           <v-list-tile @click="movePost" ><v-icon size="25" class="mr-2 icon">fa-envelope</v-icon> POST </v-list-tile>
           <v-list-tile  @click="movePortfolio"> <v-icon size="25" class="mr-2 icon">fa-folder-open</v-icon> PORTFOLIO </v-list-tile>
-          <v-list-tile v-if="this.classname != 'Anonymous'"  @click="movePortfolioWriter"> <v-icon size="25" class="mr-2 icon">fa-pencil</v-icon> PORTFOLIOWRITE </v-list-tile>
-          <v-list-tile v-if="this.classname == 'Admin'"  @click="moveAdmin"> <v-icon size="25" class="mr-2 icon">fa-pencil</v-icon> ADMIN </v-list-tile>
+          <v-list-tile v-if="this.authority != 'Anonymous'"  @click="movePortfolioWriter"> <v-icon size="25" class="mr-2 icon">fa-pencil</v-icon> PORTFOLIOWRITE </v-list-tile>
+          <v-list-tile v-if="this.authority == 'Admin'"  @click="moveAdmin"> <v-icon size="25" class="mr-2 icon">fa-pencil</v-icon> ADMIN </v-list-tile>
           <v-list-tile v-if="!user" @click="showLogin"> <v-icon size="25" class="mr-2 icon">fa-unlock</v-icon> LOGIN </v-list-tile>
           <v-list-tile v-if="user"  @click="logout"> <v-icon size="25" class="mr-2 icon">fa-lock</v-icon> LOGOUT </v-list-tile>
         </v-list>
@@ -90,7 +90,7 @@ export default {
   },
   props: {
     user: { type: Object },
-    classname: { type: String }
+    authority: { type: String }
   },
 };
 </script>

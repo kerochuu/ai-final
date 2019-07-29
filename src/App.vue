@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <Header :user="user" :classname="classname" />
+    <Header :user="user" :authority="authority" />
     <Scroll />
     <v-content id="body">
-      <router-view :user="user" :classname="classname" />
+      <router-view :user="user" :authority="authority" />
     </v-content>
     
     <Footer />
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       user: "",
-      classname: "",
+      authority: "",
     };
   },
   components: {
@@ -60,27 +60,28 @@ export default {
           userId = "unauthenticated";
         }
         if (userId === "unauthenticated") {
-          this.classname = "Anonymous"
+          this.authority = "Anonymous"
         } else {
           console.log(this.user.uid)
           FirebaseService.getUserAuthority(this.user.uid)
           .then((doc) => {
 				    if (doc.exists) {
-              console.log(doc.data()['class'])
-              this.classname = doc.data()['class']
+              console.log(doc.data())
+              console.log(doc.data()['authority'])
+              this.authority = doc.data()['authority']
             } else {
-              this.classname = undefined
+              this.authority = undefined
             }
           })
-          console.log(this.classname)
-          if (this.classname == undefined) {
+          console.log(this.authority)
+          if (this.authority == undefined) {
             FirebaseService.changeAuthority(this.user, 'Visitor')
-            this.classname = 'Visitor'
+            this.authority = 'Visitor'
           }
         }
         FirebaseService.addPageLog(userId);
         console.log(this.user.uid)
-        console.log(this.classname)
+        console.log(this.authority)
         console.log(this.user)
       }
       

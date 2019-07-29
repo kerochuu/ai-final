@@ -5,12 +5,32 @@
         <h1 style="text-align:center; font-size:8vh; margin-top:100px">Signup Page</h1>
       </div>
       <v-layout style="margin-top: 30%">
-        <h4>이메일</h4>
+        <h5> * 는 필수항목입니다. </h5>
+      </v-layout>
+      <v-layout style="margin-top: 10px">
+        <h4>이메일 *</h4>
         <input v-model="email" type="email" />
         </v-layout><v-layout style="margin-top: 20px">
-        <h4>비밀번호</h4>
+        <h4>비밀번호 *</h4>
         <input v-model="password" type="password" />
         </v-layout><v-layout style="margin-top: 20px">
+        <h4>닉네임 *</h4>
+        <input v-model="displayName" />
+        </v-layout><v-layout style="margin-top: 20px">
+        <h4>전화번호</h4>
+        <input v-model="phoneNumber" />
+        </v-layout><v-layout style="margin-top: 20px" wrap>
+        <h4>프로필</h4>
+            <input class="v-btn v-btn--flat" outline type="file" id="file" ref="file" @change="handleFileUpload()"/>
+      </v-layout>
+      <v-layout xs5>
+        <v-flex>
+          <div>
+            <img id="preview" src="" height="200px" style="display: block"/>
+          </div>
+        </v-flex>
+      </v-layout>
+        <v-layout style="margin-top: 20px">
           <button @click="signup">Sign Up</button>
         </v-layout>
     </v-container>
@@ -19,47 +39,61 @@
 
 <script>
 import FirebaseService from "@/services/FirebaseService";
-import ImgBanner from "../components/ImgBanner";
 
 export default {
   name: "SignUpPage",
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      displayName: "",
+      phoneNumber: "",
+      photoURL: ""
     };
-  },
-  components: {
-    ImgBanner
   },
   methods: {
     signup: function() {
-      FirebaseService.signupInFirebase(this.email, this.password);
+      if (this.displayName === "") {
+        alert("닉네임은 필수로 입력해야 합니다.")
+      } else {
+        FirebaseService.signupInFirebase(this.email, this.password, this.displayName, this.phoneNumber, this.photoURL);
+      }
     },
-    async loginWithGoogle() {
-      const result = await FirebaseService.loginWithGoogle();
-      this.$store.state.accessToken = result.credential.accessToken;
-      this.$store.state.user = result.user;
-      console.log(this.$store.state.accessToken);
-      console.log(this.$store.state.user);
-    },
-    async loginWithFacebook() {
-      const result = await FirebaseService.loginWithFacebook();
-      this.$store.state.accessToken = result.credential.accessToken;
-      this.$store.state.user = result.user;
-      console.log(this.$store.state.accessToken);
-      console.log(this.$store.state.user);
-    }
-  },
-  mounted() {
-    console.log(this.$store.state);
+    handleFileUpload() {
+                this.file = this.$refs.file.files[0]
+                console.log(this.$refs.file.files.length)
+
+                if (this.$refs.file.files.length == 0) { // 파일 선택 취소 할 시 섬네일 안보임
+                    document.getElementById('preview').src = "";
+                    this.photoURL = ""
+                    return;
+                }
+
+                let reader = new FileReader();
+                reader.readAsDataURL(this.file);
+                //로드 한 후
+                reader.onload = function () {
+                    //로컬 이미지를 보여주기
+                    document.querySelector('#preview').src = reader.result;
+                    this.photoURL = reader.result;
+                    // document.getElementById('preview').style.display = "block"; // 섬네일 이미지 보임
+                };
+            }
   }
 };
 </script>
 
 <style scoped>
-input {
+.layout > input {
   border: solid 1px #333;
   border-radius: 5px;
+}
+
+#file {
+  border: none
+}
+
+#randomImage {
+  display: none
 }
 </style>

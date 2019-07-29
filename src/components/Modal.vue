@@ -1,18 +1,18 @@
 <template>
   <div class="modal-mask">
-    <div class="modal-wrapper">
+    <div class="modal-wrapper" @click="close">
       <div class="modal-container">
         <div class="modal-header">
           <slot name="header">
             <h1>
               Sign In
-              <button style="float:right;" @click="close">
+              <button style="float:right;" @click="closeButton">
                 <v-icon>fa-times</v-icon>
               </button>
             </h1>
 
             <router-link to="/signup">
-              <div id="signUp">or Create Account</div>
+              <div @click="close" id="signUp">or Create Account</div>
             </router-link>
 
             <hr />
@@ -77,8 +77,13 @@ export default {
     };
   },
   methods: {
-    close: function() {
-      this.$emit("update");
+    close: function(e) {
+      if (e.target['className'] === 'modal-wrapper' || e.target['id'] === 'signUp') {
+        this.$emit("update");
+      }
+    },
+    closeButton: function() {
+      this.$emit('update');
     },
     async loginWithGoogle() {
       const result = await FirebaseService.loginWithGoogle();
@@ -118,19 +123,21 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: table;
+  display: flex;
   transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-container {
   width: 300px;
   height: 400px;
-  margin: 0px auto;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;

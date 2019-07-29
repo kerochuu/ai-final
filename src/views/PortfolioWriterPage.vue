@@ -68,7 +68,7 @@ export default {
       type: String,
       default: ""
     },
-    classname: {
+    authority: {
       type: String,
       default: ""
     }
@@ -97,7 +97,7 @@ export default {
     }
   },
   mounted() {
-    if (this.classname == 'Anonymous') {
+    if (this.authority == 'Anonymous') {
       alert('로그인이 필요합니다.')
       this.$router.back(1)
     }
