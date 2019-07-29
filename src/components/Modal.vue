@@ -3,61 +3,68 @@
     <div class="modal-wrapper">
       <div class="modal-container">
         <div class="modal-header">
-          <slot name="header">
-            <h1>
-              Sign In
-              <button style="float:right;" @click="close">
-                <v-icon>fa-times</v-icon>
-              </button>
-            </h1>
-
-            <router-link to="/signup">
-              <div id="signUp">or Create Account</div>
-            </router-link>
-
-            <hr />
-          </slot>
+          <!-- <slot name="header"> -->
+          <h1>
+            Sign In
+            <button style="float:right;" @click="close">
+              <v-icon>fa-times</v-icon>
+            </button>
+          </h1>
+          <!-- </slot> -->
         </div>
 
         <div class="modal-body">
           <slot name="body">
             <div class="inputform">
-              <v-icon>fa-user</v-icon>
-              <input v-model="email" type="email" placeholder=" Email" @keyup.enter="login" />
+              <v-icon class="signIn-icon" size="24">fa-user</v-icon>
+              <input v-model="email" type="email" placeholder="   Email" @keyup.enter="login" />
             </div>
+            <hr />
+            <br />
             <div class="inputform">
-              <v-icon>fa-lock</v-icon>
+              <v-icon size="26" class="signIn-icon">fa-lock</v-icon>
               <input
                 v-model="password"
                 type="password"
-                placeholder=" Password"
+                placeholder="   Password"
                 @keyup.enter="login"
               />
             </div>
-            <div>
-              <button @click="login">Login</button>
-            </div>
+            <hr />
+            <br />
+            <div id="sign-in" @click="login">Sign In</div>
           </slot>
+          <br>
+          <div style="text-align:center;">or Login with</div>
+          <v-container>
+            <v-layout>
+              <v-flex xs6 text-xs-center>
+                <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:50%;">
+                  <v-icon size="25" align-content-center>fa-google</v-icon>
+                </v-btn>
+              </v-flex>
+              <v-flex xs6 text-xs-center>
+                <v-btn round color="#3b5998" dark v-on:click="loginWithFacebook" style="width:50%;">
+                  <v-icon size="25" align-content-center>fa-facebook</v-icon>
+                </v-btn>
+              </v-flex>
+            </v-layout>
+          </v-container>
+          
+          <router-link to="/signup">
+            <div>Don't have an account? </div>
+            <div id="signUp">Create one</div>
+          </router-link>
         </div>
 
-        <div>or Login with</div>
-        <v-flex xs12 text-xs-center>
-          <v-btn round color="#df4a31" dark v-on:click="loginWithGoogle" style="width:50%;">
-            <v-icon size="25" class="mr-2">fa-google</v-icon>
-          </v-btn>
-          <v-btn round color="#3b5998" dark v-on:click="loginWithFacebook" style="width:50%;">
-            <v-icon size="25" class="mr-2">fa-facebook</v-icon>
-          </v-btn>
-        </v-flex>
-
-        <div class="modal-footer">
-          <slot name="footer">
-            <!-- <button class="modal-default-button" @click="close">Cancel</button>
-            <button class="modal-default-button" @click="close">-->
-            <!-- <router-link to="/signup">Sign Up</router-link> -->
-            <!-- </button> -->
-          </slot>
-        </div>
+        <!-- <div class="modal-footer">
+        <slot name="footer">-->
+        <!-- <button class="modal-default-button" @click="close">Cancel</button>
+        <button class="modal-default-button" @click="close">-->
+        <!-- <router-link to="/signup">Sign Up</router-link> -->
+        <!-- </button> -->
+        <!-- </slot>
+        </div>-->
       </div>
     </div>
   </div>
@@ -144,7 +151,7 @@ export default {
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 30px 0;
 }
 
 .modal-body > input {
@@ -170,20 +177,19 @@ export default {
   transform: scale(1.1);
 }
 
-.inputform {
+/* .inputform {
   padding-bottom: 10px;
-}
+} */
 
 i {
   width: 16px;
-  margin-right: 5px;
 }
 
 input {
+  display: inline-block;
+  margin: 4px 0 0 0;
   width: 90%;
-  height: 24px;
-  border: solid 2px #333;
-  border-radius: 5px;
+  height: 30px;
 }
 
 #x-button {
@@ -200,6 +206,21 @@ input {
 a {
   text-decoration: none;
   margin: auto;
-  color: red;
+  color: #039be5;
+}
+#sign-in {
+  border: 2px solid #039be5;
+  border-radius: 5px;
+  padding: 3px;
+  text-align: center;
+  font-weight: bold;
+  background-color: #039be5;
+  color: #f0f0f0;
+}
+.signIn-icon {
+  margin: 0
+}
+.container {
+  padding: 4px 16px;
 }
 </style>
