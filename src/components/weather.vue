@@ -33,7 +33,7 @@
 //날씨 api 추가. using openweathermap API
 var weatherApiId="eff5a88bc9e0ad23fa3b728424ed8adb";
 var city="SEOUL"
-var apiURI = "http://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+weatherApiId;
+var apiURI = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+weatherApiId;
 
 export default{
   name: "weather",
