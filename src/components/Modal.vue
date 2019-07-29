@@ -50,21 +50,10 @@
               </v-flex>
             </v-layout>
           </v-container>
+          <br>
+          <div>Don't have an account? <router-link to="/signup" style="margin-left:10px;">Sign up</router-link></div>
           
-          <router-link to="/signup">
-            <div>Don't have an account? </div>
-            <div id="signUp">Create one</div>
-          </router-link>
         </div>
-
-        <!-- <div class="modal-footer">
-        <slot name="footer">-->
-        <!-- <button class="modal-default-button" @click="close">Cancel</button>
-        <button class="modal-default-button" @click="close">-->
-        <!-- <router-link to="/signup">Sign Up</router-link> -->
-        <!-- </button> -->
-        <!-- </slot>
-        </div>-->
       </div>
     </div>
   </div>
@@ -199,10 +188,7 @@ input {
 #x-button hover {
   filter: brightness(0);
 }
-#signUp {
-  text-align: center;
-  font-size: 18px;
-}
+
 a {
   text-decoration: none;
   margin: auto;
