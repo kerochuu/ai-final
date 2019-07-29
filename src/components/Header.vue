@@ -4,7 +4,7 @@
 
       <v-icon @click="moveHome">home</v-icon>
 
-      <v-toolbar-title id="title">TEAM.AVOCADO</v-toolbar-title>
+      <v-toolbar-title id="title">TEAM</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
