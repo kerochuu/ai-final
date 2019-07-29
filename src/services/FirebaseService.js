@@ -22,7 +22,6 @@ const config = {
 firebase.initializeApp(config)
 const firestore = firebase.firestore()
 const storageRef = firebase.storage().ref().child('img')
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 
 firebase.firestore().enablePersistence()
   .catch(function(err) {
@@ -36,6 +35,10 @@ firebase.firestore().enablePersistence()
           // ...
       }
   });
+  
+
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+
 export default {
 	getPosts() {
 		const postsCollection = firestore.collection(POSTS)
