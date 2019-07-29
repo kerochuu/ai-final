@@ -4,11 +4,7 @@
 
       <v-icon @click="moveHome">home</v-icon>
 
-<<<<<<< HEAD
       <v-toolbar-title id="title">TEAM</v-toolbar-title>
-=======
-      <v-toolbar-title id="title">TEAM.....</v-toolbar-title>
->>>>>>> origin/zooo1
 
       <v-spacer></v-spacer>
 
