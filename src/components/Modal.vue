@@ -3,20 +3,12 @@
     <div class="modal-wrapper" @click="close">
       <div class="modal-container">
         <div class="modal-header">
-          <slot name="header">
-            <h1>
-              Sign In
-              <button style="float:right;" @click="closeButton">
-                <v-icon>fa-times</v-icon>
-              </button>
-            </h1>
-
-            <router-link to="/signup">
-              <div @click="close" id="signUp">or Create Account</div>
-            </router-link>
-
-            <hr />
-          </slot>
+          <h1>
+            Sign In
+            <button style="float:right;" @click="closeButton">
+              <v-icon>fa-times</v-icon>
+            </button>
+          </h1>
         </div>
 
         <div class="modal-body">
@@ -57,7 +49,7 @@
             </v-layout>
           </v-container>
           <br>
-          <div>Don't have an account? <router-link to="/signup" style="margin-left:10px;">Sign up</router-link></div>
+          <div>Don't have an account? <router-link to="/signup" style="margin-left:10px;"><span @click="close" id="signUp">Sign up</span></router-link></div>
           
         </div>
       </div>
