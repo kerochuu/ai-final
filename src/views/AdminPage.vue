@@ -17,10 +17,10 @@ export default {
   components: {
   },
   props: {
-      classname: { type: String }
+      authority: { type: String }
   },
   created() {
-      if (this.classname != 'Admin') {
+      if (this.authority != 'Admin') {
           alert('관리자만 접근 가능한 페이지입니다.')
           this.$router.back(1)
       }
