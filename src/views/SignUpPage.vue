@@ -1,51 +1,80 @@
 <template>
   <div>
     <v-container>
-      <div>
-        <h1 style="text-align:center; font-size:8vh; margin-top:100px">Signup Page</h1>
-      </div>
-      <v-layout style="margin-top: 30%">
-        <h5>* 는 필수항목입니다.</h5>
-      </v-layout>
-      <v-layout style="margin-top: 10px">
-        <h4>이메일 *</h4>
-        <input v-model="email" type="email" />
-      </v-layout>
-      <v-layout style="margin-top: 20px">
-        <h4>비밀번호 *</h4>
-        <input v-model="password" type="password" />
-      </v-layout>
-      <v-layout style="margin-top: 20px">
-        <h4>닉네임 *</h4>
-        <input v-model="displayName" />
-      </v-layout>
       <v-layout>
-        <v-btn @click="checkOverlap">아이디 중복 확인</v-btn>
-      </v-layout>
-      <v-layout style="margin-top: 20px">
-        <h4>전화번호</h4>
-        <input v-model="phoneNumber" />
-      </v-layout>
-      <v-layout style="margin-top: 20px" wrap>
-        <h4>프로필</h4>
-        <input
-          class="v-btn v-btn--flat"
-          outline
-          type="file"
-          id="file"
-          ref="file"
-          @change="handleFileUpload()"
-        />
-      </v-layout>
-      <v-layout xs5>
         <v-flex>
-          <div>
-            <img id="preview" src height="200px" style="display: block" />
+          <div class="signup-div" style="margin:13vh 20vw 10vh; background-color: #ffffff;">
+            <h1 style="text-align:center; font-size:8vh; padding-top:3vh;">Sign Up</h1>
+            <div style="margin: 5vh 5vw;">
+              <!-- <div style="margin-left:auto;"> -->
+              <h5>* 는 필수항목입니다.</h5>
+              <!-- </div> -->
+
+              <!-- email -->
+              <div class="menu">
+                <label for="email">
+                  <v-icon class="signIn-icon" size="35">fa-user</v-icon>
+                </label>
+                <input id="email" v-model="email" type="email" placeholder="Email *" />
+                <hr />
+              </div>
+
+              <!-- password -->
+              <div class="menu">
+                <label for="password">
+                  <v-icon size="35" class="signIn-icon">fa-lock</v-icon>
+                </label>
+                <input id="password" v-model="password" type="password" placeholder="Password *" />
+                <hr />
+              </div>
+
+              <!-- 여기 간격이 이상함 수정할 것!! -->
+              <!-- nickname -->
+              <div class="menu">
+                <label for="nickname">
+                  <v-icon class="signIn-icon" size="35" style="margin-left:-0.1px;">bookmark</v-icon>
+                </label>
+                <input id="nickname" v-model="displayName" placeholder="Nickname *"/>
+                <hr />
+
+                <div class="ovelapBtn">
+                  <v-btn class="v-btn warning" @click="checkOverlap">overlap check</v-btn>
+                </div>
+              </div>
+
+              <!--image file upload  -->
+              <div class="menu">
+                <v-layout style="margin-top: 20px" wrap>
+                  <label for="file">
+                    <v-icon class="signIn-icon" size="35">picture_in_picture</v-icon>
+                  </label>
+                  <input
+                    class="v-btn v-btn--flat"
+                    outline
+                    type="file"
+                    id="file"
+                    ref="file"
+                    @change="handleFileUpload()"
+                  />
+                </v-layout>
+              </div>
+
+              <v-layout xs5>
+                <v-flex>
+                  <div>
+                    <img id="preview" src height="200px" style="display: block" />
+                  </div>
+                </v-flex>
+              </v-layout>
+
+              <!-- <v-layout style="margin-top: 20px"> -->
+              <div @click="signup" id="signUpBtn"> 
+                Sign Up
+              </div>
+              <!-- </v-layout> -->
+            </div>
           </div>
         </v-flex>
-      </v-layout>
-      <v-layout style="margin-top: 20px">
-        <button @click="signup">Sign Up</button>
       </v-layout>
     </v-container>
   </div>
@@ -69,7 +98,11 @@ export default {
   },
   methods: {
     signup: function() {
-      if (this.displayName === "") {
+      if (this.email === "") {
+        alert("이메일은 필수로 입력해야 합니다.");
+      } else if (this.password === "") {
+        alert("비밀번호는 필수로 입력해야 합니다.");
+      } else if (this.displayName === "") {
         alert("닉네임은 필수로 입력해야 합니다.");
       } else if (!this.checkNickname) {
         alert("닉네임 중복체크를 해주세요.");
@@ -108,6 +141,10 @@ export default {
       };
     },
     checkOverlap() {
+      if (!this.displayName) {
+        alert("닉네임을 먼저 입력해주세요.");
+        return;
+      }
       FirebaseService.getUserDatabyQuery("displayName", this.displayName).then(
         snapshot => {
           this.isOverlap = snapshot.empty;
@@ -125,10 +162,20 @@ export default {
 </script>
 
 <style scoped>
-.layout > input {
-  border: solid 1px #333;
+.signup-div {
+  border-radius: 10px;
+}
+i {
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.menu > input {
   border-radius: 5px;
-  margin-left: 20px;
+  margin-left: 10px;
+  padding: 3px;
+  border: none;
+  width: 60%;
 }
 
 #file {
@@ -137,5 +184,32 @@ export default {
 
 #randomImage {
   display: none;
+}
+
+.menu {
+  /* display: inline-block; */
+  font-size: 20px;
+  margin-top: 5vh;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
+}
+
+.ovelapBtn {
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 5px;
+}
+
+#file{
+  display:none;
+}
+#signUpBtn{
+  width: 100px;
+  border: 2px solid green;
+  border-radius: 3px;
+  background-color: green;
+  font-size: 20px;
+  text-align: center;
 }
 </style>
