@@ -258,5 +258,11 @@ export default {
 		console.log(userid)
 		console.log(firestore.collection(USERS).doc(userid))
 		return await firestore.collection(USERS).doc(userid).get()
+	},
+	getUserData() {
+		
+	},
+	async getUserDatabyQuery(query, data) {
+		return await firestore.collection(USERS).where(query, '==', data).get()
 	}
 }
