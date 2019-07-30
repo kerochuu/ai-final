@@ -14,8 +14,10 @@
         <div class="modal-body">
           <slot name="body">
             <div class="inputform">
-              <v-icon class="signIn-icon" size="24">fa-user</v-icon>
-              <input v-model="email" type="email" placeholder="   Email" @keyup.enter="login" />
+              <label for="email">
+                <v-icon class="signIn-icon" size="24">fa-user</v-icon>
+              </label>
+              <input v-model="email" id="email" type="email" placeholder="   Email" @keyup.enter="login" />
             </div>
             <hr />
             <br />
@@ -171,9 +173,9 @@ export default {
   transform: scale(1.1);
 }
 
-/* .inputform {
-  padding-bottom: 10px;
-} */
+.inputform>input {
+  margin-left: -3px;
+}
 
 i {
   width: 16px;
@@ -201,6 +203,7 @@ a {
 }
 #sign-in {
   border: 2px solid #039be5;
+  cursor: pointer;
   border-radius: 5px;
   padding: 3px;
   text-align: center;
@@ -209,7 +212,9 @@ a {
   color: #f0f0f0;
 }
 .signIn-icon {
-  margin: 0
+  cursor: pointer;
+  margin-bottom: -4px;
+  margin-left: 2px;
 }
 .container {
   padding: 4px 16px;
