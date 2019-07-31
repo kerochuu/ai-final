@@ -21,7 +21,7 @@
       outline
       v-model="comment"
     ></v-text-field>
-    <v-btn color="info" dark v-on:click="updateProfileComment">
+    <v-btn color="info" dark v-on:click="addComment">
       <v-icon size="25" class="mr-2">fa-plus</v-icon>
       댓글등록
     </v-btn>
@@ -48,13 +48,12 @@ export default {
   props: {
     comment: {
       type: String,
-
+      default: "# comment"
     }
   },
   data() {
     return {
-      portfolio: {},
-      pid: ""
+      portfolio: {}
     };
   },
 
@@ -62,9 +61,10 @@ export default {
     getInfo: function() {
       this.pid = this.$route.params.pid;
     },
-    updateProfileComment:function() {
+    async addComment:function() {
       const user = FirebaseService.getUserInfo();
-      FirebaseService.updateComment(this.$route.params.pid, user);
+
+      FirebaseService.addComment(this.$route.params.pid, this.comment, user);
       alert("댓글등록!")
     },
     updateProfileImage: function() {
@@ -74,7 +74,7 @@ export default {
         return
       }
       FirebaseService.postImage(this.portfolio.img);
-      console.log("이미지 업데이트!")
+
       alert("변경완료!")
     },
     deleteProfile: function() {
@@ -85,7 +85,7 @@ export default {
       }
 
       FirebaseService.deletePost(this.$route.params.pid);
-      console.log("삭제완료")
+
       alert("삭제완료!")
       this.$router.push({
         name: 'portfolio'
@@ -97,7 +97,7 @@ export default {
     FirebaseService.getPortfolioById(this.pid).then(res => {
       this.portfolio = res[0];
     });
-    console.log(this.created_at);
+
   }
 };
 </script>
