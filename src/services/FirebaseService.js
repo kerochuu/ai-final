@@ -255,10 +255,6 @@ export default {
 	},
 	async getUserAuthority(userid) {
 		return await firestore.collection(USERS).doc(userid).get()
-<<<<<<< HEAD
-	}
-	
-=======
 	},
 	getUserData() {
 		
@@ -280,5 +276,4 @@ export default {
 				})
 			})
 	},
->>>>>>> origin/tyki
 }
