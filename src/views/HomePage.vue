@@ -96,14 +96,7 @@ export default {
 h2 {
   font-size: 8vh;
 }
-<<<<<<< HEAD
-#aboutUsbox {
-  /*background-color: #FEF1CA;*/
-}
-#aboutUs {
-=======
 #aboutUs{
->>>>>>> origin/tyki
   padding: 50px;
 }
 @media screen and (max-width: 1904px) {
