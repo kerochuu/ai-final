@@ -3,10 +3,14 @@
     <router-link :to="{name:'portfolioDetail', params: {pid} }">
       <v-img :src="imgSrc" height="200px"></v-img>
     </router-link>
+
     <v-card-title primary-title>
-      <div>
+      <div id="contents">
         <div id="title" class="headline">{{title}}</div>
         <span id="content" class="grey--text">{{body}}</span>
+      </div>
+      <div id="hoverContents">
+        <button>자세히보려면 이미지를 클릭하세요.</button>
       </div>
     </v-card-title>
   </v-card>
@@ -31,12 +35,19 @@ export default {
 </script>
 
 <style scoped>
-#portfolioCard{
+#portfolioCard {
   border-radius: 4px;
-  border: 5px solid #2D0E0E;
+  border: 5px solid #2d0e0e;
 }
+#hoverContents {
+  display: none;
+}
+#hoverContents:hover {
+  display: block !important;
+}
+
 #title {
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: "Montserrat", sans-serif !important;
   font-weight: bold;
   width: 150px;
   overflow: hidden;
@@ -44,7 +55,7 @@ export default {
   white-space: nowrap;
 }
 #content {
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: "Montserrat", sans-serif !important;
   font-size: 16px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
