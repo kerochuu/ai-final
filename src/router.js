@@ -8,6 +8,8 @@ import SignUpPage from './views/SignUpPage.vue'
 import PortfolioDetail from './views/PortfolioDetail.vue'
 import PassPage from './views/PassPage.vue'
 import AdminPage from './views/AdminPage.vue'
+import UserDetailPage from './views/UserDetailPage.vue'
+import UserDetailAdminPage from './views/UserDetailAdminPage.vue'
 
 Vue.use(Router)
 
@@ -54,6 +56,16 @@ export default new Router({
 			path: '/admin',
 			name: 'admin',
 			component: AdminPage
+		},
+		{
+			path: '/userdetail',
+			name: 'userDetail',
+			component: UserDetailPage
+		},
+		{
+			path: '/admin/userdetail',
+			name: 'userDetailAdmin',
+			component: UserDetailAdminPage
 		}
   ]
 })

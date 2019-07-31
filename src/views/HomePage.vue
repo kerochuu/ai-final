@@ -95,9 +95,6 @@ export default {
 h2{
   font-size: 8vh;
 }
-#aboutUsbox {
-  /*background-color: #FEF1CA;*/
-}
 #aboutUs{
   padding: 50px;
 }
