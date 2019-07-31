@@ -17,16 +17,25 @@
               <label for="email">
                 <v-icon class="signIn-icon" size="24">fa-user</v-icon>
               </label>
-              <input v-model="email" id="email" type="email" placeholder="   Email" @keyup.enter="login" />
+              <input
+                v-model="email"
+                id="email"
+                type="email"
+                placeholder="Email"
+                @keyup.enter="login"
+              />
             </div>
             <hr />
             <br />
             <div class="inputform">
-              <v-icon size="26" class="signIn-icon">fa-lock</v-icon>
+              <label for="password">
+                <v-icon size="26" class="signIn-icon">fa-lock</v-icon>
+              </label>
               <input
+                id="password"
                 v-model="password"
                 type="password"
-                placeholder="   Password"
+                placeholder="Password"
                 @keyup.enter="login"
               />
             </div>
@@ -34,7 +43,7 @@
             <br />
             <div id="sign-in" @click="login">Sign In</div>
           </slot>
-          <br>
+          <br />
           <div style="text-align:center;">or Login with</div>
           <v-container>
             <v-layout>
@@ -50,9 +59,13 @@
               </v-flex>
             </v-layout>
           </v-container>
-          <br>
-          <div>Don't have an account? <router-link to="/signup" style="margin-left:10px;"><span @click="close" id="signUp">Sign up</span></router-link></div>
-          
+          <br />
+          <div>
+            Don't have an account?
+            <router-link to="/signup" style="margin-left:10px;">
+              <span @click="close" id="signUp">Sign up</span>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -74,12 +87,15 @@ export default {
   },
   methods: {
     close: function(e) {
-      if (e.target['className'] === 'modal-wrapper' || e.target['id'] === 'signUp') {
+      if (
+        e.target["className"] === "modal-wrapper" ||
+        e.target["id"] === "signUp"
+      ) {
         this.$emit("update");
       }
     },
     closeButton: function() {
-      this.$emit('update');
+      this.$emit("update");
     },
     async loginWithGoogle() {
       const result = await FirebaseService.loginWithGoogle();
@@ -173,19 +189,15 @@ export default {
   transform: scale(1.1);
 }
 
-.inputform>input {
-  margin-left: -3px;
+.inputform > input {
+  display: inline-block;
+  width: 85%;
+  height: 30px;
+  margin-left: 10px;
 }
 
 i {
   width: 16px;
-}
-
-input {
-  display: inline-block;
-  margin: 4px 0 0 0;
-  width: 90%;
-  height: 30px;
 }
 
 #x-button {
