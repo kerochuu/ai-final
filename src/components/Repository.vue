@@ -53,7 +53,7 @@ export default {
       if (response.status !== 200) {
         return
       }
-      console.log(response.data)
+      // console.log(response.data)
       this.commits = response.data;
       this.modifyValue();
 

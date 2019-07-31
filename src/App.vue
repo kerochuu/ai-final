@@ -62,27 +62,27 @@ export default {
         if (userId === "unauthenticated") {
           this.authority = "Anonymous"
         } else {
-          console.log(this.user.uid)
+          // console.log(this.user.uid)
           FirebaseService.getUserAuthority(this.user.uid)
           .then((doc) => {
 				    if (doc.exists) {
-              console.log(doc.data())
-              console.log(doc.data()['authority'])
+              // console.log(doc.data())
+              // console.log(doc.data()['authority'])
               this.authority = doc.data()['authority']
             } else {
               this.authority = undefined
             }
           })
-          console.log(this.authority)
+          // console.log(this.authority)
           if (this.authority == undefined) {
             FirebaseService.changeAuthority(this.user, 'Visitor')
             this.authority = 'Visitor'
           }
         }
         FirebaseService.addPageLog(userId);
-        console.log(this.user.uid)
-        console.log(this.authority)
-        console.log(this.user)
+        // console.log(this.user.uid)
+        // console.log(this.authority)
+        // console.log(this.user)
       }
       
     }

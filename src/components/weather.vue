@@ -64,7 +64,6 @@ export default{
       this.temp = (json.main.temp - 273.15).toFixed(1) + "°C";
       this.temp_max = (json.main.temp_max - 273.15).toFixed(1) + "°C";
       this.temp_min = (json.main.temp_min - 273.15).toFixed(1) + "°C";
-      console.log(json)
     })
     .catch((error) => {
       console.log(error);

@@ -24,7 +24,7 @@ firebase.initializeApp(config)
 const firestore = firebase.firestore()
 const storageRef = firebase.storage().ref().child('img')
 
-firebase.firestore().enablePersistence()
+firebase.firestore().enablePersistence({experimentalTabSynchronization:true})
   .catch(function(err) {
       if (err.code == 'failed-precondition') {
           // Multiple tabs open, persistence can only be enabled
@@ -36,21 +36,21 @@ firebase.firestore().enablePersistence()
           // ...
       }
   });
-  
-
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+
 
 export default {
 	getPosts() {
 		const postsCollection = firestore.collection(POSTS)
+
 		return postsCollection
 			.orderBy('created_at', 'desc')
-			.get()
+			.get({source: 'cache'})
 			.then((docSnapshots) => {
 				return docSnapshots.docs.map((doc) => {
 					let data = doc.data()
 					data.created_at = new Date(data.created_at.toDate())
-					return data
+					return data  
 				})
 			})
 	},
@@ -66,16 +66,14 @@ export default {
 	},
 	updateComment(pid, user) {
 		return firestore.collection(PORTFOLIOS).doc(pid).add({
-
 		})
-
-
 	},
 	getPortfolios() {
 		const postsCollection = firestore.collection(PORTFOLIOS)
+	  
 		return postsCollection
 			.orderBy('created_at', 'desc')
-			.get()
+			.get({source: 'cache'})
 			.then((docSnapshots) => {
 				return docSnapshots.docs.map((doc) => {
 					let data = doc.data()
@@ -258,11 +256,6 @@ export default {
 		console.log(userid)
 		console.log(firestore.collection(USERS).doc(userid))
 		return await firestore.collection(USERS).doc(userid).get()
-	},
-	getUserData() {
-		
-	},
-	async getUserDatabyQuery(query, data) {
-		return await firestore.collection(USERS).where(query, '==', data).get()
 	}
+	
 }
