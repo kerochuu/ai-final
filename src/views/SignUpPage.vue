@@ -38,7 +38,7 @@
                 <hr />
 
                 <div class="ovelapBtn">
-                  <v-btn class="v-btn warning" @click="checkOverlap">overlap check</v-btn>
+                  <v-btn class="v-btn success" @click="checkOverlap">overlap check</v-btn>
                 </div>
               </div>
 
@@ -59,18 +59,16 @@
                 </v-layout>
               </div>
 
-              <v-layout xs5>
-                <v-flex>
-                  <div>
+              <!-- <v-layout xs5>
+                <v-flex> -->
+                  <div v-if="gotImg">
                     <img id="preview" src height="200px" style="display: block" />
                   </div>
-                </v-flex>
-              </v-layout>
+                <!-- </v-flex>
+              </v-layout> -->
 
               <!-- <v-layout style="margin-top: 20px"> -->
-              <div @click="signup" id="signUpBtn"> 
-                Sign Up
-              </div>
+                <v-btn class="v-btn" id="signUpBtn" @click="signup"> Sign up</v-btn>
               <!-- </v-layout> -->
             </div>
           </div>
@@ -93,7 +91,8 @@ export default {
       phoneNumber: "",
       photoURL: "",
       isOverlap: false,
-      checkNickname: false
+      checkNickname: false,
+      gotImg: false,
     };
   },
   methods: {
@@ -135,6 +134,7 @@ export default {
       //로드 한 후
       reader.onload = function() {
         //로컬 이미지를 보여주기
+        this.gotImg = True;
         document.querySelector("#preview").src = reader.result;
         this.photoURL = reader.result;
         // document.getElementById('preview').style.display = "block"; // 섬네일 이미지 보임
@@ -162,6 +162,9 @@ export default {
 </script>
 
 <style scoped>
+#nickname{
+  margin-left: 5px;
+}
 .signup-div {
   border-radius: 10px;
 }
@@ -205,11 +208,10 @@ i {
   display:none;
 }
 #signUpBtn{
-  width: 100px;
-  border: 2px solid green;
-  border-radius: 3px;
-  background-color: green;
-  font-size: 20px;
-  text-align: center;
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #039BE5;
+  color: #ffffff;
+  
 }
 </style>
