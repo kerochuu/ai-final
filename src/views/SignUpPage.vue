@@ -62,7 +62,7 @@
               <!-- <v-layout xs5>
                 <v-flex> -->
                   <div v-if="gotImg">
-                    <img id="preview" src height="200px" style="display: block" />
+                    <img id="preview" src=""/>
                   </div>
                 <!-- </v-flex>
               </v-layout> -->
@@ -119,10 +119,12 @@ export default {
       }
     },
     handleFileUpload() {
+      this.gotImg = true;
       this.file = this.$refs.file.files[0];
       console.log(this.$refs.file.files.length);
 
       if (this.$refs.file.files.length == 0) {
+        this.gotImg = false;
         // 파일 선택 취소 할 시 섬네일 안보임
         document.getElementById("preview").src = "";
         this.photoURL = "";
@@ -134,7 +136,6 @@ export default {
       //로드 한 후
       reader.onload = function() {
         //로컬 이미지를 보여주기
-        this.gotImg = True;
         document.querySelector("#preview").src = reader.result;
         this.photoURL = reader.result;
         // document.getElementById('preview').style.display = "block"; // 섬네일 이미지 보임
@@ -212,6 +213,11 @@ i {
   margin-bottom: 20px;
   background-color: #039BE5;
   color: #ffffff;
-  
+}
+
+#preview{
+  display: flex;
+  justify-content: center;
+  height: 50px;
 }
 </style>
