@@ -137,7 +137,8 @@ export default {
 					displayName,
 					phoneNumber,
 					photoURL,
-					email
+					email,
+					created_at: firebase.firestore.FieldValue.serverTimestamp()
 				}
 				firestore.collection(USERS).doc(user.user.uid).set(data)
 				alert("회원가입이 완료되었습니다.")
@@ -253,9 +254,31 @@ export default {
 		firestore.collection(USERS).doc(user.uid).update(data)
 	},
 	async getUserAuthority(userid) {
-		console.log(userid)
-		console.log(firestore.collection(USERS).doc(userid))
 		return await firestore.collection(USERS).doc(userid).get()
+<<<<<<< HEAD
 	}
 	
+=======
+	},
+	getUserData() {
+		
+	},
+	async getUserDatabyQuery(query, data) {
+		return await firestore.collection(USERS).where(query, '==', data).get()
+	},
+	getAllUserData() {
+		const usersCollection = firestore.collection(USERS)
+		return usersCollection
+			.orderBy('created_at', 'asc')
+			.get()
+			.then((docSnapshots) => {
+				return docSnapshots.docs.map((doc) => {
+					let data = doc.data()
+					data.created_at = new Date(data.created_at.toDate())
+					console.log(data)
+					return data
+				})
+			})
+	},
+>>>>>>> origin/tyki
 }

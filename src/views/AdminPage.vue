@@ -6,15 +6,23 @@
             <h1>Admin Page</h1>
         </v-flex>
       </v-layout>
+      
+      <v-layout>
+        <v-flex xs12>
+          <UserList :limits="10"></UserList>
+        </v-flex>
+      </v-layout>
     </v-container>
   </div>
 </template>
 
 <script>
+import UserList from '@/components/UserList'
 
 export default {
   name: "AdminPage",
   components: {
+    UserList
   },
   props: {
       authority: { type: String }
