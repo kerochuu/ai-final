@@ -13,7 +13,7 @@
               <!-- email -->
               <div class="menu">
                 <label for="email">
-                  <v-icon class="signIn-icon" size="35">fa-user</v-icon>
+                  <v-icon class="signIn-icon" size="25">fa-user</v-icon>
                 </label>
                 <input id="email" v-model="email" type="email" placeholder="Email *" />
                 <hr />
@@ -22,31 +22,28 @@
               <!-- password -->
               <div class="menu">
                 <label for="password">
-                  <v-icon size="35" class="signIn-icon">fa-lock</v-icon>
+                  <v-icon size="25" class="signIn-icon">fa-lock</v-icon>
                 </label>
                 <input id="password" v-model="password" type="password" placeholder="Password *" />
-                <hr />
+                <hr class="pwhr"/>
               </div>
 
               <!-- 여기 간격이 이상함 수정할 것!! -->
               <!-- nickname -->
-              <div class="menu">
+              <div class="menu nick-div">
                 <label for="nickname">
-                  <v-icon class="signIn-icon" size="35" style="margin-left:-0.1px;">bookmark</v-icon>
+                  <v-icon class="signIn-icon" size="25" style="margin-left:2px;">bookmark</v-icon>
                 </label>
                 <input id="nickname" v-model="displayName" placeholder="Nickname *"/>
+                <button class="chkbtn" @click="checkOverlap">check</button>
                 <hr />
-
-                <div class="ovelapBtn">
-                  <v-btn class="v-btn success" @click="checkOverlap">overlap check</v-btn>
-                </div>
               </div>
 
               <!--image file upload  -->
               <div class="menu">
                 <v-layout style="margin-top: 20px" wrap>
                   <label for="file">
-                    <v-icon class="signIn-icon" size="35">picture_in_picture</v-icon>
+                    <v-icon class="signIn-icon" size="25">picture_in_picture</v-icon>
                   </label>
                   <input
                     class="v-btn v-btn--flat"
@@ -165,6 +162,7 @@ export default {
 <style scoped>
 #nickname{
   margin-left: 5px;
+  width: 40%;
 }
 .signup-div {
   border-radius: 10px;
@@ -172,6 +170,7 @@ export default {
 i {
   cursor: pointer;
   margin-left: 8px;
+  font-size: 16px;
 }
 
 .menu > input {
@@ -180,6 +179,15 @@ i {
   padding: 3px;
   border: none;
   width: 60%;
+}
+.menu > input::placeholder {
+  font-size: 16px;
+}
+
+.chkbtn {
+  margin-left: 93px;
+  margin-bottom: 10px;
+  margin-top: 0;
 }
 
 #file {
@@ -197,12 +205,6 @@ i {
   /* display: flex;
   flex-direction: column;
   justify-content: center; */
-}
-
-.ovelapBtn {
-  display: flex;
-  justify-content: flex-end;
-  border-radius: 5px;
 }
 
 #file{

@@ -99,7 +99,7 @@ h2 {
 #aboutUs{
   padding: 50px;
 }
-@media screen and (max-width: 1904px) {
+@media screen and (max-width: 1204px) {
   #aboutUs {
     font-size: 25px;
   }
