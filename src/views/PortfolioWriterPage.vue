@@ -92,7 +92,7 @@ export default {
         alert("포트폴리오가 작성되었습니다.")
         this.$router.push({
           name: "portfolio"
-        });
+        }); 
       })
     }
   },

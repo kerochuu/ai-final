@@ -11,11 +11,11 @@ const COMMENTS = 'COMMENTS'
 
 // Setup Firebase
 const config = {
-	projectId: 'project2-460cc',
-	authDomain: 'project2-460cc.firebaseapp.com',
-	apiKey: 'AIzaSyDxvusphBrkA8H1AzbmyzkGAquWow9opKM',
-	databaseURL: 'https://project2-460cc.firebaseio.com',
-	storageBucket: 'gs://project2-460cc.appspot.com'
+  projectId: 'project2-460cc',
+  authDomain: 'project2-460cc.firebaseapp.com',
+  apiKey: 'AIzaSyDxvusphBrkA8H1AzbmyzkGAquWow9opKM',
+  databaseURL: 'https://project2-460cc.firebaseio.com',
+  storageBucket: 'gs://project2-460cc.appspot.com'
 
 }
 
@@ -98,16 +98,40 @@ export default {
 				})
 			})
 	},
-	postPortfolio(title, body, img) {
-		return firestore.collection(PORTFOLIOS).add({
-			title,
-			body,
-			img,
-			comments:[],
-			commentsUid:[],
-			created_at: firebase.firestore.FieldValue.serverTimestamp()
-		})
-	},
+  postPortfolio(title, body, img) {
+    var portId = firestore.collection(PORTFOLIOS).doc().id;
+    var doc = firestore.collection(PORTFOLIOS).doc(portId);
+    return doc.set({
+      portId: portId,
+      viewCount: 0,
+      title,
+      body,
+      img,
+      created_at: firebase.firestore.FieldValue.serverTimestamp(),
+      uid: firebase.auth().currentUser.uid,
+    })
+  },
+  getPortfolioComment(pid) {
+    const comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
+    return comments
+      .orderBy('created_at', 'desc')
+      .get()
+      .then((docSanpshots) => {
+        return docSanpshots.docs.map((doc) => {
+          let data = doc.data()
+          data.created_at = new Date(data.created_at.toDate())
+          return data
+        })
+      })
+  },
+  addComment(pid, body, writer) {
+    var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
+    comments.add({
+      body: body,
+      writer: writer,
+      created_at: new Date()
+    })
+  },
 	loginWithGoogle() {
 		let provider = new firebase.auth.GoogleAuthProvider()
 		return firebase.auth().signInWithPopup(provider).then(function (result) {
