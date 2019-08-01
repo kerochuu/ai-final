@@ -42,10 +42,14 @@ firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 export default {
 	getPosts() {
 		const postsCollection = firestore.collection(POSTS)
-
+		var getOption;
+		if(navigator.onLine == false){
+			getOption = {source: 'cache'};
+		}
+		// console.log(getOption);
 		return postsCollection
 			.orderBy('created_at', 'desc')
-			.get({source: 'cache'})
+			.get(getOption)
 			.then((docSnapshots) => {
 				return docSnapshots.docs.map((doc) => {
 					let data = doc.data()
@@ -70,10 +74,14 @@ export default {
 	},
 	getPortfolios() {
 		const postsCollection = firestore.collection(PORTFOLIOS)
-	  
+		var getOption;
+		if(navigator.onLine == false){
+			getOption = {source: 'cache'};
+		}
+		// console.log(getOption);
 		return postsCollection
 			.orderBy('created_at', 'desc')
-			.get({source: 'cache'})
+			.get(getOption)
 			.then((docSnapshots) => {
 				return docSnapshots.docs.map((doc) => {
 					let data = doc.data()
@@ -86,9 +94,15 @@ export default {
 	},
 	getPortfolioById(id) {
 		const postsCollection = firestore.collection(PORTFOLIOS)
+		var getOption;
+		if(navigator.onLine == false){
+			getOption = {source: 'cache'};
+		}
+		// console.log(getOption);
+
 		return postsCollection
 			.where(firebase.firestore.FieldPath.documentId(), '==', id)
-			.get()
+			.get(getOption)
 			.then((docSnapshots) => {
 				return docSnapshots.docs.map((doc) => {
 					let data = doc.data()

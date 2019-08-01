@@ -74,7 +74,7 @@ export default {
         return
       }
       FirebaseService.postImage(this.portfolio.img);
-      console.log("이미지 업데이트!")
+      // console.log("이미지 업데이트!")
       alert("변경완료!")
     },
     deleteProfile: function() {
@@ -85,7 +85,7 @@ export default {
       }
 
       FirebaseService.deletePost(this.$route.params.pid);
-      console.log("삭제완료")
+      // console.log("삭제완료")
       alert("삭제완료!")
       this.$router.push({
         name: 'portfolio'
@@ -97,7 +97,7 @@ export default {
     FirebaseService.getPortfolioById(this.pid).then(res => {
       this.portfolio = res[0];
     });
-    console.log(this.created_at);
+    // console.log(this.created_at);
   }
 };
 </script>
