@@ -61,7 +61,7 @@ export default {
     getInfo: function() {
       this.pid = this.$route.params.pid;
     },
-    async addComment:function() {
+    addComment:function() {
       const user = FirebaseService.getUserInfo();
 
       FirebaseService.addComment(this.$route.params.pid, this.comment, user);

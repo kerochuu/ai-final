@@ -78,7 +78,7 @@ export default {
 		if(navigator.onLine == false){
 			getOption = {source: 'cache'};
 		}
-		// console.log(getOption);
+		console.log(getOption);
 		return postsCollection
 			.orderBy('created_at', 'desc')
 			.get(getOption)
