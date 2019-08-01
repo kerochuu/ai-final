@@ -81,7 +81,7 @@ export default {
 					data.pid = doc.id
 					data.created_at = new Date(data.created_at.toDate())
 					return data
-				})
+				})	
 			})
 	},
 	getPortfolioById(id) {

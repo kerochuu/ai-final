@@ -26,19 +26,19 @@ export default {
 			const result = await FirebaseService.loginWithGoogle()
 			this.$store.state.accessToken = result.credential.accessToken;
 			this.$store.state.user = result.user;
-      console.log(this.$store.state.accessToken);
-      console.log(this.$store.state.user);
+    //   console.log(this.$store.state.accessToken);
+    //   console.log(this.$store.state.user);
 		},
     async loginWithFacebook() {
 			const result = await FirebaseService.loginWithFacebook()
 			this.$store.state.accessToken = result.credential.accessToken;
 			this.$store.state.user = result.user;
-      console.log(this.$store.state.accessToken);
-      console.log(this.$store.state.user);
+    //   console.log(this.$store.state.accessToken);
+    //   console.log(this.$store.state.user);
 		}
 	},
 	mounted() {
-		console.log(this.$store.state)
+		// console.log(this.$store.state)
 	}
 }
 </script>
