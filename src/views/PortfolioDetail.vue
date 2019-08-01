@@ -74,7 +74,6 @@ export default {
         return
       }
       FirebaseService.postImage(this.portfolio.img);
-
       alert("변경완료!")
     },
     deleteProfile: function() {
@@ -85,7 +84,6 @@ export default {
       }
 
       FirebaseService.deletePost(this.$route.params.pid);
-
       alert("삭제완료!")
       this.$router.push({
         name: 'portfolio'
@@ -97,7 +95,6 @@ export default {
     FirebaseService.getPortfolioById(this.pid).then(res => {
       this.portfolio = res[0];
     });
-
   }
 };
 </script>
