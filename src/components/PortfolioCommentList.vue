@@ -1,8 +1,8 @@
 <template>
   <v-layout mt-5 wrap>
-    <v-flex xs12 sm6 md3 >
+    <v-flex xs12 sm6 md3 v-for="i in Comments.length">
       <Comment
-      :writer="Comments[i-1].writer"
+      :uid="Comments[i-1].uid"
       :comment="Comments[i-1].comment"
       :pid="Comments[i-1].pid"
       ></Comment>
@@ -22,14 +22,15 @@ export default {
 		}
 	},
 	components: {
-		Portfolio
+		Comment
 	},
 	mounted() {
 		this.getPortfolioComment()
 	},
 	methods: {
 		async getPortfolioComment() {
-      this.Comments = await FirebaseService.getPortfolioComment()
+			this.Comments = await FirebaseService.getPortfolioComment(this.$route.params.pid);
+			alert(Comments.length);
 		}
 	},
 }

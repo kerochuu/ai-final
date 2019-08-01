@@ -2,6 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/'
+import { instanceId } from 'firebase-admin';
 
 const POSTS = 'POSTS'
 const PORTFOLIOS = 'PORTFOLIOS'
@@ -108,7 +109,7 @@ export default {
       body,
       img,
       created_at: firebase.firestore.FieldValue.serverTimestamp(),
-      uid: firebase.auth().currentUser.uid,
+      uid: firebase.auth().currentUser.email,
     })
   },
   getPortfolioComment(pid) {
@@ -124,12 +125,51 @@ export default {
         })
       })
   },
-  addComment(pid, body, writer) {
-    var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
+  addComment(pid, body) {
+	var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
+	var uid = firebase.auth().currentUser;
+	
+	var cid = comments.doc();
+	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc();
+	alert("cid = " + cid + " , commentId = " + commentId);
+	let email;
+	let upw;
+	if(uid == null) {
+		alert("게스트!!")
+		email = "guest";
+		upw = prompt("게스트로 댓글을 작성합니다... \n댓글삭제에 이용 할 비밀번호를 입력해주세요!", "passWord");
+		alert(upw + " 비밀번호 등록!");
+	} else {
+		email = uid.email
+	}
+	alert(email+" 회원 댓글등록!")
+    comments.add({
+	  commentId: commentId,
+      body: body,
+	  uid: email,
+	  created_at: new Date(),
+	  password: upw
+    })
+  },
+  deleteComment(pid, body) {
+	var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
+	var uid = firebase.auth().currentUser;
+	let email;
+	let upw;
+	if(uid == null) {
+		alert("게스트!!")
+		email = "guest";
+		upw = prompt("게스트로 댓글을 작성합니다... \n댓글삭제에 이용 할 비밀번호를 입력해주세요!", "passWord");
+		alert(upw + " 비밀번호 등록!");
+	} else {
+		email = uid.email
+	}
+	alert(email+" 회원 댓글등록!")
     comments.add({
       body: body,
-      writer: writer,
-      created_at: new Date()
+	  uid: email,
+	  created_at: new Date(),
+	  password: upw
     })
   },
 	loginWithGoogle() {
