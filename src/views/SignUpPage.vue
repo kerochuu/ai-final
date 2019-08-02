@@ -1,14 +1,10 @@
 <template>
-  <div>
-    <v-container>
+    <v-container class="signup-div">
       <v-layout>
         <v-flex>
-          <div class="signup-div" style="margin:13vh 20vw 10vh; background-color: #ffffff;">
-            <h1 style="text-align:center; font-size:8vh; padding-top:3vh;">Sign Up</h1>
-            <div style="margin: 5vh 5vw;">
-              <!-- <div style="margin-left:auto;"> -->
-              <h5>* 는 필수항목입니다.</h5>
-              <!-- </div> -->
+            <h1>Sign Up</h1>
+            <div style="margin: 30px 30px 20px;">
+              <h5 style="margin-bottom:20px;">* 는 필수항목입니다.</h5>
 
               <!-- email -->
               <div class="menu">
@@ -25,17 +21,16 @@
                   <v-icon size="25" class="signIn-icon">fa-lock</v-icon>
                 </label>
                 <input id="password" v-model="password" type="password" placeholder="Password *" />
-                <hr class="pwhr"/>
+                <hr class="pwhr" />
               </div>
-
-              <!-- 여기 간격이 이상함 수정할 것!! -->
-              <!-- nickname -->
+              
               <div class="menu nick-div">
                 <label for="nickname">
                   <v-icon class="signIn-icon" size="25" style="margin-left:2px;">bookmark</v-icon>
                 </label>
-                <input id="nickname" v-model="displayName" placeholder="Nickname *"/>
-                <button class="chkbtn" @click="checkOverlap">check</button>
+                <input id="nickname" v-model="displayName" placeholder="Nickname *" />
+                <v-btn class="chkbtn success" @click="checkOverlap">check</v-btn>
+                <!-- <button class="chkbtn" @click="checkOverlap">check</button> -->
                 <hr />
               </div>
 
@@ -57,22 +52,20 @@
               </div>
 
               <!-- <v-layout xs5>
-                <v-flex> -->
-                  <div v-if="gotImg">
-                    <img id="preview" src=""/>
-                  </div>
-                <!-- </v-flex>
-              </v-layout> -->
+              <v-flex>-->
+              <div v-if="gotImg">
+                <img id="preview" src />
+              </div>
+              <!-- </v-flex>
+              </v-layout>-->
 
               <!-- <v-layout style="margin-top: 20px"> -->
-                <v-btn class="v-btn" id="signUpBtn" @click="signup"> Sign up</v-btn>
+              <v-btn class="v-btn" id="signUpBtn" @click="signup">Sign up</v-btn>
               <!-- </v-layout> -->
-            </div>
-          </div>
+              </div>
         </v-flex>
       </v-layout>
     </v-container>
-  </div>
 </template>
 
 <script>
@@ -89,7 +82,7 @@ export default {
       photoURL: "",
       isOverlap: false,
       checkNickname: false,
-      gotImg: false,
+      gotImg: false
     };
   },
   methods: {
@@ -160,13 +153,32 @@ export default {
 </script>
 
 <style scoped>
-#nickname{
+/* 스크린사이즈에 따라 signup div의 크기를 바꿈 */
+.signup-div {
+  margin-top: 100px;
+  width: 400px;
+  height: 600px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.signup-div h1 {
+  text-align: center;
+  font-size: 50px;
+  padding-top: 20px;
+}
+
+#nickname {
   margin-left: 5px;
   width: 40%;
 }
-.signup-div {
-  border-radius: 10px;
+
+.menu{
+  height: 50px;
+  font-size: 20px;
+  margin-top: 10px;
 }
+
 i {
   cursor: pointer;
   margin-left: 8px;
@@ -185,41 +197,30 @@ i {
 }
 
 .chkbtn {
-  margin-left: 93px;
-  margin-bottom: 10px;
+  margin-left: 47px;
   margin-top: 0;
-}
-
-#file {
-  border: none;
+  margin-bottom: 1px;
 }
 
 #randomImage {
   display: none;
 }
 
-.menu {
-  /* display: inline-block; */
-  font-size: 20px;
-  margin-top: 5vh;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
+#file {
+  display: none;
 }
 
-#file{
-  display:none;
-}
-#signUpBtn{
+#signUpBtn {
   width: 100%;
   margin-bottom: 20px;
-  background-color: #039BE5;
+  background-color: #039be5;
   color: #ffffff;
 }
 
-#preview{
-  display: flex;
-  justify-content: center;
+#preview {
+  margin-left: 130px;
+  margin-bottom: 20px;
   height: 50px;
+  width: 50px;
 }
 </style>
