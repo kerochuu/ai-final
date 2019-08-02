@@ -8,11 +8,7 @@
       <h2>{{portfolio.created_at}}</h2>
       <p>{{portfolio.body}}</p>
     </div>
-    <div class="information">
-      <h3>댓글목록</h3>
-      <hr style="margin-top:1px;">
-
-    </div>
+    
 
   <div class="information">
     <v-text-field
@@ -26,6 +22,17 @@
       댓글등록
     </v-btn>
   </div>
+
+  <div class="information" style="width: 70%;">
+      <h3>댓글목록</h3>
+      <hr style="margin-top:1px;">
+      <v-flex style="margin-top:2px; width: 90%;" v-for="data in comments" :key="data.uid"> 
+        {{data.uid}} ㅡ {{data.body}}
+      </v-flex>
+
+  </div>
+
+
     <v-flex xs12 text-xs-center round my-5>
       <v-btn color="info" dark v-on:click="updateProfileImage">
         <v-icon size="25" class="mr-2">fa-plus</v-icon>
@@ -42,7 +49,6 @@
 
 <script>
 import FirebaseService from "@/services/FirebaseService";
-
 export default {
   name: "PortfolioDetail",
   props: {
@@ -53,7 +59,8 @@ export default {
   },
   data() {
     return {
-      portfolio: {}
+      portfolio: {},
+      comments: []
     };
   },
 
@@ -63,9 +70,15 @@ export default {
     },
     addComment:function() {
       const user = FirebaseService.getUserInfo();
+      const uid = this.$route.params.uid;
+      
+      FirebaseService.addComment(this.$route.params.pid, this.comment);
+      this.$router.push('/pass');
+    },
+    getUidForId:function(uid) {
+      const user = FirebaseService.getUidForId(uid);
+      return this.user;
 
-      FirebaseService.addComment(this.$route.params.pid, this.comment, user);
-      alert("댓글등록!")
     },
     updateProfileImage: function() {
       const user = FirebaseService.getUserInfo();
@@ -95,6 +108,13 @@ export default {
     FirebaseService.getPortfolioById(this.pid).then(res => {
       this.portfolio = res[0];
     });
+<<<<<<< HEAD
+=======
+    FirebaseService.getPortfolioComment(this.pid).then(res => {
+      this.comments = res;
+    });
+
+>>>>>>> origin/kerochuu
   }
 };
 </script>
