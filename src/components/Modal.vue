@@ -6,7 +6,7 @@
           <h1>
             Sign In
             <button style="float:right;" @click="closeButton">
-              <v-icon>fa-times</v-icon>
+              <v-icon id="closeBtn">fa-times</v-icon>
             </button>
           </h1>
         </div>
@@ -26,7 +26,6 @@
               />
             </div>
             <hr />
-            <br />
             <div class="inputform">
               <label for="password">
                 <v-icon size="26" class="signIn-icon">fa-lock</v-icon>
@@ -40,8 +39,8 @@
               />
             </div>
             <hr />
-            <br />
             <div id="sign-in" @click="login">Sign In</div>
+            <br>
           </slot>
           <br />
           <div style="text-align:center;">or Login with</div>
@@ -60,7 +59,7 @@
             </v-layout>
           </v-container>
           <br />
-          <div>
+          <div id="induce">
             Don't have an account?
             <router-link to="/signup" style="margin-left:10px;">
               <span @click="close" id="signUp">Sign up</span>
@@ -127,6 +126,10 @@ export default {
 
 
 <style scoped>
+#induce {
+  text-align: center;
+  font-size: 15px;
+}
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -148,8 +151,8 @@ export default {
 }
 
 .modal-container {
-  width: 300px;
-  height: 400px;
+  width: 400px;
+  height: 600px;
   padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
@@ -159,11 +162,17 @@ export default {
 }
 
 .modal-header h1 {
+  margin: 20px 20px 40px;
   text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+#closeBtn{
+  margin-bottom: 8px;
 }
 
 .modal-body {
-  margin: 30px 0;
+  margin: 30px 20px;
 }
 
 .modal-body > input {
@@ -188,24 +197,21 @@ export default {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
+.inputform {
+  margin-top: 30px;
+
+}
 
 .inputform > input {
   display: inline-block;
   width: 85%;
   height: 30px;
   margin-left: 10px;
+
 }
 
 i {
   width: 16px;
-}
-
-#x-button {
-  width: 1rem;
-  float: right;
-}
-#x-button hover {
-  filter: brightness(0);
 }
 
 a {
@@ -214,6 +220,8 @@ a {
   color: #039be5;
 }
 #sign-in {
+  font-size: 20px;
+  margin-top: 20px;
   border: 2px solid #039be5;
   cursor: pointer;
   border-radius: 5px;
