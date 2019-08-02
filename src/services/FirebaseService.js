@@ -2,7 +2,6 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/'
-import { instanceId } from 'firebase-admin';
 
 const POSTS = 'POSTS'
 const PORTFOLIOS = 'PORTFOLIOS'

@@ -108,13 +108,10 @@ export default {
     FirebaseService.getPortfolioById(this.pid).then(res => {
       this.portfolio = res[0];
     });
-<<<<<<< HEAD
-=======
     FirebaseService.getPortfolioComment(this.pid).then(res => {
       this.comments = res;
     });
 
->>>>>>> origin/kerochuu
   }
 };
 </script>
