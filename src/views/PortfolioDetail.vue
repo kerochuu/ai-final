@@ -27,7 +27,14 @@
       <h3>댓글목록</h3>
       <hr style="margin-top:1px;">
       <v-flex style="margin-top:2px; width: 90%;" v-for="data in comments" :key="data.uid"> 
-        {{data.uid}} ㅡ {{data.body}}
+        {{data.uid}} ㅡ {{data.body}} 
+        
+        <!-- <div v-if="{{data.uid}} == this.$route.params.uid"> -->
+          <!-- <v-btn  color="info" dark v-on:click="deleteComment">
+             <v-icon size="10" class="mr-2">fa-minus</v-icon>
+              삭제
+           </v-btn> -->
+        <!-- </div> -->
       </v-flex>
 
   </div>
@@ -75,6 +82,13 @@ export default {
       FirebaseService.addComment(this.$route.params.pid, this.comment);
       this.$router.push('/pass');
     },
+    // deleteComment:function(uid) {
+    //   const user = FirebaseService.getUserInfo();
+    //   const uid = this.$route.params.uid;
+      
+    //  // FirebaseService.deleteComment(this.$route.params.);
+    //   this.$router.push('/pass');
+    // },
     getUidForId:function(uid) {
       const user = FirebaseService.getUidForId(uid);
       return this.user;
