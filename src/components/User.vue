@@ -1,16 +1,16 @@
 <template>
   <v-card id="userCard">
-    <router-link :to="{name:'userDetailAdmin'}">
+    <router-link :to="{name:'userDetailAdmin', params: {uid}}">
         <v-card-title primary-title>
         <div>
             <div id="title" class="headline">{{number}} : {{displayName}}</div>
-            <span id="content" class="grey--text">{{email}}<br/>{{authority}}</span>
+            <span id="content" class="grey--text">E-mail : {{email}} / Authority : {{authority}}</span>
         </div>
         </v-card-title>
     </router-link>
   </v-card>
 </template>
-
+​
 <script>
 export default {
   name: "User",
@@ -21,7 +21,8 @@ export default {
     photoURL : { type : String },
     phoneNumber : { type : String },
     authority : { type : String },
-    created_at : { type : Date }
+    created_at : { type : Date },
+    uid : { type : String }
   },
   data() {
     return {
@@ -30,7 +31,7 @@ export default {
   }
 };
 </script>
-
+​
 <style scoped>
 #userCard{
   border-radius: 4px;

@@ -330,11 +330,8 @@ export default {
 		const data = { 'authority': authority }
 		firestore.collection(USERS).doc(user.uid).update(data)
 	},
-	async getUserAuthority(userid) {
+	async getUserData(userid) {
 		return await firestore.collection(USERS).doc(userid).get()
-	},
-	getUserData() {
-		
 	},
 	async getUserDatabyQuery(query, data) {
 		return await firestore.collection(USERS).where(query, '==', data).get()
@@ -347,6 +344,7 @@ export default {
 			.then((docSnapshots) => {
 				return docSnapshots.docs.map((doc) => {
 					let data = doc.data()
+					data.uid = doc.id
 					data.created_at = new Date(data.created_at.toDate())
 					console.log(data)
 					return data

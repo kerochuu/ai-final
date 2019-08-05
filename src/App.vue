@@ -43,12 +43,6 @@ export default {
   mounted() {
     this.$router.push("/pass");
   },
-  methods: {
-    getAuthority: async function(param){
-      let data = await FirebaseService.getUserAuthority(param)
-      return data;
-    }
-  },
   watch: {
     $route() {
       if (window.location.pathname !== '/pass') {
@@ -63,7 +57,7 @@ export default {
           this.authority = "Anonymous"
         } else {
           // console.log(this.user.uid)
-          FirebaseService.getUserAuthority(this.user.uid)
+          FirebaseService.getUserData(this.user.uid)
           .then((doc) => {
 				    if (doc.exists) {
               // console.log(doc.data())
