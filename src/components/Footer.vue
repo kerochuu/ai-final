@@ -7,9 +7,7 @@
         <a href="https://lab.ssafy.com/zooo1/webmobile-sub2/">
           <v-icon size="30" class="mr-3" style="color:white;">fa-github</v-icon>
         </a>
-        <router-link to="#">
-          <v-icon size="30" style="color:white;">fa-facebook-square</v-icon>
-        </router-link>
+
       </div>
     </footer>
     <div id="translate">
@@ -58,6 +56,7 @@ strong {
 }
 #translate {
   float: right;
-  margin: 10px 170px 10px 0px;
+  margin-right: 140px;
+  margin-top: 10px;
  }
 </style>

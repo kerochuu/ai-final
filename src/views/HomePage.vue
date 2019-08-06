@@ -24,7 +24,7 @@
 
     <!-- Portfolio -->
     <v-container>
-      <v-layout my-5>
+      <v-layout>
         <v-flex xs12>
           <h2 class="headline my-5 text-xs-center">Portfolio</h2>
           <PortfolioList></PortfolioList>
@@ -41,12 +41,14 @@
     </v-layout>-->
 
     <!-- Github -->
-    <v-layout my-5>
-      <v-flex xs12>
-        <h2 class="headline my-5 text-xs-center">Project</h2>
-        <RepositoryList></RepositoryList>
-      </v-flex>
-    </v-layout>
+    <v-container>
+      <v-layout>
+        <v-flex xs12>
+          <h2 class="headline my-5 text-xs-center">Project</h2>
+          <RepositoryList></RepositoryList>
+        </v-flex>
+      </v-layout>
+    </v-container>
     <!-- </v-container> -->
   </div>
 </template>
@@ -96,7 +98,7 @@ export default {
 h2 {
   font-size: 8vh;
 }
-#aboutUs{
+#aboutUs {
   padding: 50px;
 }
 @media screen and (max-width: 1204px) {

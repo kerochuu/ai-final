@@ -139,23 +139,24 @@ export default {
       })
   },
   addComment(pid, body) {
+	//   alert("pid = " + pid);
 	var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
 	var uid = firebase.auth().currentUser;
 	
-	var cid = comments.doc();
-	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc();
-	alert("cid = " + cid + " , commentId = " + commentId);
-	let email;
-	let upw;
+	var cid = comments.doc().id;
+	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc().id;
+	// alert("cid = " + cid + " , commentId = " + commentId);
+	let email; 
+	let upw = null;
 	if(uid == null) {
-		alert("게스트!!")
+		// alert("게스트!!")
 		email = "guest";
 		upw = prompt("게스트로 댓글을 작성합니다... \n댓글삭제에 이용 할 비밀번호를 입력해주세요!", "passWord");
 		alert(upw + " 비밀번호 등록!");
 	} else {
 		email = uid.email
 	}
-	alert(email+" 회원 댓글등록!")
+	// alert(email+" 회원 댓글등록!")
     comments.add({
 	  commentId: commentId,
       body: body,
@@ -330,11 +331,8 @@ export default {
 		const data = { 'authority': authority }
 		firestore.collection(USERS).doc(user.uid).update(data)
 	},
-	async getUserAuthority(userid) {
+	async getUserData(userid) {
 		return await firestore.collection(USERS).doc(userid).get()
-	},
-	getUserData() {
-		
 	},
 	async getUserDatabyQuery(query, data) {
 		return await firestore.collection(USERS).where(query, '==', data).get()
@@ -347,6 +345,7 @@ export default {
 			.then((docSnapshots) => {
 				return docSnapshots.docs.map((doc) => {
 					let data = doc.data()
+					data.uid = doc.id
 					data.created_at = new Date(data.created_at.toDate())
 					console.log(data)
 					return data

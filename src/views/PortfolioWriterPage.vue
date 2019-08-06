@@ -9,7 +9,6 @@
         <v-flex>
           <v-text-field
             label="Portfolio title"
-            placeholder="Portfolio title"
             outline
             v-model="title"
           ></v-text-field>
@@ -57,12 +56,10 @@ export default {
   name: "PortfolioWrite",
   props: {
     title: {
-      type: String,
-      default: "title test"
+      type: String
     },
     body: {
-      type: String,
-      default: "# body test"
+      type: String
     },
     img: {
       type: String,
