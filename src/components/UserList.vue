@@ -10,6 +10,7 @@
         :phoneNumber="users[i-1].phoneNumber"
         :authority="users[i-1].authority"
         :created_at="users[i-1].created_at"
+        :uid="users[i-1].uid"
       ></User>
     </v-flex>
 
@@ -18,11 +19,9 @@
         {{item}}
       </v-btn>
     </v-flex>
-    <v-flex>
-        <v-btn @click="consoleUser">버튼</v-btn>
-    </v-flex>
   </v-layout>
 </template>
+
 <script>
 import User from "@/components/User";
 import FirebaseService from "@/services/FirebaseService";
@@ -68,11 +67,6 @@ export default {
         for (let j = 1; j <= maximum; j++) {
             this.range.push(j)
         }
-    },
-    consoleUser() {
-        console.log(this.users)
-        console.log(this.indexs)
-        console.log(this.range)
     }
   }
 };

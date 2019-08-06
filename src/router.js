@@ -63,7 +63,7 @@ export default new Router({
 			component: UserDetailPage
 		},
 		{
-			path: '/admin/userdetail',
+			path: '/admin/userdetail/:uid',
 			name: 'userDetailAdmin',
 			component: UserDetailAdminPage
 		}
