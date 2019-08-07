@@ -12,7 +12,7 @@
           <hr style="margin-top:1px;" />
           <br />
           <p id="createdAt">{{portfolio.created_at}}</p>
-          <p id="body" style="text-align: justify;">{{portfolio.body}}</p>
+          <p style="text-align: justify;">{{portfolio.body}}</p>
         </v-flex>
         <!-- comments -->
         <v-flex xs12>
