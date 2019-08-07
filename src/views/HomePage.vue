@@ -94,7 +94,9 @@ export default {
 
 <style scoped>
 h2 {
-  font-size: 8vh;
+  font-size: 43px !important;
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 700;
 }
 #aboutUs {
   padding: 50px;
