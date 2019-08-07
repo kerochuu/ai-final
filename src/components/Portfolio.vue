@@ -37,7 +37,7 @@ export default {
 <style scoped>
 #portfolioCard {
   border-radius: 4px;
-  border: 5px solid #2d0e0e;
+  border: 3px solid #F2ECE5;
 }
 #hoverContents {
   display: none;

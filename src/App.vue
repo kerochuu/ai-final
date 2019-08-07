@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import Scroll from "./components/Scroll";
 import FirebaseService from "./services/FirebaseService";
 
+
 if (
   !window.chrome ||
   navigator.userAgent.indexOf("Edge") !== -1 ||
@@ -84,7 +85,7 @@ export default {
 };
 
 // <!-- Channel Plugin Scripts -->
-// 무료체험판 14일
+// 무료체험판 종료. 변경필요
 ;window.channelPluginSettings = {
     "pluginKey": "4be11479-22fc-46d6-8fb1-fca4277072d2"
   };

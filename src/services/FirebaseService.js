@@ -146,7 +146,7 @@ export default {
 	var cid = comments.doc().id;
 	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc().id;
 	// alert("cid = " + cid + " , commentId = " + commentId);
-	let email; 
+	let email;   
 	let upw = null;
 	if(uid == null) {
 		// alert("게스트!!")

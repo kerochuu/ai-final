@@ -4,8 +4,6 @@
     <!-- <div v-on:click="changeBannerImg"> -->
     <ImgBanner :imgSrc="img">
       <div id="introduce" style="line-height:1.2em; color:#333;" slot="text">
-        Do u love Avocado?
-        <br />Do u love Avocado?
       </div>
     </ImgBanner>
     <!-- </div> -->
