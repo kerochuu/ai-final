@@ -40,13 +40,13 @@ export default{
   data (){
     return{
       //city : "",
+      //pressure : "",
+      //img_url : "",
       weather : "",
       humidity : "",
-      //pressure : "",
       temp : 0,
       temp_max : 0,
       temp_min : 0,
-      //img_url : "",
     }
   },
   created(){
