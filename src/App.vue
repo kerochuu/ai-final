@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import Scroll from "./components/Scroll";
 import FirebaseService from "./services/FirebaseService";
 
+
 if (
   !window.chrome ||
   navigator.userAgent.indexOf("Edge") !== -1 ||
