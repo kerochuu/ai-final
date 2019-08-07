@@ -2,7 +2,7 @@
   <div>
     <i class="fas fa-pencil-alt"></i>
     <!-- <div v-on:click="changeBannerImg"> -->
-      <ImgBanner :imgSrc="img">
+      <ImgBanner><!-- :imgSrc="img">-->
         <div id="introduce" style="line-height:1.2em; color:#333;" slot="text">
           Do u love Avocado?<br/>Do u love Avocado?
         </div>
