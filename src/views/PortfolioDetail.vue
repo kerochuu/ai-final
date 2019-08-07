@@ -23,27 +23,44 @@
     </v-btn>
   </div>
 
+  <!-- <v-btn class="mx-2" color="info" fab dark small v-on:click="isAdmin()">
+      <v-icon dark>테스트용</v-icon>
+  </v-btn> -->
   <div class="information" style="width: 70%;">
       <h3>댓글목록</h3>
       <hr style="margin-top:1px;">
+
       <v-flex style="margin-top:2px; width: 90%;" v-for="data in comments" :key="data.uid"> 
-        {{data.uid}} ㅡ {{data.body}} 
         
-        <!-- <div v-if="{{data.uid}} == this.$route.params.uid"> -->
-          <!-- <v-btn  color="info" dark v-on:click="deleteComment">
-             <v-icon size="10" class="mr-2">fa-minus</v-icon>
-              삭제
-           </v-btn> -->
-        <!-- </div> -->
+        <template v-if="'Admin' == isAdmin()">
+          {{data.uid}} ㅡ {{data.body}} 
+            <v-btn class="mx-2" color="info" fab dark small v-on:click="updateComment(data.body, data.commentId, data.password)">
+                <v-icon dark>edit</v-icon>
+            </v-btn>
+            <v-btn class="mx-2" color="info" fab dark small v-on:click="deleteCommentByAdmin(data.commentId)">
+                <v-icon dark>remove</v-icon>
+            </v-btn>
+        </template>
+        <template v-else-if="data.uid == isPossible()">
+          {{data.uid}} ㅡ {{data.body}} 
+            <v-btn class="mx-2" color="info" fab dark small v-on:click="updateComment(data.body, data.commentId, data.password)">
+                <v-icon dark>edit</v-icon>
+            </v-btn>
+            <v-btn class="mx-2" color="info" fab dark small v-on:click="deleteComment(data.commentId, data.password)">
+                <v-icon dark>remove</v-icon>
+            </v-btn>
+        </template>
+        <template v-else>
+           {{data.uid}} ㅡ {{data.body}} 
+        </template>
       </v-flex>
 
   </div>
 
-
     <v-flex xs12 text-xs-center round my-5>
       <v-btn color="info" dark v-on:click="updateProfileImage">
         <v-icon size="25" class="mr-2">fa-plus</v-icon>
-        변경
+        변경 
       </v-btn>
       <v-btn color="info" dark v-on:click="deleteProfile">
         <v-icon size="25" class="mr-2">fa-minus</v-icon>
@@ -60,8 +77,10 @@ export default {
   name: "PortfolioDetail",
   props: {
     comment: {
-      type: String,
-      default: "# comment"
+      type: String
+    },
+    authority: {
+      type: String
     }
   },
   data() {
@@ -75,20 +94,45 @@ export default {
     getInfo: function() {
       this.pid = this.$route.params.pid;
     },
-    addComment:function() {
+    isPossible() {
+      var userId = FirebaseService.getUserInfo();
+      if(userId == null) {
+        return 'guest';
+      } else {
+        return  userId.email;
+      }
+    },
+    isAdmin() {
+      return this.authority;
+    },
+     addComment:function() {
       const user = FirebaseService.getUserInfo();
       const uid = this.$route.params.uid;
       
       FirebaseService.addComment(this.$route.params.pid, this.comment);
       this.$router.push('/pass');
     },
-    // deleteComment:function(uid) {
-    //   const user = FirebaseService.getUserInfo();
-    //   const uid = this.$route.params.uid;
+    deleteComment:function(cid, pw) {
+      alert(cid);
+      FirebaseService.deleteComment(this.$route.params.pid, cid, pw);
+      this.$router.push('/pass');
       
-    //  // FirebaseService.deleteComment(this.$route.params.);
-    //   this.$router.push('/pass');
-    // },
+     // FirebaseService.deleteComment(this.$route.params.);
+      //this.$router.push('/pass');
+    },
+    deleteCommentByAdmin:function(cid) {
+      alert(cid);
+      FirebaseService.deleteCommentByAdmin(this.$route.params.pid, cid);
+      this.$router.push('/pass');
+    },
+    updateComment:function(body, cid, pw) {
+      
+      FirebaseService.updateComment(this.$route.params.pid, body, cid, pw);
+      this.$router.push('/pass');
+      
+     // FirebaseService.deleteComment(this.$route.params.);
+      //this.$router.push('/pass');
+    },
     getUidForId:function(uid) {
       const user = FirebaseService.getUidForId(uid);
       return this.user;
