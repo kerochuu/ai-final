@@ -89,7 +89,7 @@ export default {
     }
   },
   props: {
-    user: { type: Object },
+    user: { default: null },
     authority: { type: String }
   },
 };
