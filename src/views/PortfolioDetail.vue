@@ -144,7 +144,7 @@ export default {
         alert("로그인이 필요합니다.")
         return
       }
-      FirebaseService.postImage(this.portfolio.img);
+      FirebaseService.postImage(this.portfolio.img); 
       alert("변경완료!")
     },
     deleteProfile: function() {
