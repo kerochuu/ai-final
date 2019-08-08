@@ -11,74 +11,86 @@
         <h1>{{portfolio.title}}</h1>
         <hr style="margin-top:1px;" />
         <br />
-        <p id="createdAt">{{portfolio.created_at}}</p>
-        <p style="text-align: justify;">{{portfolio.body}}</p>
+        <p>{{portfolio.created_at}}</p>
+        <p id="contents" style="text-align: justify;">{{portfolio.body}}</p>
       </v-flex>
 
-      <div class="information">
-        <v-text-field label="댓글입력" placeholder="input comment" outline v-model="comment"></v-text-field>
-        <v-btn color="info" dark v-on:click="addComment">
-          <v-icon size="25" class="mr-2">fa-plus</v-icon>댓글등록
-        </v-btn>
-      </div>
+      <!-- comments -->
+      <v-flex xs12>
+        <hr style="margin-bottom: 40px;" />
+        <h1 style="text-align:center; margin-bottom: 20px; font-size:26px;">Write what you think</h1>
+        <div class="commentInput">
+          <v-text-field label="comment" placeholder="input comment" outline v-model="comment"></v-text-field>
+          <v-btn id="commentInputBtn" color="info" dark v-on:click="addComment">
+            <v-icon size="25">fa-plus</v-icon>
+          </v-btn>
+        </div>
 
-      <!-- <v-btn class="mx-2" color="info" fab dark small v-on:click="isAdmin()">
-      <v-icon dark>테스트용</v-icon>
-      </v-btn>-->
-      <div class="information" style="width: 70%;">
-        <h3>댓글목록</h3>
-        <hr style="margin-top:1px;" />
+<!-- 댓글 목록 UI 수정할것 -->
+        <div class="commentList">
+          <h1>댓글목록</h1>
+          <hr style="margin-top:1px;" />
 
-        <v-flex style="margin-top:2px; width: 90%;" v-for="data in comments" :key="data.uid">
-          <template v-if="'Admin' == isAdmin()">
-            {{data.uid}} ㅡ {{data.body}}
-            <v-btn
-              class="mx-2"
-              color="info"
-              fab
-              dark
-              small
-              v-on:click="updateComment(data.body, data.commentId, data.password)"
-            >
-              <v-icon dark>edit</v-icon>
-            </v-btn>
-            <v-btn
-              class="mx-2"
-              color="info"
-              fab
-              dark
-              small
-              v-on:click="deleteCommentByAdmin(data.commentId)"
-            >
-              <v-icon dark>remove</v-icon>
-            </v-btn>
-          </template>
-          <template v-else-if="data.uid == isPossible()">
-            {{data.uid}} ㅡ {{data.body}}
-            <v-btn
-              class="mx-2"
-              color="info"
-              fab
-              dark
-              small
-              v-on:click="updateComment(data.body, data.commentId, data.password)"
-            >
-              <v-icon dark>edit</v-icon>
-            </v-btn>
-            <v-btn
-              class="mx-2"
-              color="info"
-              fab
-              dark
-              small
-              v-on:click="deleteComment(data.commentId, data.password)"
-            >
-              <v-icon dark>remove</v-icon>
-            </v-btn>
-          </template>
-          <template v-else>{{data.uid}} ㅡ {{data.body}}</template>
-        </v-flex>
-      </div>
+          <v-flex style="margin-top:2px; width: 90%;" v-for="data in comments" :key="data.uid">
+            <div v-if="'Admin' == isAdmin()">
+              <div>{{data.uid}}</div>
+              <div>{{data.body}}</div>
+              <v-btn
+                class="mx-2"
+                color="info"
+                fab
+                dark
+                small
+                v-on:click="updateComment(data.body, data.commentId, data.password)"
+              >
+                <v-icon dark>edit</v-icon>
+              </v-btn>
+              <v-btn
+                class="mx-2"
+                color="info"
+                fab
+                dark
+                small
+                v-on:click="deleteCommentByAdmin(data.commentId)"
+              >
+                <v-icon dark>remove</v-icon>
+              </v-btn>
+            </div>
+            <div v-else-if="data.uid == isPossible()">
+              <div>{{data.uid}}</div>
+              <div>{{data.body}}</div>
+              <v-btn
+                class="mx-2"
+                color="info"
+                fab
+                dark
+                small
+                v-on:click="updateComment(data.body, data.commentId, data.password)"
+              >
+                <v-icon dark>edit</v-icon>
+              </v-btn>
+              <v-btn
+                class="mx-2"
+                color="info"
+                fab
+                dark
+                small
+                v-on:click="deleteComment(data.commentId, data.password)"
+              >
+                <v-icon dark>remove</v-icon>
+              </v-btn>
+            </div>
+            <div v-else>
+              <v-flex xs3 class="userEmail">
+                <strong>{{data.uid}}</strong>
+              </v-flex>
+              <v-flex xs9 class="userComment">
+                {{data.body}}
+              </v-flex>
+            </div>
+          </v-flex>
+        </div>
+      </v-flex>
 
       <v-flex xs12 text-xs-center round my-5>
         <v-btn color="info" dark v-on:click="updateProfileImage">
@@ -119,16 +131,16 @@ export default {
     },
     isPossible() {
       var userId = FirebaseService.getUserInfo();
-      if(userId == null) {
-        return 'guest';
+      if (userId == null) {
+        return "guest";
       } else {
-        return  userId.email;
+        return userId.email;
       }
     },
     isAdmin() {
       return this.authority;
     },
-     
+
     addComment: function() {
       const user = FirebaseService.getUserInfo();
       const uid = this.$route.params.uid;
@@ -136,23 +148,19 @@ export default {
       FirebaseService.addComment(this.$route.params.pid, this.comment);
       this.$router.push("/pass");
     },
-    deleteComment:function(cid, pw) {
+    deleteComment: function(cid, pw) {
       alert(cid);
       FirebaseService.deleteComment(this.$route.params.pid, cid, pw);
-      this.$router.push('/pass');
-      
+      this.$router.push("/pass");
     },
-    deleteCommentByAdmin:function(cid) {
+    deleteCommentByAdmin: function(cid) {
       alert(cid);
       FirebaseService.deleteCommentByAdmin(this.$route.params.pid, cid);
-      this.$router.push('/pass');
+      this.$router.push("/pass");
     },
-    updateComment:function(body, cid, pw) {
-      
+    updateComment: function(body, cid, pw) {
       FirebaseService.updateComment(this.$route.params.pid, body, cid, pw);
-      this.$router.push('/pass');
-      
-    
+      this.$router.push("/pass");
     },
     getUidForId: function(uid) {
       const user = FirebaseService.getUidForId(uid);
@@ -194,8 +202,12 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-size: 30px;
+}
+
 button {
-  border-radius: 3px;
+  border-radius: 5px;
 }
 .portfolio {
   background-color: #fff;
@@ -225,34 +237,50 @@ button {
   margin: 10vh 10vw 0 10vw;
 }
 
-.comment {
-  display: flex;
-  padding: 5%;
-}
-.comments {
-  padding: 5%;
-}
-
-.commentBtn {
-  margin: 0;
-  margin-left: 20px;
-  height: 54px;
-}
 .information {
   padding: 60px;
 }
+
 .commentInput {
+  display: flex;
   width: 80%;
+  margin-left: 13%;
 }
-@media screen and (min-width: 1264px) {
-  .comment {
-    padding: 5% 20% 1%;
-  }
-  .comments {
-    padding: 1% 20%;
-  }
+
+#commentInputBtn {
+  height: 57px;
+  width: 40px;
+  margin-top: -1px;
+  border-radius: 5px;
+}
+.commentList {
+  margin: 40px 70px;
+}
+
+#contents {
+  font-size: 16px;
+  font-weight: border;
+}
+
+/* .userEmail{
+  font-size: 18px;
+}
+.userComment{
+  font-size: 16px;
+} */
+@media screen and (min-width: 1904px) {
   .portfolio {
-    margin: 100px 20rem;
+    margin: 100px 15rem;
+  }
+  .commentInput {
+    width: 50%;
+    margin-left: 20%;
+  }
+}
+@media screen and (min-width: 960px) {
+  .commentInput {
+    width: 70%;
+    margin-left: 15%;
   }
 }
 </style>
