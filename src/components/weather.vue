@@ -20,7 +20,7 @@
           src="../assets/weatherIcon/sun.png">
         </img>
       </ul>
-      <ul>
+      <ul class="weatherInfo">
         <li>습도 : {{humidity}}</li>
         <li>현재온도 : {{temp}}</li>
         <li>최고온도 : {{temp_max}}</li>
@@ -71,20 +71,24 @@ export default{
   }
 }
 </script>
-<style>
+<style scoped>
 #weather{
   z-index: 4;
-  background-color: rgb(182, 133, 90);
+  display: flex;
 }
 li{
   font-size : 9pt;
   list-style : none;
 }
 ul{
-  color: #f0f0f0;
-  float:left;
+  color: #555;
 }
 img{
-  filter: grayscale(50%);
+  filter: grayscale(100%);
+}
+.weatherInfo{
+  display: block;
+  font-weight: bold;
+  font-size: 16px;
 }
 </style>

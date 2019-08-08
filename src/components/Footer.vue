@@ -5,9 +5,8 @@
       <div id="snsIcon">
         <strong class="mr-3">Contact Us</strong>
         <a href="https://lab.ssafy.com/zooo1/webmobile-sub2/">
-          <v-icon size="30" class="mr-3" style="color:white;">fa-github</v-icon>
+          <v-icon size="30" class="mr-3" style="color:#333;">fa-github</v-icon>
         </a>
-
       </div>
     </footer>
     <div id="translate">
@@ -34,11 +33,11 @@ export default {
 
 <style scoped>
 div {
-  background-color: #0277bd ;
+  background-color: #f0f0f0 ;
 }
 footer {
   font-family: "Montserrat", sans-serif;
-  color: #f0f0f0;
+  color: #777;
   font-size: 20px;
   font-weight: 700;
   padding: 15px;
@@ -50,7 +49,7 @@ strong {
   margin: 0 3;
 }
 #snsIcon {
-  color: #f0f0f0;
+  color: #555;
   float: right;
   margin-right: 60px;
 }
