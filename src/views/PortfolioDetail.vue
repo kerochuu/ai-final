@@ -26,12 +26,12 @@
           </v-btn>
         </div>
 
-<!-- 댓글 목록 UI 수정할것 -->
+        <!-- 댓글 목록 UI 수정할것 -->
         <div class="commentList">
-          <h1>댓글목록</h1>
-          <hr style="margin-top:1px;" />
+          <h1 style="text-align:center;">Comments</h1>
+          <hr style="margin:10px 0 15px;" />
 
-          <v-flex style="margin-top:2px; width: 90%;" v-for="data in comments" :key="data.uid">
+          <v-flex style="margin-top:2px; width: 100%;" v-for="data in comments" :key="data.uid">
             <div v-if="'Admin' == isAdmin()">
               <div>{{data.uid}}</div>
               <div>{{data.body}}</div>
@@ -80,16 +80,15 @@
                 <v-icon dark>remove</v-icon>
               </v-btn>
             </div>
-            <div v-else>
+            <div class="commentInfo" v-else>
               <v-flex xs3 class="userEmail">
                 <strong>{{data.uid}}</strong>
               </v-flex>
-              <v-flex xs9 class="userComment">
-                {{data.body}}
-              </v-flex>
+              <v-flex xs9 class="userComment">{{data.body}}</v-flex>
             </div>
           </v-flex>
         </div>
+        <hr style="background:#D9D9D9; height:0.4px; border-height:0.3px; border-width:0.3px;" />
       </v-flex>
 
       <v-flex xs12 text-xs-center round my-5>
@@ -256,18 +255,24 @@ button {
 .commentList {
   margin: 40px 70px;
 }
-
+.commentInfo {
+  display: inline-block;
+}
 #contents {
   font-size: 16px;
   font-weight: border;
 }
 
-/* .userEmail{
+.userEmail {
+  display: inline-block;
   font-size: 18px;
+  margin-bottom: 2px;
 }
-.userComment{
-  font-size: 16px;
-} */
+.userComment {
+  margin-bottom: 10px;
+  text-align: justify;
+  max-width: 100%;
+}
 @media screen and (min-width: 1904px) {
   .portfolio {
     margin: 100px 15rem;
