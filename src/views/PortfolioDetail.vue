@@ -142,7 +142,7 @@ export default {
       this.$router.push('/pass');
       
     },
-    deleteCommentByAdmin:function(cid) {
+    deleteCommentByAdmin:function(cid) { 
       alert(cid);
       FirebaseService.deleteCommentByAdmin(this.$route.params.pid, cid);
       this.$router.push('/pass');
