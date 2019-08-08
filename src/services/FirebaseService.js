@@ -68,10 +68,7 @@ export default {
 	deletePost(pid) {
 		return firestore.collection(PORTFOLIOS).doc(pid).delete();
 	},
-	updateComment(pid, user) {
-		return firestore.collection(PORTFOLIOS).doc(pid).add({
-		})
-	},
+	
 	getPortfolios() {
 		const postsCollection = firestore.collection(PORTFOLIOS)
 		var getOption;
@@ -112,6 +109,20 @@ export default {
 				})
 			})
 	},
+	getPortfolioComment(pid) {
+		const comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
+		return comments
+		  .orderBy('created_at', 'desc')
+		  .get()
+		  .then((docSanpshots) => {
+			return docSanpshots.docs.map((doc) => {
+			  let data = doc.data()
+			  data.created_at = new Date(data.created_at.toDate())
+			  return data
+			})
+		  })
+	  },
+	  
   postPortfolio(title, body, img) {
     var portId = firestore.collection(PORTFOLIOS).doc().id;
     var doc = firestore.collection(PORTFOLIOS).doc(portId);
@@ -125,26 +136,12 @@ export default {
       uid: firebase.auth().currentUser.email,
     })
   },
-  getPortfolioComment(pid) {
-    const comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
-    return comments
-      .orderBy('created_at', 'desc')
-      .get()
-      .then((docSanpshots) => {
-        return docSanpshots.docs.map((doc) => {
-          let data = doc.data()
-          data.created_at = new Date(data.created_at.toDate())
-          return data
-        })
-      })
-  },
+
   addComment(pid, body) {
 	//   alert("pid = " + pid);
-	var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
 	var uid = firebase.auth().currentUser;
 	
-	var cid = comments.doc().id;
-	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc().id;
+	
 	// alert("cid = " + cid + " , commentId = " + commentId);
 	let email;   
 	let upw = null;
@@ -152,39 +149,79 @@ export default {
 		// alert("게스트!!")
 		email = "guest";
 		upw = prompt("게스트로 댓글을 작성합니다... \n댓글삭제에 이용 할 비밀번호를 입력해주세요!", "passWord");
-		alert(upw + " 비밀번호 등록!");
+	//	alert(upw + " 비밀번호 등록!");
 	} else {
 		email = uid.email
 	}
-	// alert(email+" 회원 댓글등록!")
-    comments.add({
-	  commentId: commentId,
-      body: body,
-	  uid: email,
-	  created_at: new Date(),
-	  password: upw
-    })
+
+	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc().id;
+	var comment = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc(commentId);
+	return comment.set({
+		commentId: commentId,
+		body: body,
+		uid: email,
+		created_at: new Date(),
+		password: upw
+	})
+	
   },
-  deleteComment(pid, body) {
-	var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
+  updateComment(pid, body, cid, pw) {
+	var uid = firebase.auth().currentUser;
+	var comment = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc(cid);
+	let email;   
+	let upw = null;
+	
+	if(uid == null) {
+		email = "guest";
+	//	alert("원래 비밀번호 -> " + pw);
+		upw = prompt("비밀번호를 입력해주세요!", "passWord");
+		if(pw == upw) {
+			// alert(email+" 댓글수정!");
+			var newBody = prompt("새로운 내용을 입력하세요!", body);
+			var newUpw = prompt("새로운 비밀번호를 입력하세요!", upw);
+			return comment.update({
+				body:newBody,
+				password:newUpw
+			});
+			
+		} else {
+			alert("비밀번호가 일치하지 않습니다!!");
+		}
+	} else {
+		email = uid.email;
+		// alert(email+" 회원 댓글수정!");
+		var newBody = prompt("새로운 내용을 입력하세요!", body);
+		return comment.update({
+			body:newBody
+		});
+	}
+  },
+  deleteComment(pid, cid, pw) { 
+	// alert("pid = " + pid + "  cid = " + cid);
 	var uid = firebase.auth().currentUser;
 	let email;
 	let upw;
 	if(uid == null) {
-		alert("게스트!!")
 		email = "guest";
-		upw = prompt("게스트로 댓글을 작성합니다... \n댓글삭제에 이용 할 비밀번호를 입력해주세요!", "passWord");
-		alert(upw + " 비밀번호 등록!");
+		// alert("원래 비밀번호 -> " + pw);
+		upw = prompt("비밀번호를 입력해주세요!", "passWord");
+		if(pw == upw) {
+			alert(email+" 댓글삭제!")
+			return firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc(cid).delete();
+		} else {
+			alert("비밀번호가 일치하지 않습니다!!")
+		}
 	} else {
-		email = uid.email
+		email = uid.email;
+		alert(email+" 회원 댓글삭제!")
+		return firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc(cid).delete();
 	}
-	alert(email+" 회원 댓글등록!")
-    comments.add({
-      body: body,
-	  uid: email,
-	  created_at: new Date(),
-	  password: upw
-    })
+  },
+  deleteCommentByAdmin(pid, cid) { 
+	//alert("pid = " + pid + "  cid = " + cid);
+	//alert("댓글삭제!");
+	return firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc(cid).delete();
+	
   },
 	loginWithGoogle() {
 		let provider = new firebase.auth.GoogleAuthProvider()

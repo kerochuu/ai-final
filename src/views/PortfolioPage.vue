@@ -10,6 +10,11 @@
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
         </v-flex>
       </v-layout>
+       <v-btn class="mx-2" style="margin:0%, 5%, 0%, 80%;" color="info" fab dark small @click="movePortfolioWriter">
+                <v-icon dark>edit</v-icon>
+       </v-btn>
+
+      
     </v-container>
   </div>
 </template>
@@ -21,6 +26,35 @@ export default {
   name: "PortfolioPage",
   components: {
     PortfolioList
+  },
+  methods: {
+    guestOrUser() {
+      var user = getUserInfo();
+      if(user == null) {
+        return false;
+      } else {
+        return true;
+      }
+    },
+    movePortfolioWriter(){
+      this.$router.push('/portfoliowrite');
+    }
+  },
+  props: {
+    authority: { type: String }
+  },
+   data() {
+    return {
+      user:{}
+    };
+  },
+  mounted() {
+   
+    FirebaseService.getInfo().then(res => {
+      this.user = res;
+      alert(user);
+    });
+
   }
 };
 </script>
