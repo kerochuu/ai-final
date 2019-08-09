@@ -164,8 +164,13 @@ export default {
         alert("로그인이 필요합니다.");
         return;
       }
+<<<<<<< HEAD
       FirebaseService.postImage(this.portfolio.img);
       alert("변경완료!");
+=======
+      FirebaseService.postImage(this.portfolio.img); 
+      alert("변경완료!")
+>>>>>>> origin/kerochuu
     },
     deleteProfile: function() {
       const user = FirebaseService.getUserInfo();
