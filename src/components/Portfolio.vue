@@ -4,7 +4,7 @@
       <v-img :src="imgSrc" height="200px"></v-img>
     </router-link>
 
-    <v-card-title primary-title>
+    <!-- <v-card-title primary-title>
       <div id="contents">
         <div id="title" class="headline">{{title}}</div>
         <span id="content" class="grey--text">{{body}}</span>
@@ -12,7 +12,7 @@
       <div id="hoverContents">
         <button>자세히보려면 이미지를 클릭하세요.</button>
       </div>
-    </v-card-title>
+    </v-card-title> -->
   </v-card>
 </template>
 
@@ -38,12 +38,6 @@ export default {
 #portfolioCard {
   border-radius: 4px;
   border: 3px solid #F2ECE5;
-}
-#hoverContents {
-  display: none;
-}
-#hoverContents:hover {
-  display: block !important;
 }
 
 #title {

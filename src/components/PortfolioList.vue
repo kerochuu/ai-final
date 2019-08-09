@@ -59,7 +59,7 @@ export default {
       range: [],
       swiperOption: {
         slidesPerView: 4,
-        spaceBetween: 30,
+        spaceBetween: 20,
         slidesPerGroup: 3,
         loop: true,
         loopFillGroupWithBlank: true,
@@ -81,7 +81,29 @@ export default {
   max-width: 700px;
   margin: auto;
 }
+
+.swiper-slide > div:hover {
+  filter: brightness(30%)
+}
 .swiper-wrapper > div {
   width : 23.7% !important
+}
+
+@media(max-width:600px){
+  .swiper-wrapper > div {
+    width : 96% !important
+  }
+}
+
+@media(min-width:601px) and (max-width: 1080px){
+  .swiper-wrapper > div {
+    width : 48% !important
+  }
+}
+
+@media(min-width:1081px) and (max-width: 1600px){
+  .swiper-wrapper > div {
+    width : 30% !important;
+  }
 }
 </style>
