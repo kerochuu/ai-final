@@ -18,7 +18,7 @@
 ​
 <script>
 import FirebaseService from '@/services/FirebaseService';
-import UserDetailAdmin from '@/components/UserDetailAdmin';
+import UserDetailAdmin from '@/components/admin/UserDetailAdmin';
 
 export default {
   name: "UserDetailAdminPage",

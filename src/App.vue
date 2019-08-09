@@ -3,7 +3,7 @@
     <Header :user="user" :authority="authority" />
     <Scroll />
     <v-content id="body">
-      <router-view :user="user" :authority="authority" />
+      <router-view :user="user" :authority="authority" :cookie="cookie"/>
     </v-content>
     
     <Footer />
@@ -33,6 +33,7 @@ export default {
     return {
       user: "",
       authority: "",
+      cookie: false
     };
   },
   components: {
@@ -42,6 +43,48 @@ export default {
   },
   mounted() {
     this.$router.push("/pass");
+    Notification.requestPermission().then(
+      result => {
+        console.log(result)
+      }
+    )
+  },
+  methods: {
+    getCookie() {
+      let falseList = []
+      let trueList = []
+      FirebaseService.getAllCookie().then(
+        snapshot => {
+          falseList = snapshot.docs[0].data()['UserList']
+          trueList = snapshot.docs[1].data()['UserList']
+        }
+      )
+      .then(
+        () => {
+          if (this.user) {
+            const trueIndex = trueList.indexOf(this.user.uid)
+            const falseIndex = falseList.indexOf(this.user.uid)
+            if (trueIndex + falseIndex == -2) {
+              if (confirm("이 사이트에서 사용자에 알림을 보내고자 합니다.")) {
+                trueList.push(this.user.uid)
+                FirebaseService.updateCookie('True', { 'UserList' : trueList })
+                this.cookie = true
+              } else {
+                falseList.push(this.user.uid)
+                FirebaseService.updateCookie('False', { 'UserList' : falseList })
+                this.cookie = false
+              }
+            } else {
+              if (trueIndex > falseIndex) {
+                this.cookie = true
+              } else {
+                this.cookie = false
+              }
+            }
+          }
+        }
+      )
+    }
   },
   watch: {
     $route() {
@@ -77,6 +120,7 @@ export default {
         // console.log(this.user.uid)
         // console.log(this.authority)
         // console.log(this.user)
+        this.getCookie()
       }
       
     }
@@ -152,4 +196,4 @@ div {
     margin-top: 64px;
   }
 }
-</style>
+</style>  

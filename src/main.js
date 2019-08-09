@@ -5,6 +5,9 @@ import VueSimplemde from 'vue-simplemde'
 import 'simplemde/dist/simplemde.min.css'
 import 'font-awesome/css/font-awesome.min.css'
 
+import VueAnalytics from 'vue-analytics'
+import Trend from "vuetrend"
+ 
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -30,3 +33,5 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.use(Trend)

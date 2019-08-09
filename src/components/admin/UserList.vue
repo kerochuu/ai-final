@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import User from "@/components/User";
+import User from "@/components/admin/User";
 import FirebaseService from "@/services/FirebaseService";
 
 export default {
