@@ -1,22 +1,23 @@
 <template>
-  <md-card>
-    <md-card-media>
-      <!-- swiper -->
-      <swiper :options="swiperOption">
-        <swiper-slide v-for="i in range">
-          <Portfolio
+    <md-card>
+      <md-card-media>
+        <!-- swiper -->
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="i in range">
+            <Portfolio
               class="ma-5"
               :date="portfolios[i - 1].created_at.toString()"
               :title="portfolios[i - 1].title"
               :body="portfolios[i - 1].body"
               :imgSrc="portfolios[i - 1].img"
-              :pid="portfolios[i-1].pid"/>
-        </swiper-slide>  
-        <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>
-      </swiper>
-    </md-card-media>
-  </md-card>
+              :pid="portfolios[i-1].pid"
+            />
+          </swiper-slide>
+          <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
+      </md-card-media>
+    </md-card>
 </template>
 
 <script>
@@ -37,15 +38,14 @@ export default {
   },
   mounted() {
     this.getPortfolios();
-    console.log(this.range)
-    
+    console.log(this.range);
   },
   methods: {
     async getPortfolios() {
       this.portfolios = await FirebaseService.getPortfolios();
       const length = this.portfolios.length > 15 ? 15 : this.portfolios.length;
       for (let i = 1; i <= length; i++) {
-        this.range.push(i)
+        this.range.push(i);
       }
     }
     // loadMorePortfolios() {
@@ -77,6 +77,7 @@ export default {
 };
 </script>
 <style>
+
 .mw-700 {
   max-width: 700px;
   margin: auto;
@@ -86,7 +87,7 @@ export default {
   filter: brightness(30%)
 }
 .swiper-wrapper > div {
-  width : 23.7% !important
+  width: 23.7% !important;
 }
 
 @media(max-width:600px){

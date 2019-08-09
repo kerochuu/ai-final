@@ -10,7 +10,7 @@
 
     <!-- <v-container> -->
     <!-- About Us -->
-    <div id="aboutUsbox">
+    <!-- <div id="aboutUsbox">
       <div id="aboutUs">
         <h2 class="headline mb-3 text-xs-center">About US</h2>
         <p class="mr-4 text-sm-center">
@@ -18,7 +18,7 @@
           <br />아보카도 좋아하세요?
         </p>
       </div>
-    </div>
+    </div> -->
 
     <!-- Portfolio -->
     <v-container>
