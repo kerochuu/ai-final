@@ -176,9 +176,12 @@ export default {
         return;
       }
 <<<<<<< HEAD
+<<<<<<< HEAD
       FirebaseService.postImage(this.portfolio.img);
       alert("변경완료!");
 =======
+=======
+>>>>>>> 65d9d6e51c0679db6e8852df7254e559cf80dee8
       FirebaseService.postImage(this.portfolio.img); 
       alert("변경완료!")
 >>>>>>> origin/kerochuu

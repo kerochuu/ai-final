@@ -93,7 +93,7 @@ export default {
 @media(max-width:600px){
   .swiper-wrapper > div {
     width : 96% !important
-  }
+  } 
 }
 
 @media(min-width:601px) and (max-width: 1080px){
