@@ -8,6 +8,7 @@ const PORTFOLIOS = 'PORTFOLIOS'
 const WEBVIEWS = 'WEBVIEWS'
 const USERS = 'USERS'
 const COMMENTS = 'COMMENTS'
+const COOKIES = 'COOKIES'
 
 // Setup Firebase
 const config = {
@@ -15,14 +16,15 @@ const config = {
   authDomain: 'project2-460cc.firebaseapp.com',
   apiKey: 'AIzaSyDxvusphBrkA8H1AzbmyzkGAquWow9opKM',
   databaseURL: 'https://project2-460cc.firebaseio.com',
-  storageBucket: 'gs://project2-460cc.appspot.com'
-
+  storageBucket: 'gs://project2-460cc.appspot.com',
+  messagingSenderId: '207260346726'
 }
 
 
 firebase.initializeApp(config)
 const firestore = firebase.firestore()
 const storageRef = firebase.storage().ref().child('img')
+const messaging = firebase.messaging()
 
 firebase.firestore().enablePersistence({experimentalTabSynchronization:true})
   .catch(function(err) {
@@ -134,19 +136,29 @@ export default {
       img,
       created_at: firebase.firestore.FieldValue.serverTimestamp(),
       uid: firebase.auth().currentUser.email,
-    })
+	})
+		.then(() => {
+			messaging.onMessage(payload => {
+				var notificationTitle = 'Background Message Title';
+				var notificationOptions = {
+					body: 'Background Message body.'
+				};
+				return self.registration.showNotification(notificationTitle, notificationOptions);
+			})
+		})
   },
 
   addComment(pid, body) {
-	//   alert("pid = " + pid);
+	var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
 	var uid = firebase.auth().currentUser;
 	
-	
-	// alert("cid = " + cid + " , commentId = " + commentId);
-	let email;   
-	let upw = null;
+	var cid = comments.doc();
+	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc();
+	alert("cid = " + cid + " , commentId = " + commentId);
+	let email;
+	let upw;
 	if(uid == null) {
-		// alert("게스트!!")
+		alert("게스트!!")
 		email = "guest";
 		upw = prompt("게스트로 댓글을 작성합니다... \n댓글삭제에 이용 할 비밀번호를 입력해주세요!", "passWord");
 	//	alert(upw + " 비밀번호 등록!");
@@ -384,9 +396,20 @@ export default {
 					let data = doc.data()
 					data.uid = doc.id
 					data.created_at = new Date(data.created_at.toDate())
-					console.log(data)
 					return data
 				})
 			})
 	},
+	async getCookie(boolean) {
+		return await firestore.collection(COOKIES).doc(boolean).get()
+	},
+	async updateCookie(boolean, data) {
+		await firestore.collection(COOKIES).doc(boolean).set(data)
+	},
+	async getAllCookie() {
+		return await firestore.collection(COOKIES).get()
+	},
+	spawnNotification(title, option) {
+		var n = new Notification(title, option);
+	}
 }
