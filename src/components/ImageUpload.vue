@@ -1,19 +1,18 @@
 <template>
   <v-layout>
-    <v-flex>
-      <button @click="randomImageUpload()">랜덤이미지</button>
-      <label 
-        for="file" 
-        class="fileText"
-        flat>파일선택</label>
-      <input
-        class="v-btn v-btn--flat fileButton"
-        outline
-        type="file"
-        id="file"
-        ref="file"
-        @change="handleFileUpload()"
-      />
+    <v-flex xs12 class="selectImage">
+      <v-btn color="green" @click="randomImageUpload()">random</v-btn>
+      <v-btn color="yellow">
+        <label for="file" class="fileText" flat>Choose</label>
+        <input
+          class="v-btn v-btn--flat fileButton"
+          outline
+          type="file"
+          id="file"
+          ref="file"
+          @change="handleFileUpload()"
+        />
+      </v-btn>
       <div>
         <img id="preview" src height="200px" style="display: none" />
       </div>
@@ -105,15 +104,31 @@ export default {
   position: absolute;
   padding: 0;
   margin: -1px;
-  overflow:hidden;
-  clip: rect(0,0,0,0);
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
   border: 0;
 }
 
-.fileText {
+/* .fileText {
   width: 100px;
   height: 50px;
   background-color: red;
   cursor: pointer;
+} */
+
+@media screen and (min-width: 600px) {
+  .selectImage {
+    margin: 5px 30px;
+  }
+}
+@media screen and (min-width: 960px) {
+  .selectImage {
+    margin: 5px 50px;
+  }
+}
+@media screen and (min-width: 1904px) {
+  .selectImage {
+    margin: 10px 80px;
+  }
 }
 </style>
