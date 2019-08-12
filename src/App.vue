@@ -177,7 +177,7 @@ export default {
 <style>
 #body {
   /* background-image: linear-gradient(to bottom right, #29b6f6 , #FFFFFF); */
-  background-color: #E9D8C8;
+  background-color: #ECE1D4;
 }
 div {
   font-family: "Montserrat", sans-serif;

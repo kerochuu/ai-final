@@ -1,7 +1,9 @@
 <template>
   <v-card id="portfolioCard">
     <router-link :to="{name:'portfolioDetail', params: {pid} }">
-      <v-img :src="imgSrc" height="200px"></v-img>
+      <v-img :src="imgSrc" height="200px">
+        <p onmouseover="hovert()" onmouseout="hoverf()" v-if="showTitle" class="portfoiloTitle">{{title}}</p> 
+      </v-img>
     </router-link>
 
     <!-- <v-card-title primary-title>
@@ -28,8 +30,16 @@ export default {
   },
   data() {
     return {
-      //
+      showTitle: false
     };
+  },
+  methods: {
+    hovert() {
+      this.showTitle = true
+    },
+    hoberf() {
+      this.showTitle = false
+    }
   }
 };
 </script>
@@ -40,7 +50,10 @@ export default {
   border: 3px solid #F2ECE5;
 }
 
-#title {
+.portfoiloTitle {
+  display: block;
+  text-align: center;
+  align-items: center;
   font-family: "Montserrat", sans-serif !important;
   font-weight: bold;
   width: 150px;
@@ -48,6 +61,14 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.portfoiloTitle:hover{
+  display: block !important;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  text-align: center;
+  color: #ffff;
+}
+
 #content {
   font-family: "Montserrat", sans-serif !important;
   font-size: 16px;

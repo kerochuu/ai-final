@@ -3,8 +3,7 @@
     <i class="fas fa-pencil-alt"></i>
     <!-- <div v-on:click="changeBannerImg"> -->
     <ImgBanner>
-      <div id="introduce" style="line-height:1.2em; color:#333;" slot="text">
-      </div>
+      <div id="introduce" style="line-height:1.2em; color:#333;" slot="text"></div>
     </ImgBanner>
     <!-- </div> -->
 
@@ -18,17 +17,19 @@
           <br />아보카도 좋아하세요?
         </p>
       </div>
-    </div> -->
+    </div>-->
 
     <!-- Portfolio -->
-    <v-container>
+    <!-- <v-container>
       <v-layout>
-        <v-flex xs12>
-          <h2 class="headline my-5 text-xs-center">Portfolio</h2>
-          <PortfolioList></PortfolioList>
-        </v-flex>
+    <v-flex xs12>-->
+    <div style="margin: 50px 30px">
+      <h2 class="headline text-xs-center" style="margin: 50px 0;">Portfolio</h2>
+      <PortfolioList></PortfolioList>
+    </div>
+    <!-- </v-flex>
       </v-layout>
-    </v-container>
+    </v-container>-->
 
     <!-- Post -->
     <!-- <v-layout my-5>
@@ -95,7 +96,7 @@ export default {
 <style scoped>
 h2 {
   font-size: 43px !important;
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: "Montserrat", sans-serif !important;
   font-weight: 700;
 }
 #aboutUs {

@@ -1,23 +1,24 @@
 <template>
-    <md-card>
-      <md-card-media>
-        <!-- swiper -->
-        <swiper :options="swiperOption">
-          <swiper-slide v-for="i in range">
+  <md-card>
+    <md-card-media>
+      <!-- swiper -->
+      <swiper :options="swiperOption">
+        <swiper-slide v-for="i in range">
+          <div class="swiper-container" style="width:100%; height:400px;">
             <Portfolio
-              class="ma-5"
               :date="portfolios[i - 1].created_at.toString()"
               :title="portfolios[i - 1].title"
               :body="portfolios[i - 1].body"
               :imgSrc="portfolios[i - 1].img"
               :pid="portfolios[i-1].pid"
             />
+          </div>
           </swiper-slide>
-          <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
-        </swiper>
-      </md-card-media>
-    </md-card>
+        <!-- <div class="swiper-button-prev" slot="button-prev"></div>
+        <div class="swiper-button-next" slot="button-next"></div>-->
+      </swiper>
+    </md-card-media>
+  </md-card>
 </template>
 
 <script>
@@ -27,10 +28,6 @@ import "swiper/dist/css/swiper.css";
 import { swiper, swiperSlide } from "vue-awesome-swiper";
 export default {
   name: "PortfoliosList",
-  props: {
-    // limits: { type: Number, default: 3 },
-    // loadMore: { type: Boolean, default: false }
-  },
   components: {
     Portfolio,
     swiper,
@@ -48,28 +45,55 @@ export default {
         this.range.push(i);
       }
     }
-    // loadMorePortfolios() {
-    //   this.limits += 3;
-    //   if (this.limits >= this.portfolios.length) this.loadMore = false;
-    // }
   },
   data() {
     return {
       portfolios: [],
       range: [],
       swiperOption: {
-        slidesPerView: 4,
-        spaceBetween: 20,
-        slidesPerGroup: 3,
-        loop: true,
-        loopFillGroupWithBlank: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true
+        // 카드 사이즈 줄이고 각 사진간 간격 늘리기
+        // default parameters
+        mousewheel: {
+          invert: true
         },
+        autoplay: {
+          delay: 1000,
+          stopOnLastSlide: true,
+          disableOnInteraction: true
+        },
+        slidesPerView: 5,
+        spaceBetween: 20,
+        grabCursor: true,
+        slidesPerGroup: 1,
+        loop: true,
+        loopSlides: 1,
+        loopFillGroupWithBlank: true,
         navigation: {
           nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"  
+          prevEl: ".swiper-button-prev"
+        },
+        keyboard: {
+          enabled: true,
+          onlyInViewPort: false
+        },
+        cubeEffect: {
+          slideShadows: false,
+          shadow: true,
+          shadowOffset: 20,
+          shadowScale: 0.94
+        },
+
+        // responsive breakpoints
+        breakpoints: {
+          1264: {
+            slidesPerView: 4
+          },
+          960: {
+            slidesPerView: 2
+          },
+          600: {
+            slidesPerView: 1
+          }
         }
       }
     };
@@ -77,14 +101,26 @@ export default {
 };
 </script>
 <style>
-
-.mw-700 {
-  max-width: 700px;
-  margin: auto;
+.swiper-container{
+  width: 100%;
+  height: 250px;
+}
+@media screen and (min-width: 1264px) {
+  .swiper-container {
+    width: 80%;
+  }
 }
 
 .swiper-slide > div:hover {
-  filter: brightness(30%)
+  filter: brightness(30%);
+}
+#portfoiloCard {
+  width: 200px;
+}
+
+/* .mw-700 {
+  max-width: 700px;
+  margin: auto;
 }
 .swiper-wrapper > div {
   width: 23.7% !important;
@@ -106,5 +142,5 @@ export default {
   .swiper-wrapper > div {
     width : 30% !important;
   }
-}
+} */
 </style>
