@@ -152,6 +152,7 @@ export default {
       FirebaseService.deleteComment(this.$route.params.pid, cid, pw);
       this.$router.push("/pass");
     },
+
     deleteCommentByAdmin: function(cid) {
       alert(cid);
       FirebaseService.deleteCommentByAdmin(this.$route.params.pid, cid);
@@ -171,8 +172,8 @@ export default {
         alert("로그인이 필요합니다.");
         return;
       }
-      FirebaseService.postImage(this.portfolio.img);
-      alert("변경완료!");
+      FirebaseService.postImage(this.portfolio.img); 
+      alert("변경완료!")
     },
     deleteProfile: function() {
       const user = FirebaseService.getUserInfo();
