@@ -3,7 +3,7 @@
     <v-layout class="portfolioWrite" wrap row>
       <v-flex xs12>
         <h1>Write Your Portfolio</h1>
-    </v-flex>
+      </v-flex>
 
           <v-flex xs12 class="portfolioCard">
             <v-text-field label="Portfolio title" outline v-model="title"></v-text-field>
@@ -20,8 +20,9 @@
         <v-flex xs12>
           <div v-html="compiledMarkdown"></div>
           <ImageUpload ref="imgUpload" />
+          <img v-if="this.img != null" id="preview" :src="this.img" height="200px">원본이미지</img>
         </v-flex>
-
+               
 
       <v-flex xs12 text-xs-center round my-5>
         <v-btn color="info" dark v-on:click="postPortfolios">
@@ -47,8 +48,7 @@ export default {
       type: String
     },
     img: {
-      type: String,
-      default: ""
+      type: String
     },
     authority: {
       type: String,
@@ -77,13 +77,44 @@ export default {
           });
         }
       );
-    }
+    },
+    async getInfo() {
+      await FirebaseService.getPortfolioById(this.$route.params.pid)
+      .then(res => {
+        console.log(res)
+        this.title = res[0].title;
+        this.body = res[0].body;
+        this.img = res[0].img;
+      })
+    },
+    // handleFileUpload(img) {
+    //   alert("!!!!!!!!");
+    //   this.file = img;
+    //   console.log(this.$refs.file.files.length);
+
+    //   if (this.$refs.file.files.length == 0) {
+    //     // 파일 선택 취소 할 시 섬네일 안보임
+    //     document.getElementById("preview").style.display = "none";
+    //     return;
+    //   }
+
+    //   let reader = new FileReader();
+    //   reader.readAsDataURL(this.file);
+    //   //로드 한 후
+    //   reader.onload = function() {
+    //     //로컬 이미지를 보여주기
+    //     document.querySelector("#preview").src = reader.result;
+    //     document.getElementById("preview").style.display = "block"; // 섬네일 이미지 보임
+    //   };
+    //   this.randomImage = false;
+    // },
   },
   mounted() {
     if (this.authority == "Anonymous") {
       alert("로그인이 필요합니다.");
       this.$router.back(1);
     }
+    this.getInfo();
   }
 };
 </script>
