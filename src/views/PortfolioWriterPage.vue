@@ -91,7 +91,7 @@ export default {
 <style scoped>
 h1{
   text-align: center;
-  margin: 5px;
+  margin: 25px 10px;
 }
 .portfolioWrite {
   border: 3px solid #fff;
@@ -100,12 +100,12 @@ h1{
   background-color: #fff;
 }
 
-@media screen and (min-width: 600px){
+@media screen {
   .portfolioWrite{
     margin: 100px 5rem;
   }
   h1{
-    font-size: 50px;
+    font-size: 40px;
   }
   .portfolioCard{
     margin: 5px 30px;
@@ -113,10 +113,10 @@ h1{
 }
 @media screen and (min-width: 960px){
   .portfolioWrite{
-    margin: 100px 10rem;
+    margin: 100px 18rem;
   }
   h1{
-    font-size: 60px;
+    font-size: 50px;
   }
   .portfolioCard{
     margin: 5px 50px;
@@ -124,10 +124,10 @@ h1{
 }
 @media screen and (min-width: 1904px) {
   .portfolioWrite {
-    margin: 100px 20rem;
+    margin: 100px 30rem;
   }
   h1{
-    font-size: 90px;
+    font-size: 70px;
   }
   .portfolioCard{
     margin: 10px 80px;

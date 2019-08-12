@@ -26,65 +26,44 @@
           </v-btn>
         </div>
 
-        <!-- 댓글 목록 UI 수정할것 -->
+        <!-- 댓글 수정 아이콘 수정할 것 -->
         <div class="commentList">
           <h1 style="text-align:center;">Comments</h1>
           <hr style="margin:10px 0 15px;" />
 
-          <v-flex style="margin-top:2px; width: 100%;" v-for="data in comments" :key="data.uid">
+          <v-flex style="margin-top:20px; width: 100%;" v-for="data in comments" :key="data.uid">
             <div v-if="'Admin' == isAdmin()">
-              <div>{{data.uid}}</div>
-              <div>{{data.body}}</div>
-              <v-btn
-                class="mx-2"
-                color="info"
-                fab
-                dark
-                small
-                v-on:click="updateComment(data.body, data.commentId, data.password)"
-              >
-                <v-icon dark>edit</v-icon>
-              </v-btn>
-              <v-btn
-                class="mx-2"
-                color="info"
-                fab
-                dark
-                small
-                v-on:click="deleteCommentByAdmin(data.commentId)"
-              >
-                <v-icon dark>remove</v-icon>
-              </v-btn>
+              <div class="content">
+                <div class="data_uid">{{data.uid}}</div>
+                <v-layout>
+                  <span class="data_body">{{data.body }}  </span>
+                  <v-flex class="editBtn">
+                      <v-icon color="green" size="19px" v-on:click="updateComment(data.body, data.commentId, data.password)">edit</v-icon>
+                      <v-icon color="red" size="19px" v-on:click="deleteCommentByAdmin(data.commentId)">remove</v-icon>
+                  </v-flex>
+                </v-layout>
+              </div>
             </div>
+
             <div v-else-if="data.uid == isPossible()">
-              <div>{{data.uid}}</div>
-              <div>{{data.body}}</div>
-              <v-btn
-                class="mx-2"
-                color="info"
-                fab
-                dark
-                small
-                v-on:click="updateComment(data.body, data.commentId, data.password)"
-              >
-                <v-icon dark>edit</v-icon>
-              </v-btn>
-              <v-btn
-                class="mx-2"
-                color="info"
-                fab
-                dark
-                small
-                v-on:click="deleteComment(data.commentId, data.password)"
-              >
-                <v-icon dark>remove</v-icon>
-              </v-btn>
+             <div class="content">
+                <div class="data_uid">{{data.uid}}</div>
+                <v-layout>
+                  <span class="data_body">{{data.body}}  </span>
+                  <v-flex class="editBtn">
+                      <v-icon color="green" size="19px" v-on:click="updateComment(data.body, data.commentId, data.password)">edit</v-icon>
+                      <v-icon color="red" size="19px" v-on:click="deleteCommentByAdmin(data.commentId)">remove</v-icon>
+                  </v-flex>
+                </v-layout>
+              </div>
             </div>
             <div class="commentInfo" v-else>
-              <v-flex xs3 class="userEmail">
-                <strong>{{data.uid}}</strong>
-              </v-flex>
-              <v-flex xs9 class="userComment">{{data.body}}</v-flex>
+              <div class="content">
+                <div class="data_uid">{{data.uid}}</div>
+                <v-layout>
+                  <span class="data_body">{{data.body}} </span>
+                </v-layout>
+              </div>
             </div>
           </v-flex>
         </div>
@@ -92,10 +71,10 @@
       </v-flex>
 
       <v-flex xs12 text-xs-center round my-5>
-        <v-btn color="info" dark v-on:click="updateProfileImage">
+        <v-btn color="success" dark v-on:click="updateProfileImage">
           <v-icon size="25" class="mr-2">fa-plus</v-icon>변경
         </v-btn>
-        <v-btn color="info" dark v-on:click="deleteProfile">
+        <v-btn color="red" dark v-on:click="deleteProfile">
           <v-icon size="25" class="mr-2">fa-minus</v-icon>삭제
         </v-btn>
       </v-flex>
@@ -172,8 +151,8 @@ export default {
         alert("로그인이 필요합니다.");
         return;
       }
-      FirebaseService.postImage(this.portfolio.img); 
-      alert("변경완료!")
+      FirebaseService.postImage(this.portfolio.img);
+      alert("변경완료!");
     },
     deleteProfile: function() {
       const user = FirebaseService.getUserInfo();
@@ -263,12 +242,15 @@ button {
   font-size: 16px;
   font-weight: border;
 }
-
-.userEmail {
-  display: inline-block;
-  font-size: 18px;
+.data_uid {
+  font-size: 20px;
+  font-weight: 700;
   margin-bottom: 2px;
 }
+.data_body {
+  font-size: 19px;
+}
+
 .userComment {
   margin-bottom: 10px;
   text-align: justify;

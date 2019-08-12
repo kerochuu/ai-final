@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-flex xs12 class="selectImage">
-      <v-btn color="green" @click="randomImageUpload()">random</v-btn>
+      <v-btn color="green" @click="randomImageUpload()" class="fileText">random</v-btn>
       <v-btn color="yellow">
         <label for="file" class="fileText" flat>Choose</label>
         <input
@@ -108,6 +108,9 @@ export default {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+.fileText{
+  font-weight: bold;
+}
 
 /* .fileText {
   width: 100px;
@@ -116,7 +119,7 @@ export default {
   cursor: pointer;
 } */
 
-@media screen and (min-width: 600px) {
+@media screen {
   .selectImage {
     margin: 5px 30px;
   }
