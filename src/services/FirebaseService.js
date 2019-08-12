@@ -1,4 +1,5 @@
 import firebase from 'firebase/app'
+import store from '../store'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/'
@@ -9,6 +10,7 @@ const WEBVIEWS = 'WEBVIEWS'
 const USERS = 'USERS'
 const COMMENTS = 'COMMENTS'
 const COOKIES = 'COOKIES'
+const SUBSCRIBER = 'SUBSCRIBER'
 
 // Setup Firebase
 const config = {
@@ -17,14 +19,44 @@ const config = {
   apiKey: 'AIzaSyDxvusphBrkA8H1AzbmyzkGAquWow9opKM',
   databaseURL: 'https://project2-460cc.firebaseio.com',
   storageBucket: 'gs://project2-460cc.appspot.com',
-  messagingSenderId: '207260346726'
+  messagingSenderId: '207260346726',
+  appId: '1:207260346726:web:9e1c6223c3c87254'
 }
-
 
 firebase.initializeApp(config)
 const firestore = firebase.firestore()
 const storageRef = firebase.storage().ref().child('img')
 const messaging = firebase.messaging()
+
+messaging.usePublicVapidKey('BP347zCKvXtqhW1FI8RmMo7-ojdizl7gr-X4oEW04inQB3izvBpSav--FvD6khjvtHn4KL1sqNYZP5gmgInjzqw')
+messaging.requestPermission()
+    .then(function () {
+        console.log('Notification permission granted.');
+        return messaging.getToken()
+    })
+    .then(function (token) {
+        store.state.fcmToken = token;
+        const subscriberCollection = firestore.collection(SUBSCRIBER).where("token", "==", token)
+        return subscriberCollection
+            .get()
+            .then((docSnapshots) => {
+                if (docSnapshots.empty) {
+                    return firestore.collection(SUBSCRIBER).add({
+                        token
+                    })
+                } else {
+                    return null
+                }
+            })
+    })
+    .catch(function (err) {
+		console.log(err)
+        console.log('Unable to get permission to notify.');
+    })
+messaging.onMessage((payload) => {
+    new Notification(payload.notification.title + '\n' + payload.notification.body);
+});
+
 
 firebase.firestore().enablePersistence({experimentalTabSynchronization:true})
   .catch(function(err) {
