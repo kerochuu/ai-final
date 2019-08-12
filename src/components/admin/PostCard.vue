@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "BoardCard",
+  name: "PostCard",
   data() {
     return {
       items: [
