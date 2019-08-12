@@ -20,7 +20,6 @@ const config = {
   messagingSenderId: '207260346726'
 }
 
-
 firebase.initializeApp(config)
 const firestore = firebase.firestore()
 const storageRef = firebase.storage().ref().child('img')
@@ -152,18 +151,19 @@ export default {
 	var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
 	var uid = firebase.auth().currentUser;
 	
-	var cid = comments.doc();
-	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc();
-	alert("cid = " + cid + " , commentId = " + commentId);
+	var cid = comments.doc().id;
+	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).id;
+	// alert("cid = " + cid + " , commentId = " + commentId);
 	let email;
 	let upw;
 	if(uid == null) {
-		alert("게스트!!")
+		// alert("게스트!!")
 		email = "guest";
 		upw = prompt("게스트로 댓글을 작성합니다... \n댓글삭제에 이용 할 비밀번호를 입력해주세요!", "passWord");
 	//	alert(upw + " 비밀번호 등록!");
 	} else {
 		email = uid.email
+		upw = null;
 	}
 
 	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc().id;
