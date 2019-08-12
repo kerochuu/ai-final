@@ -7,7 +7,7 @@
           <img :src="portfolio.img" alt="Portfolio Image" />
         </div>
       </v-flex>
-      <v-flex xs12 lg6 class="information">
+      <v-flex xs12 lg6 class="information" style="padding: 60px;">
         <h1>{{portfolio.title}}</h1>
         <hr style="margin-top:1px;" />
         <br />
@@ -87,7 +87,7 @@
       </v-flex>
 
       <v-flex xs12 text-xs-center round my-5>
-        <v-btn color="info" dark v-on:click="updateProfile">
+        <v-btn color="success" dark v-on:click="updateProfile">
           <v-icon size="25" class="mr-2">fa-plus</v-icon>변경
         </v-btn>
         <v-btn color="red" dark v-on:click="deleteProfile">
@@ -123,74 +123,71 @@ export default {
     },
     isPossible() {
       var userId = FirebaseService.getUserInfo();
-      if(userId == null) {
-        return 'guest';
+      if (userId == null) {
+        return "guest";
       } else {
-        return  userId.email;
+        return userId.email;
       }
     },
     isAdmin() {
       return this.authority;
-    }, 
-     addComment:function() {
+    },
+    addComment: function() {
       const user = FirebaseService.getUserInfo();
       const uid = this.$route.params.uid;
-      
+
       FirebaseService.addComment(this.$route.params.pid, this.comment);
-      this.$router.push('/pass');
+      this.$router.push("/pass");
     },
-    deleteComment:function(cid, pw) {
+    deleteComment: function(cid, pw) {
       alert(cid);
       FirebaseService.deleteComment(this.$route.params.pid, cid, pw);
-      this.$router.push('/pass');
-      
-     // FirebaseService.deleteComment(this.$route.params.);
+      this.$router.push("/pass");
+
+      // FirebaseService.deleteComment(this.$route.params.);
       //this.$router.push('/pass');
     },
-    deleteCommentByAdmin:function(cid) {
+    deleteCommentByAdmin: function(cid) {
       alert(cid);
       FirebaseService.deleteCommentByAdmin(this.$route.params.pid, cid);
-      this.$router.push('/pass');
+      this.$router.push("/pass");
     },
-    updateComment:function(body, cid, pw) {
-      
+    updateComment: function(body, cid, pw) {
       FirebaseService.updateComment(this.$route.params.pid, body, cid, pw);
-      this.$router.push('/pass');
-      
-     // FirebaseService.deleteComment(this.$route.params.);
+      this.$router.push("/pass");
+
+      // FirebaseService.deleteComment(this.$route.params.);
       //this.$router.push('/pass');
     },
-    getUidForId:function(uid) {
+    getUidForId: function(uid) {
       const user = FirebaseService.getUidForId(uid);
       return this.user;
-
     },
     updateProfile: function() {
       const user = FirebaseService.getUserInfo();
       if (user == null) {
-        alert("로그인이 필요합니다.")
-        return
+        alert("로그인이 필요합니다.");
+        return;
       }
-         this.$router.push({
-        name: 'portfolioUpdate', 
+      this.$router.push({
+        name: "portfolioUpdate",
         params: this.$route.params.pid
-      })
-      alert("portfolioUpdate 들어감!")
+      });
+      alert("portfolioUpdate 들어감!");
     },
 
-    
     deleteProfile: function() {
       const user = FirebaseService.getUserInfo();
       if (user == null) {
-        alert("로그인이 필요합니다.")
-        return
+        alert("로그인이 필요합니다.");
+        return;
       }
 
       FirebaseService.deletePost(this.$route.params.pid);
-      alert("삭제완료!")
+      alert("삭제완료!");
       this.$router.push({
-        name: 'portfolio'
-      })
+        name: "portfolio"
+      });
     }
   },
   mounted() {
@@ -201,34 +198,46 @@ export default {
     FirebaseService.getPortfolioComment(this.pid).then(res => {
       this.comments = res;
     });
-
   }
 };
 </script>
 
 <style scoped>
-#portfolioImg {
-  display: block;
-  margin: 10vh 15%;
-  width: 70%;
-  height: 50%;
+h1 {
+  font-size: 30px;
 }
-
-.containerBox {
+​ button {
+  border-radius: 5px;
+}
+.portfolio {
+  background-color: #fff;
+  border: 3px solid #fff;
+  border-radius: 6px;
+  margin: 100px 2rem;
+}
+​ .img-box {
+  display: flex;
+  align-items: center;
+  padding: 40px 10px;
+}
+​ .Content {
+  width: 80%;
+  margin: 0 auto;
+  height: auto;
+}
+.Content img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  /* padding: 20px; */
+}
+​ .containerBox {
   margin: 10vh 10vw 0 10vw;
 }
-
-.information {
+​.information {
   padding: 60px;
 }
-
-.commentInput {
-  display: flex;
-  width: 80%;
-  margin-left: 13%;
-}
-
-#commentInputBtn {
+​#commentInputBtn {
   height: 57px;
   width: 40px;
   margin-top: -1px;
@@ -252,23 +261,30 @@ export default {
 .data_body {
   font-size: 19px;
 }
-
 .userComment {
   margin-bottom: 10px;
   text-align: justify;
   max-width: 100%;
 }
+​.commentInput {
+  display: flex;
+  width: 80%;
+  margin-left: 13%;
+}
+
 @media screen and (min-width: 1904px) {
   .portfolio {
     margin: 100px 15rem;
   }
   .commentInput {
+    display: flex;
     width: 50%;
     margin-left: 20%;
   }
 }
 @media screen and (min-width: 960px) {
   .commentInput {
+    display: flex;
     width: 70%;
     margin-left: 15%;
   }
