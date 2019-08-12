@@ -122,7 +122,7 @@ export default {
 			})
 		  })
 	  },
-	  
+	   
   postPortfolio(title, body, img) {
     var portId = firestore.collection(PORTFOLIOS).doc().id;
     var doc = firestore.collection(PORTFOLIOS).doc(portId);
