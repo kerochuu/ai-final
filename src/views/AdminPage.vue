@@ -71,11 +71,11 @@
       </v-flex>
 
       <v-flex xs12 sm6 class="pb-2">
-        <BoardCard></BoardCard>
+        <PostCard></PostCard>
       </v-flex>
 
       <v-flex xs12 sm6 class="pb-2">
-        <BoardCard></BoardCard>
+        <PortCard></PortCard>
       </v-flex>
     </v-layout>
   </v-container>
@@ -83,7 +83,8 @@
 
 
 <script>
-import BoardCard from '@/components/admin/BoardCard'
+import PostCard from '@/components/admin/PostCard'
+import PortCard from '@/components/admin/PortCard'
 import TrendCard from '@/components/admin/TrendCard'
 import SmallCard from '@/components/admin/SmallCard'
 import FirebaseService from '@/services/FirebaseService'
@@ -91,7 +92,8 @@ import FirebaseService from '@/services/FirebaseService'
 export default {
   name: "AdminPage",
   components: {
-    BoardCard,
+    PostCard,
+    PortCard,
     TrendCard,
     SmallCard
   },
