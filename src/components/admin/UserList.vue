@@ -1,72 +1,66 @@
 <template>
-  <v-layout mt-5 wrap>
-    <v-flex xs12 v-for="i in this.indexs">
-      <User
-        class="ma-3"
-        :number="i"
-        :displayName="users[i - 1].displayName"
-        :email="users[i - 1].email"
-        :photoURL="users[i - 1].photoURL"
-        :phoneNumber="users[i-1].phoneNumber"
-        :authority="users[i-1].authority"
-        :created_at="users[i-1].created_at"
-        :uid="users[i-1].uid"
-      ></User>
-    </v-flex>
-
-    <v-flex xs12 text-xs-center round my-5>
-      <v-btn color="info" dark v-on:click="loadUsers(item, limits)" v-for="item in this.range">
-        {{item}}
+  <v-card height="100%">
+    <v-toolbar color="orange" flat>
+      <v-toolbar-title>최근 게시물</v-toolbar-title>
+      <v-spacer></v-spacer>
+​
+      <v-btn icon>
+        <v-icon>search</v-icon>
       </v-btn>
-    </v-flex>
-  </v-layout>
+    </v-toolbar>
+    <v-list two-line>
+      <template v-for="(item, index) in items">
+​
+        <v-divider v-if="item.divider" :inset="item.inset" :key="index"></v-divider>
+        <v-list-tile v-else :key="item.title" avatar>
+          <v-list-tile-avatar>
+            <img :src="item.avatar" />
+          </v-list-tile-avatar>
+​
+          <v-list-tile-content>
+            <v-list-tile-title v-html="item.title"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </template>
+    </v-list>
+  </v-card>
 </template>
-
+​
 <script>
-import User from "@/components/admin/User";
 import FirebaseService from "@/services/FirebaseService";
 
 export default {
   name: "UserList",
-  props : {
-      limits : { Type : Number , default : 10 }
-  },
   data() {
     return {
       users: [],
-      range: [],
-      indexs: []
+      items: []
     };
-  },
-  components: {
-    User
   },
   mounted() {
     this.getUsers()
         .then(() => {
-            this.loadUsers(1, this.limits)
+            this.loadUsers()
         })
   },
   methods: {
     async getUsers() {
       this.users = await FirebaseService.getAllUserData()
     },
-    loadUsers(num, limit) {
-        this.range = []
-        this.indexs = []
-        const stdNums = []
-        for (let i = 0; i < limit; i++) {
-            stdNums.push(i)
-        }
-        stdNums.forEach((stdNum) => {
-            if (this.users.length - (num - 1) * limit - stdNum > 0) {
-                this.indexs.push(this.users.length - (num - 1) * limit - stdNum)
-            }
+    loadUsers() {
+      const length = this.users.length;
+      for(let i = 0; i < length; i++) {
+        this.items.push({
+          avatar: this.users[i].photoURL,
+          title: this.users[i].displayName,
+          subtitle: this.users[i].email
+        }),
+        this.items.push({
+          divider: true, inset: true
         })
-        const maximum = parseInt(this.users.length / limit) + 1
-        for (let j = 1; j <= maximum; j++) {
-            this.range.push(j)
-        }
+      }
+      this.items.pop()
     }
   }
 };

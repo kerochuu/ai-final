@@ -11,6 +11,7 @@ import PassPage from './views/PassPage.vue'
 import AdminPage from './views/AdminPage.vue'
 import UserDetailPage from './views/UserDetailPage.vue'
 import UserDetailAdminPage from './views/UserDetailAdminPage.vue'
+import UserAdminPage from './views/UserAdminPage.vue'
 
 Vue.use(Router)
 
@@ -73,6 +74,11 @@ export default new Router({
 			path: '/admin/userdetail/:uid',
 			name: 'userDetailAdmin',
 			component: UserDetailAdminPage
+		},
+		{
+			path: '/admin/user',
+			name: 'userAdmin',
+			component: UserAdminPage
 		}
   ]
 })

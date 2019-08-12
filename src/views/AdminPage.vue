@@ -23,8 +23,8 @@
           bText="43 감소"
         ></SmallCard>
       </v-flex>
-
-      <v-flex xs12 sm6 md3 class="pb-2">
+      
+      <v-flex xs12 sm6 md3 class="pb-2" @click='moveUserAdmin'>
         <SmallCard
           title="User"
           :number="usersLength"
@@ -35,7 +35,7 @@
           bText="2명 접속중"
         ></SmallCard>
       </v-flex>
-
+​
       <v-flex xs12 sm6 md3 class="pb-2">
         <SmallCard
           title="Alarm"
@@ -47,7 +47,7 @@
           bText="256 증가"
         ></SmallCard>
       </v-flex>
-
+​
       <v-flex xs12 sm4 class="pb-2">
         <TrendCard
           title="주간 게시물 현황"
@@ -69,19 +69,19 @@
           :gradient="['blue', 'green', 'sky']"
         ></TrendCard>
       </v-flex>
-
+​
       <v-flex xs12 sm6 class="pb-2">
         <PostCard></PostCard>
       </v-flex>
-
+​
       <v-flex xs12 sm6 class="pb-2">
         <PortCard></PortCard>
       </v-flex>
     </v-layout>
   </v-container>
 </template>
-
-
+​
+​
 <script>
 import PostCard from '@/components/admin/PostCard'
 import PortCard from '@/components/admin/PortCard'
@@ -119,6 +119,11 @@ export default {
     .then(res => {
       this.usersLength = res.length
     })
+  },
+  methods: {
+    moveUserAdmin() {
+      this.$router.push('/admin/user')
+    }
   },
   data () {
     return {
