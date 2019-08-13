@@ -1,24 +1,23 @@
 <template>
-  <v-layout row wrap mw-700>
+  <v-layout row wrap>
     <v-flex
-      sm12
-      md6
+      style="width:300px;"
       v-for="i in posts.length > limits ? limits : posts.length"
-      :class="'xs' + 12 / column"
+      :class="'xs' + 12 / column "
       px-3
     >
-      <Post 
-      :date="posts[i - 1].created_at" 
-      :title="posts[i - 1].title" 
-      :body="posts[i - 1].body" 
-      :pid="posts[i-1].pid"
-      />
-
-      <v-divider></v-divider>
+      <div class="postList">
+        <Post
+          :date="posts[i - 1].created_at"
+          :title="posts[i - 1].title"
+          :body="posts[i - 1].body"
+          :pid="posts[i-1].pid"
+        />
+      </div>
     </v-flex>
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
       <v-btn color="info" dark v-on:click="loadMorePosts">
-        <v-icon size="25" class="mr-2">fa-plus</v-icon>더 보기
+        <v-icon size="25" class="mr-2">fa-plus</v-icon>More
       </v-btn>
     </v-flex>
   </v-layout>
@@ -55,9 +54,38 @@ export default {
   }
 };
 </script>
-<style>
-.mw-700 {
-  max-width: 700px;
+<style scoped>
+.postList {
+  width: 80vw;
   margin: auto;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 10px 30px;
+  /* 말줄임 */
+
+  
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+  overflow:hidden;
 }
+.postList:hover {
+  transform: scale(1.2, 1.2);
+}
+/* @media screen and (min-width: 600px) {
+  .postList {
+    width: 500px;
+  }
+}
+@media screen and (min-width: 960px) {
+  .postList {
+    width: 850px;
+  }
+}
+@media screen and (min-width: 1904px) {
+  .postList {
+    width: 1000px;
+  }
+} */
 </style>

@@ -147,7 +147,7 @@ h1{
   background-color: #fff;
 }
 
-@media screen {
+@media screen and (min-width: 600px){
   .portfolioWrite{
     margin: 100px 5rem;
   }
