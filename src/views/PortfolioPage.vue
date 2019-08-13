@@ -33,32 +33,17 @@ export default {
     }
   },
   methods: {
-<<<<<<< HEAD
     isGuest() {
       return this.authority;
-=======
-    guestOrUser() {
-      var user = getUserInfo();
-      if (user == null) {
-        return false;
-      } else {
-        return true;
-      }
->>>>>>> origin/portfoiloCard
     },
     movePortfolioWriter() {
       this.$router.push("/portfoliowrite");
     }
   },
-<<<<<<< HEAD
-
-   data() {
-=======
   props: {
     authority: { type: String }
   },
   data() {
->>>>>>> origin/portfoiloCard
     return {
       user: {}
     };
