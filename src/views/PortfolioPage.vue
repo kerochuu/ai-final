@@ -1,32 +1,31 @@
+<!--navbar를 통해 들어간 portfolioPage-->
 <template>
   <div id="Portfolio">
     <v-container>
       <div>
         <h1 style="text-align:center; font-size:8vh;">Portfolio Page</h1>
       </div>
+      <v-btn v-if="'Anonymous' != isGuest()" class="writeBtn" color="info" @click="movePortfolioWriter">
+        <v-icon dark>edit</v-icon>
+      </v-btn>
       <!-- Portfolio -->
       <v-layout>
         <v-flex xs12>
-          <PortfolioList :limits="4" :load-more="true"></PortfolioList>
+          <PortfolioCard :limits="4" :load-more="true"></PortfolioCard>
         </v-flex>
       </v-layout>
-       <v-btn v-if="'Anonymous' != isGuest()" class="mx-2" style="margin:0%, 5%, 0%, 80%;" color="info" fab dark small @click="movePortfolioWriter">
-                <v-icon dark>edit</v-icon>
-       </v-btn>
-
-      
     </v-container>
   </div>
 </template>
 
 <script>
-import PortfolioList from "../components/PortfolioList";
+import PortfolioCard from "../components/PortfolioCard";
 import FirebaseService from "../services/FirebaseService";
 
 export default {
   name: "PortfolioPage",
   components: {
-    PortfolioList
+    PortfolioCard
   },
   props: {
     authority: {
@@ -34,21 +33,37 @@ export default {
     }
   },
   methods: {
+<<<<<<< HEAD
     isGuest() {
       return this.authority;
+=======
+    guestOrUser() {
+      var user = getUserInfo();
+      if (user == null) {
+        return false;
+      } else {
+        return true;
+      }
+>>>>>>> origin/portfoiloCard
     },
-    movePortfolioWriter(){
-      this.$router.push('/portfoliowrite');
+    movePortfolioWriter() {
+      this.$router.push("/portfoliowrite");
     }
   },
+<<<<<<< HEAD
 
    data() {
+=======
+  props: {
+    authority: { type: String }
+  },
+  data() {
+>>>>>>> origin/portfoiloCard
     return {
-      user:{}
+      user: {}
     };
   },
   mounted() {
-   
     FirebaseService.getInfo().then(res => {
       this.user = res;
       alert("user!! = " + user);
@@ -58,7 +73,12 @@ export default {
 </script>
 
 <style>
-#Portfolio{
+#Portfolio {
   margin: 100px 0px;
+}
+.writeBtn {
+  float: right;
+  border-radius: 10px;
+  width: 20px;
 }
 </style>
