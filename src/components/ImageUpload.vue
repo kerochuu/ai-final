@@ -81,6 +81,7 @@ export default {
       this.randomImage = false;
     },
     randomImageUpload() {
+      alert("!?!?!?!?!?!?!?!?!??!?!?!?!?!?!?!?!?!?!");
       const axios = require("axios");
       const instance = axios
         .get(

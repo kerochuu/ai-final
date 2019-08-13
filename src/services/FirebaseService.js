@@ -98,6 +98,7 @@ export default {
 	postPost(title, body) {
 		var postId = firestore.collection(POSTS).doc().id;
 		var doc = firestore.collection(POSTS).doc(postId);
+		alert(postId + " , " + doc);
 		return doc.set({
 		  postId: postId,
 		  viewCount: 0,
@@ -230,6 +231,7 @@ export default {
   	postPortfolio(title, body, img) {
 		var portId = firestore.collection(PORTFOLIOS).doc().id;
 		var doc = firestore.collection(PORTFOLIOS).doc(portId);
+		alert(portId + " , " + doc);
 		return doc.set({
 			portId: portId,
 			viewCount: 0,

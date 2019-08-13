@@ -51,7 +51,8 @@ export default {
       type: String
     },
     img: {
-      type: String
+      type: String,
+      default: ""
     },
     authority: {
       type: String,
@@ -75,6 +76,8 @@ export default {
   methods: {
     async postPortfolios() {
       //this.img = await this.$refs.imgUpload.imageUpload();
+      this.img = await this.$refs.imgUpload.imageUpload();
+      alert(this.img);
       FirebaseService.postPortfolio(this.title, this.body, this.img).then(
         () => {
           this.$router.push({
@@ -99,8 +102,10 @@ export default {
         console.log(res)
         this.title = res[0].title;
         this.body = res[0].body;
-        this.img = res[0].img;
         this.pid = res[0].portId;
+        if(this.pid != null) {
+          this.img = res[0].img;
+        }
       })
     },
     // handleFileUpload(img) {
