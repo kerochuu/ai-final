@@ -115,17 +115,32 @@ export default {
 					return self.registration.showNotification(notificationTitle, notificationOptions);
 				})
 			})
-
-		return firestore.collection(POSTS).add({
-			title,
-			body,
-			created_at: firebase.firestore.FieldValue.serverTimestamp()
-		})
 	},
+	updatePost(title, body, postId) {
+		alert("updatePost 들어왔음")
+		var doc = firestore.collection(POSTS).doc(postId);
+		return doc.set({
+		  postId: postId,
+		  viewCount: 0,
+		  title,
+		  body,
+		  created_at: firebase.firestore.FieldValue.serverTimestamp(),
+		  uid: firebase.auth().currentUser.email,
+		})
+			.then(() => {
+				messaging.onMessage(payload => {
+					var notificationTitle = 'Background Message Title';
+					var notificationOptions = {
+						body: 'Background Message body.'
+					};
+					return self.registration.showNotification(notificationTitle, notificationOptions);
+				})
+			})
+	},
+	
 	deletePost(pid) {
 		return firestore.collection(PORTFOLIOS).doc(pid).delete();
 	},
-	
 	getPortfolios() {
 		const postsCollection = firestore.collection(PORTFOLIOS)
 		var getOption;
@@ -198,8 +213,8 @@ export default {
 			  return data
 			})
 		  })
-	  },
-	  getPostComment(pid) {
+	},
+	getPostComment(pid) {
 		const comments = firestore.collection(POSTS).doc(pid).collection(COMMENTS);
 		return comments
 		  .orderBy('created_at', 'desc')
@@ -211,19 +226,19 @@ export default {
 			  return data
 			})
 		  })
-	  },
-  postPortfolio(title, body, img) {
-    var portId = firestore.collection(PORTFOLIOS).doc().id;
-	var doc = firestore.collection(PORTFOLIOS).doc(portId);
-    return doc.set({
-      portId: portId,
-      viewCount: 0,
-      title,
-      body,
-      img,
-      created_at: firebase.firestore.FieldValue.serverTimestamp(),
-      uid: firebase.auth().currentUser.email,
-	})
+	},
+  	postPortfolio(title, body, img) {
+		var portId = firestore.collection(PORTFOLIOS).doc().id;
+		var doc = firestore.collection(PORTFOLIOS).doc(portId);
+		return doc.set({
+			portId: portId,
+			viewCount: 0,
+			title,
+			body,
+			img,
+			created_at: firebase.firestore.FieldValue.serverTimestamp(),
+			uid: firebase.auth().currentUser.email,
+		})
 		.then(() => {
 			messaging.onMessage(payload => {
 				var notificationTitle = 'Background Message Title';
@@ -233,18 +248,41 @@ export default {
 				return self.registration.showNotification(notificationTitle, notificationOptions);
 			})
 		})
-  },
+	  },
+	  
+	  updatePortfolio(title, body, img, portId) {
+		var doc = firestore.collection(PORTFOLIOS).doc(portId);
+		return doc.set({
+			portId: portId,
+			viewCount: 0,
+			title,
+			body,
+			img,
+			created_at: firebase.firestore.FieldValue.serverTimestamp(),
+			uid: firebase.auth().currentUser.email,
+		})
+		.then(() => {
+			messaging.onMessage(payload => {
+				var notificationTitle = 'Background Message Title';
+				var notificationOptions = {
+					body: 'Background Message body.'
+				};
+				return self.registration.showNotification(notificationTitle, notificationOptions);
+			})
+		})
+  	},
 
-  addComment(pid, body) {
-	var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
-	var uid = firebase.auth().currentUser;
-	
-	var cid = comments.doc().id;
-	var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).id;
-	// alert("cid = " + cid + " , commentId = " + commentId);
-	let email;
-	let upw;
-	if(uid == null) {
+
+  	addComment(pid, body) {
+		var comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
+		var uid = firebase.auth().currentUser;
+		
+		var cid = comments.doc().id;
+		var commentId = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).id;
+		// alert("cid = " + cid + " , commentId = " + commentId);
+		let email;
+		let upw;
+		if(uid == null) {
 		// alert("게스트!!")
 		email = "guest";
 		upw = prompt("게스트로 댓글을 작성합니다... \n댓글삭제에 이용 할 비밀번호를 입력해주세요!", "passWord");
