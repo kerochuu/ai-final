@@ -4,7 +4,10 @@
       <v-flex row>
         <!-- 글쓴이, 작성일  추가-->
         <!-- <div class="caption">{{formatedDate}}</div> -->
-        <h2 id="title" class="color-333 headline font-weight-light">{{title}}</h2>
+
+          <h2 class="title">{{title}}</h2>
+          <p class="date">{{formatedDate}}</p>
+
         <!-- <p id="content" class="mb-1 color-666 font-weight-light subheading">{{body}}</p> -->
       </v-flex>
     </v-layout>
@@ -37,19 +40,17 @@ export default {
 .h-100 {
   height: 100%;
 }
-#title {
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 200px;
+.date{
+  display: inline;
+  float: right;
 }
-#content {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.title {
+  display: inline;
+  font-weight: 700;
+}
+a {
+  text-decoration: none;
+  color: #333;
 }
 </style>
 

@@ -7,15 +7,14 @@
         <hr style="margin-top:1px;" />
         <br />
         <p>{{post.created_at}}</p>
-        <p id="contents" style="text-align: justify;">{{post.body}}</p>
+        <p class="contents" style="text-align: justify;">{{post.body}}</p>
       </v-flex>
 
       <!-- comments -->
-      <v-flex xs12>
-        <hr style="margin-bottom: 40px;" />
+      <v-flex xs12 lg6 class="comments">
         <h1 style="text-align:center; margin-bottom: 20px; font-size:26px;">Write what you think</h1>
         <div class="commentInput">
-          <v-text-field label="comment" placeholder="input comment" outline v-model="comment"></v-text-field>
+          <v-text-field label="comment" outline v-model="comment"></v-text-field>
           <v-btn id="commentInputBtn" color="info" dark v-on:click="addComment">
             <v-icon size="25">fa-plus</v-icon>
           </v-btn>
@@ -78,7 +77,6 @@
             </div>
           </v-flex>
         </div>
-        <hr style="background:#D9D9D9; height:0.4px; border-height:0.3px; border-width:0.3px;" />
       </v-flex>
 
       <v-flex v-if="'Anonymous' != isGuest()" xs12 text-xs-center round my-5>
@@ -246,8 +244,8 @@ h1 {
 .commentInfo {
   display: inline-block;
 }
-#contents {
-  font-size: 16px;
+.contents {
+  font-size: 20px;
   font-weight: border;
 }
 .data_uid {
@@ -263,25 +261,31 @@ h1 {
   text-align: justify;
   max-width: 100%;
 }
-​.commentInput {
-  display: flex;
-  width: 80%;
-  margin-left: 13%;
-}
 
+.comments{
+  padding: 20px 10px;
+}
+​.commentInput {
+  display: inline-block;
+  width: 80%;
+}
 @media screen and (min-width: 1904px) {
   .post {
     margin: 100px 15rem;
   }
   .commentInput {
-    display: flex;
     width: 50%;
     margin-left: 20%;
   }
 }
+@media screen and (min-width: 1264px){
+  .commentInput{
+    width: 60%;
+    margin-left: 18%;
+  }
+}
 @media screen and (min-width: 960px) {
   .commentInput {
-    display: flex;
     width: 70%;
     margin-left: 15%;
   }

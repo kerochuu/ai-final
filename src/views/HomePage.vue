@@ -97,7 +97,8 @@ export default {
 h2 {
   font-size: 43px !important;
   font-family: "Montserrat", sans-serif !important;
-  font-weight: 700;
+  font-weight: 1000;
+  text-shadow: 4px 4px #069BE5;
 }
 #aboutUs {
   padding: 50px;

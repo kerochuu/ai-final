@@ -1,7 +1,6 @@
 <template>
   <v-layout row wrap>
     <v-flex
-      style="width:300px;"
       v-for="i in posts.length > limits ? limits : posts.length"
       :class="'xs' + 12 / column "
       px-3
@@ -55,20 +54,13 @@ export default {
 };
 </script>
 <style scoped>
+
 .postList {
-  width: 80vw;
-  margin: auto;
+
   background-color: #f0f0f0;
   border-radius: 5px;
   margin-top: 20px;
   padding: 10px 30px;
-  /* 말줄임 */
-
-  
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  word-wrap: normal;
-  overflow:hidden;
 }
 .postList:hover {
   transform: scale(1.2, 1.2);

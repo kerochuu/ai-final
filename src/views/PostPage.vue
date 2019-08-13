@@ -1,37 +1,31 @@
 <template>
-<div class="postPage">
-  <div>
-    
-  </div>
-</div>
-
-  <div style="margin: 100px 0px;">
-    <v-container>
-      <div>
-        <h1 style="text-align:center; font-size:8vh;">Post Page</h1>
-      </div>
-
-      <v-flex xs12 text-xs-center>
+  <v-container wrap row class="postPage">
+    <v-layout>
+      <v-flex xs12>
+        <h1 style="font-size:8vh; text-align:center;">Post Page</h1>
+      </v-flex>
+    </v-layout>
+    <v-layout>
+      <v-flex xs12>
         <v-btn
           v-if="'Anonymous' != isGuest()"
           class="postWriteBtn"
           color="success"
           fab
           dark
-          small
+          big
           @click="movePostWriter"
         >
           <v-icon dark>edit</v-icon>
         </v-btn>
       </v-flex>
-      <!-- Post -->
-      <v-layout>
-        <v-flex sm12>
-          <PostList :limits="4" :load-more="true"></PostList>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </div>
+    </v-layout>
+    <v-layout>
+      <v-flex xs12 class="posts">
+        <PostList :limits="4" :load-more="true"></PostList>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -57,35 +51,36 @@ export default {
     return {
       user: {}
     };
-  },
-  mounted() {
-    FirebaseService.getInfo().then(res => {
-      this.user = res;
-      alert(user);
-    });
   }
 };
 </script>
 
 <style scoped>
-.postPage{
+.postWriteBtn {
+  float: right;
+  margin: 20px 0;
+}
+.postPage {
   margin: 100px 20px;
 }
-@media screen and (min-width: 600px){
-  .postPage{
+/* .postPage posts{
+  width: 80%;
+} */
+@media screen and (min-width: 600px) {
+  .postPage {
     margin: 100px 40px;
   }
 }
 
-@media screen and (min-width: 960px){
-  .postPage{
+@media screen and (min-width: 960px) {
+  .postPage {
     margin: 100px 100px;
   }
 }
 
-@media screen and (min-width: 1264px){
-  .postPage{
-    margin: 100px 200px; 
+@media screen and (min-width: 1264px) {
+  .postPage {
+    margin: 100px 300px;
   }
 }
 </style>

@@ -31,9 +31,9 @@ export default {
 #google_translate_element {
   font-weight: bold;
   border-radius: 5px;
-  border: 5px solid #039BE5;
+  border: 5px solid #5CA3D4;
   padding: 5px;
-  background-color: #039BE5;
+  background-color: #5CA3D4;
   font-weight: bold;
   font-size:1.2rem;
   color: #f0f0f0;

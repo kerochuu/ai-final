@@ -2,10 +2,6 @@
   <v-card id="portfolioCard">
     <router-link :to="{name:'portfolioDetail', params: {pid} }">
       <v-img :src="imgSrc" height="200px">
-        <p class="portfolioTitle">
-        {{title}}
-        </p>
-        <p onmouseover="hovert()" onmouseout="hoverf()" v-if="showTitle" class="portfoiloTitle">{{title}}</p> 
       </v-img>
     </router-link>
   </v-card>

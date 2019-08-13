@@ -113,8 +113,7 @@ export default {
 }
 
 .swiper-slide > div:hover {
-
-  /* filter: brightness(30%); */
+  filter: brightness(30%);
 } 
 #portfoiloCard {
   width: 200px;
