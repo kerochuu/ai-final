@@ -1,3 +1,4 @@
+<!--portfoiloList: 홈페이지에서 보여줄 포트폴리오 슬라이드-->
 <template>
   <md-card>
     <md-card-media>
@@ -112,8 +113,9 @@ export default {
 }
 
 .swiper-slide > div:hover {
-  filter: brightness(30%);
-}
+
+  /* filter: brightness(30%); */
+} 
 #portfoiloCard {
   width: 200px;
 }

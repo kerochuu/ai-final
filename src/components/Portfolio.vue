@@ -2,19 +2,12 @@
   <v-card id="portfolioCard">
     <router-link :to="{name:'portfolioDetail', params: {pid} }">
       <v-img :src="imgSrc" height="200px">
+        <p class="portfolioTitle">
+        {{title}}
+        </p>
         <p onmouseover="hovert()" onmouseout="hoverf()" v-if="showTitle" class="portfoiloTitle">{{title}}</p> 
       </v-img>
     </router-link>
-
-    <!-- <v-card-title primary-title>
-      <div id="contents">
-        <div id="title" class="headline">{{title}}</div>
-        <span id="content" class="grey--text">{{body}}</span>
-      </div>
-      <div id="hoverContents">
-        <button>자세히보려면 이미지를 클릭하세요.</button>
-      </div>
-    </v-card-title> -->
   </v-card>
 </template>
 
@@ -50,8 +43,8 @@ export default {
   border: 3px solid #F2ECE5;
 }
 
-.portfoiloTitle {
-  display: block;
+.portfolioTitle {
+  visibility: visible;
   text-align: center;
   align-items: center;
   font-family: "Montserrat", sans-serif !important;
@@ -61,8 +54,8 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.portfoiloTitle:hover{
-  display: block !important;
+.portfolioTitle:hover {
+  visibility: visible;
   font-family: "Montserrat", sans-serif;
   font-weight: bold;
   text-align: center;
