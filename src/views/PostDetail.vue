@@ -1,18 +1,13 @@
 <template>
   <v-container>
-    <v-layout class="portfolio" wrap row>
-      <!-- photo and contents -->
-      <v-flex xs12 lg6 class="img-box">
-        <div class="Content">
-          <img :src="portfolio.img" alt="Portfolio Image" />
-        </div>
-      </v-flex>
+    <v-layout class="post" wrap row>
+      
       <v-flex xs12 lg6 class="information" style="padding: 60px;">
-        <h1>{{portfolio.title}}</h1>
+        <h1>{{post.title}}</h1>
         <hr style="margin-top:1px;" />
         <br />
-        <p>{{portfolio.created_at}}</p>
-        <p id="contents" style="text-align: justify;">{{portfolio.body}}</p>
+        <p>{{post.created_at}}</p>
+        <p id="contents" style="text-align: justify;">{{post.body}}</p>
       </v-flex>
 
       <!-- comments -->
@@ -87,10 +82,10 @@
       </v-flex>
 
       <v-flex v-if="'Anonymous' != isGuest()" xs12 text-xs-center round my-5>
-        <v-btn color="success" dark v-on:click="updateProfile">
+        <v-btn color="success" dark v-on:click="updatePost">
           <v-icon size="25" class="mr-2">fa-plus</v-icon>변경
         </v-btn>
-        <v-btn color="red" dark v-on:click="deleteProfile">
+        <v-btn color="red" dark v-on:click="deletePost">
           <v-icon size="25" class="mr-2">fa-minus</v-icon>삭제
         </v-btn>
       </v-flex>
@@ -101,7 +96,7 @@
 <script>
 import FirebaseService from "@/services/FirebaseService";
 export default {
-  name: "PortfolioDetail",
+  name: "PostDetail",
   props: {
     comment: {
       type: String
@@ -112,7 +107,7 @@ export default {
   },
   data() {
     return {
-      portfolio: {},
+      post: {},
       comments: []
     };
   },
@@ -139,12 +134,12 @@ export default {
       const user = FirebaseService.getUserInfo();
       const uid = this.$route.params.uid;
 
-      FirebaseService.addComment(this.$route.params.pid, this.comment);
+      FirebaseService.addPostComment(this.$route.params.pid, this.comment);
       this.$router.push("/pass");
     },
     deleteComment: function(cid, pw) {
       alert(cid);
-      FirebaseService.deleteComment(this.$route.params.pid, cid, pw);
+      FirebaseService.deletePostComment(this.$route.params.pid, cid, pw);
       this.$router.push("/pass");
 
       // FirebaseService.deleteComment(this.$route.params.);
@@ -152,11 +147,11 @@ export default {
     },
     deleteCommentByAdmin: function(cid) {
       alert(cid);
-      FirebaseService.deleteCommentByAdmin(this.$route.params.pid, cid);
+      FirebaseService.deletePostCommentByAdmin(this.$route.params.pid, cid);
       this.$router.push("/pass");
     },
     updateComment: function(body, cid, pw) {
-      FirebaseService.updateComment(this.$route.params.pid, body, cid, pw);
+      FirebaseService.updatePostComment(this.$route.params.pid, body, cid, pw);
       this.$router.push("/pass");
 
       // FirebaseService.deleteComment(this.$route.params.);
@@ -166,19 +161,19 @@ export default {
       const user = FirebaseService.getUidForId(uid);
       return this.user;
     },
-    updateProfile: function() {
+    updatePost: function() {
       const user = FirebaseService.getUserInfo();
       if (user == null) {
         alert("로그인이 필요합니다.");
         return;
       }
       this.$router.push({
-        name: "portfolioUpdate",
+        name: "postUpdate",
         params: this.$route.params.pid
       });
     },
 
-    deleteProfile: function() {
+    deletePost: function() {
       const user = FirebaseService.getUserInfo();
       if (user == null) {
         alert("로그인이 필요합니다.");
@@ -188,16 +183,16 @@ export default {
       FirebaseService.deletePost(this.$route.params.pid);
       alert("삭제완료!");
       this.$router.push({
-        name: "portfolio"
+        name: "post"
       });
     }
   },
   mounted() {
     this.getInfo();
-    FirebaseService.getPortfolioById(this.pid).then(res => {
-      this.portfolio = res[0];
+    FirebaseService.getPostById(this.pid).then(res => {
+      this.post = res[0];
     });
-    FirebaseService.getPortfolioComment(this.pid).then(res => {
+    FirebaseService.getPostComment(this.pid).then(res => {
       this.comments = res;
     });
   }
@@ -211,7 +206,7 @@ h1 {
 ​ button {
   border-radius: 5px;
 }
-.portfolio {
+.post {
   background-color: #fff;
   border: 3px solid #fff;
   border-radius: 6px;
@@ -275,7 +270,7 @@ h1 {
 }
 
 @media screen and (min-width: 1904px) {
-  .portfolio {
+  .post {
     margin: 100px 15rem;
   }
   .commentInput {

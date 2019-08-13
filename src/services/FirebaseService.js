@@ -87,12 +87,35 @@ export default {
 			.then((docSnapshots) => {
 				return docSnapshots.docs.map((doc) => {
 					let data = doc.data()
+
+					data.pid = doc.id
 					data.created_at = new Date(data.created_at.toDate())
-					return data  
-				})
+					return data
+				})	
 			})
+		
 	},
 	postPost(title, body) {
+		var postId = firestore.collection(POSTS).doc().id;
+		var doc = firestore.collection(POSTS).doc(postId);
+		return doc.set({
+		  postId: postId,
+		  viewCount: 0,
+		  title,
+		  body,
+		  created_at: firebase.firestore.FieldValue.serverTimestamp(),
+		  uid: firebase.auth().currentUser.email,
+		})
+			.then(() => {
+				messaging.onMessage(payload => {
+					var notificationTitle = 'Background Message Title';
+					var notificationOptions = {
+						body: 'Background Message body.'
+					};
+					return self.registration.showNotification(notificationTitle, notificationOptions);
+				})
+			})
+
 		return firestore.collection(POSTS).add({
 			title,
 			body,
@@ -143,6 +166,26 @@ export default {
 				})
 			})
 	},
+	getPostById(id) {
+		const postsCollection = firestore.collection(POSTS)
+		var getOption;
+		if(navigator.onLine == false){
+			getOption = {source: 'cache'};
+		}
+		// console.log(getOption);
+
+		return postsCollection
+			.where(firebase.firestore.FieldPath.documentId(), '==', id)
+			.get(getOption)
+			.then((docSnapshots) => {
+				return docSnapshots.docs.map((doc) => {
+					let data = doc.data()
+					data.created_at = new Date(data.created_at.toDate())
+					data.id = doc.id
+					return data
+				})
+			})
+	},
 	getPortfolioComment(pid) {
 		const comments = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS);
 		return comments
@@ -156,10 +199,22 @@ export default {
 			})
 		  })
 	  },
-	   
+	  getPostComment(pid) {
+		const comments = firestore.collection(POSTS).doc(pid).collection(COMMENTS);
+		return comments
+		  .orderBy('created_at', 'desc')
+		  .get()
+		  .then((docSanpshots) => {
+			return docSanpshots.docs.map((doc) => {
+			  let data = doc.data()
+			  data.created_at = new Date(data.created_at.toDate())
+			  return data
+			})
+		  })
+	  },
   postPortfolio(title, body, img) {
     var portId = firestore.collection(PORTFOLIOS).doc().id;
-    var doc = firestore.collection(PORTFOLIOS).doc(portId);
+	var doc = firestore.collection(PORTFOLIOS).doc(portId);
     return doc.set({
       portId: portId,
       viewCount: 0,
@@ -210,9 +265,70 @@ export default {
 	})
 	
   },
+  addPostComment(pid, body) {
+	var comments = firestore.collection(POSTS).doc(pid).collection(COMMENTS);
+	var uid = firebase.auth().currentUser;
+	
+	var cid = comments.doc().id;
+	var commentId = firestore.collection(POSTS).doc(pid).collection(COMMENTS).id;
+	// alert("cid = " + cid + " , commentId = " + commentId);
+	let email;
+	let upw;
+	if(uid == null) {
+		// alert("게스트!!")
+		email = "guest";
+		upw = prompt("게스트로 댓글을 작성합니다... \n댓글삭제에 이용 할 비밀번호를 입력해주세요!", "passWord");
+	//	alert(upw + " 비밀번호 등록!");
+	} else {
+		email = uid.email
+		upw = null;
+	}
+
+	var commentId = firestore.collection(POSTS).doc(pid).collection(COMMENTS).doc().id;
+	var comment = firestore.collection(POSTS).doc(pid).collection(COMMENTS).doc(commentId);
+	return comment.set({
+		commentId: commentId,
+		body: body,
+		uid: email,
+		created_at: new Date(),
+		password: upw
+	})
+	
+  },
   updateComment(pid, body, cid, pw) {
 	var uid = firebase.auth().currentUser;
 	var comment = firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc(cid);
+	let email;   
+	let upw = null;
+	
+	if(uid == null) {
+		email = "guest";
+	//	alert("원래 비밀번호 -> " + pw);
+		upw = prompt("비밀번호를 입력해주세요!", "passWord");
+		if(pw == upw) {
+			// alert(email+" 댓글수정!");
+			var newBody = prompt("새로운 내용을 입력하세요!", body);
+			var newUpw = prompt("새로운 비밀번호를 입력하세요!", upw);
+			return comment.update({
+				body:newBody,
+				password:newUpw
+			});
+			
+		} else {
+			alert("비밀번호가 일치하지 않습니다!!");
+		}
+	} else {
+		email = uid.email;
+		// alert(email+" 회원 댓글수정!");
+		var newBody = prompt("새로운 내용을 입력하세요!", body);
+		return comment.update({
+			body:newBody
+		});
+	}
+  },
+  updatePostComment(pid, body, cid, pw) {
+	var uid = firebase.auth().currentUser;
+	var comment = firestore.collection(POSTS).doc(pid).collection(COMMENTS).doc(cid);
 	let email;   
 	let upw = null;
 	
@@ -262,10 +378,37 @@ export default {
 		return firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc(cid).delete();
 	}
   },
+  deletePostComment(pid, cid, pw) { 
+	// alert("pid = " + pid + "  cid = " + cid);
+	var uid = firebase.auth().currentUser;
+	let email;
+	let upw;
+	if(uid == null) {
+		email = "guest";
+		// alert("원래 비밀번호 -> " + pw);
+		upw = prompt("비밀번호를 입력해주세요!", "passWord");
+		if(pw == upw) {
+			alert(email+" 댓글삭제!")
+			return firestore.collection(POSTS).doc(pid).collection(COMMENTS).doc(cid).delete();
+		} else {
+			alert("비밀번호가 일치하지 않습니다!!")
+		}
+	} else {
+		email = uid.email;
+		alert(email+" 회원 댓글삭제!")
+		return firestore.collection(POSTS).doc(pid).collection(COMMENTS).doc(cid).delete();
+	}
+  },
   deleteCommentByAdmin(pid, cid) { 
 	//alert("pid = " + pid + "  cid = " + cid);
 	//alert("댓글삭제!");
 	return firestore.collection(PORTFOLIOS).doc(pid).collection(COMMENTS).doc(cid).delete();
+	
+  },
+  deletePostCommentByAdmin(pid, cid) { 
+	//alert("pid = " + pid + "  cid = " + cid);
+	//alert("댓글삭제!");
+	return firestore.collection(POSTS).doc(pid).collection(COMMENTS).doc(cid).delete();
 	
   },
 	loginWithGoogle() {

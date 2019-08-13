@@ -2,11 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from './views/HomePage.vue'
 import PostPage from './views/PostPage.vue'
+import PostWriterPage from './views/PostWriterPage.vue'
 import PortfolioPage from './views/PortfolioPage.vue'
 import PortfolioWriterPage from './views/PortfolioWriterPage.vue'
 import PortfolioUpdatePage from './views/PortfolioWriterPage.vue'
+import PostUpdatePage from './views/PostWriterPage.vue'
 import SignUpPage from './views/SignUpPage.vue'
 import PortfolioDetail from './views/PortfolioDetail.vue'
+import PostDetail from './views/PostDetail.vue'
 import PassPage from './views/PassPage.vue'
 import AdminPage from './views/AdminPage.vue'
 import UserDetailPage from './views/UserDetailPage.vue'
@@ -30,6 +33,11 @@ export default new Router({
 			component: PostPage
 		},
 		{
+			path: '/postwrite',
+			name: 'postwrite',
+			component: PostWriterPage
+		},
+		{
 			path: '/portfolio',
 			name: 'portfolio',
 			component: PortfolioPage
@@ -44,11 +52,21 @@ export default new Router({
 			name:'portfolioUpdate',
 			component: PortfolioUpdatePage
 		},
+		{
+			path:'/postUpdate/:pid',
+			name:'postUpdate',
+			component: PostUpdatePage
+		},
 		
 		{
 			path:'/portfolioDetail/:pid',
 			name: 'portfolioDetail',
 			component: PortfolioDetail
+		},
+		{
+			path:'/postDetail/:pid',
+			name: 'postDetail',
+			component: PostDetail
 		},
 		{
 			path: '/signup',

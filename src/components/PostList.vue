@@ -7,7 +7,13 @@
       :class="'xs' + 12 / column"
       px-3
     >
-      <Post :date="posts[i - 1].created_at" :title="posts[i - 1].title" :body="posts[i - 1].body"></Post>
+      <Post 
+      :date="posts[i - 1].created_at" 
+      :title="posts[i - 1].title" 
+      :body="posts[i - 1].body" 
+      :pid="posts[i-1].pid"
+      />
+
       <v-divider></v-divider>
     </v-flex>
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
@@ -25,7 +31,7 @@ export default {
   name: "PostList",
   props: {
     column: { type: Number, default: 1 },
-    limits: { type: Number, default: 4 },
+    limits: { type: Number, default: 3 },
     loadMore: { type: Boolean, default: false }
   },
   data() {

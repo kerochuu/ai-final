@@ -1,11 +1,14 @@
 <template>
+<router-link :to="{name:'postDetail', params: {pid} }">
   <v-layout py-4 h-100>
+    
     <v-flex row>
       <div class="caption">{{formatedDate}}</div>
       <h2 id="title" class="color-333 headline font-weight-light">{{title}}</h2>
       <p id="content" class="mb-1 color-666 font-weight-light subheading">{{body}}</p>
     </v-flex>
   </v-layout>
+</router-link>
 </template>
 
 <script>
@@ -14,7 +17,8 @@ export default {
 	props: {
 		date: {type: Date},
 		title: {type: String},
-		body: {type: String}
+    body: {type: String},
+    pid: { type: String }
 	},
   computed: {
 		formatedDate() {

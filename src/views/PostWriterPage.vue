@@ -1,17 +1,17 @@
 <template>
   <v-container>
-    <v-layout class="portfolioWrite" wrap row>
+    <v-layout class="postWrite" wrap row>
       <v-flex xs12>
-        <h1>Write Your Portfolio</h1>
+        <h1>Write Your Post</h1>
       </v-flex>
 
-          <v-flex xs12 class="portfolioCard">
-            <v-text-field label="Portfolio title" outline v-model="title"></v-text-field>
+          <v-flex xs12 class="postCard">
+            <v-text-field label="Post title" outline v-model="title"></v-text-field>
             <v-textarea
               auto-grow="true"
               outline
-              name="Portfolio Description"
-              label="Portfolio Description"
+              name="Post Description"
+              label="Post Description"
               v-model="body"
               @input="update"
             ></v-textarea>
@@ -19,13 +19,11 @@
 
         <v-flex xs12>
           <div v-html="compiledMarkdown"></div>
-          <ImageUpload ref="imgUpload" />
-          <img v-if="this.img != null" id="preview" :src="this.img" height="200px">원본이미지</img>
         </v-flex>
                
 
       <v-flex xs12 text-xs-center round my-5>
-        <v-btn color="info" dark v-on:click="postPortfolios">
+        <v-btn color="info" dark v-on:click="postPosts">
           <v-icon size="25" class="mr-2">fa-plus</v-icon>Upload
         </v-btn>
       </v-flex>
@@ -34,20 +32,16 @@
 </template>
 
 <script>
-import ImageUpload from "@/components/ImageUpload";
 import FirebaseService from "@/services/FirebaseService";
 import ImgBanner from "../components/ImgBanner";
 import { Stats } from "fs";
 export default {
-  name: "PortfolioWrite",
+  name: "PostWrite",
   props: {
     title: {
       type: String
     },
     body: {
-      type: String
-    },
-    img: {
       type: String
     },
     authority: {
@@ -56,7 +50,6 @@ export default {
     }
   },
   components: {
-    ImageUpload,
     ImgBanner
   },
   data() {
@@ -67,25 +60,23 @@ export default {
     };
   },
   methods: {
-    async postPortfolios() {
-      //this.img = await this.$refs.imgUpload.imageUpload();
-      FirebaseService.postPortfolio(this.title, this.body, this.img).then(
+    async postPosts() {
+      FirebaseService.postPost(this.title, this.body).then(
         () => {
           this.$router.push({
-            name: "portfolio"
+            name: "post"
           });
         }
       );
     },
-    async getInfo() {
-      await FirebaseService.getPortfolioById(this.$route.params.pid)
-      .then(res => {
-        console.log(res)
-        this.title = res[0].title;
-        this.body = res[0].body;
-        this.img = res[0].img;
-      })
-    },
+    // async getInfo() {
+    //   await FirebaseService.getPortfolioById(this.$route.params.pid)
+    //   .then(res => {
+    //     console.log(res)
+    //     this.title = res[0].title;
+    //     this.body = res[0].body;
+    //   })
+    // },
     // handleFileUpload(img) {
     //   alert("!!!!!!!!");
     //   this.file = img;
@@ -123,7 +114,7 @@ h1{
   text-align: center;
   margin: 25px 10px;
 }
-.portfolioWrite {
+.postWrite {
   border: 3px solid #fff;
   border-radius: 6px;
   margin: 100px 15rem;
@@ -131,35 +122,35 @@ h1{
 }
 
 @media screen {
-  .portfolioWrite{
+  .postWrite{
     margin: 100px 5rem;
   }
   h1{
     font-size: 40px;
   }
-  .portfolioCard{
+  .postCard{
     margin: 5px 30px;
   }
 }
 @media screen and (min-width: 960px){
-  .portfolioWrite{
+  .postWrite{
     margin: 100px 18rem;
   }
   h1{
     font-size: 50px;
   }
-  .portfolioCard{
+  .postCard{
     margin: 5px 50px;
   }
 }
 @media screen and (min-width: 1904px) {
-  .portfolioWrite {
+  .postWrite {
     margin: 100px 30rem;
   }
   h1{
     font-size: 70px;
   }
-  .portfolioCard{
+  .postCard{
     margin: 10px 80px;
   }
 }

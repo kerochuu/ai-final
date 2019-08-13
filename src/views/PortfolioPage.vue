@@ -10,7 +10,7 @@
           <PortfolioList :limits="4" :load-more="true"></PortfolioList>
         </v-flex>
       </v-layout>
-       <v-btn class="mx-2" style="margin:0%, 5%, 0%, 80%;" color="info" fab dark small @click="movePortfolioWriter">
+       <v-btn v-if="'Anonymous' != isGuest()" class="mx-2" style="margin:0%, 5%, 0%, 80%;" color="info" fab dark small @click="movePortfolioWriter">
                 <v-icon dark>edit</v-icon>
        </v-btn>
 
@@ -28,22 +28,20 @@ export default {
   components: {
     PortfolioList
   },
+  props: {
+    authority: {
+      type: String
+    }
+  },
   methods: {
-    guestOrUser() {
-      var user = getUserInfo();
-      if(user == null) {
-        return false;
-      } else {
-        return true;
-      }
+    isGuest() {
+      return this.authority;
     },
     movePortfolioWriter(){
       this.$router.push('/portfoliowrite');
     }
   },
-  props: {
-    authority: { type: String }
-  },
+
    data() {
     return {
       user:{}
@@ -53,9 +51,8 @@ export default {
    
     FirebaseService.getInfo().then(res => {
       this.user = res;
-      alert(user);
+      alert("user!! = " + user);
     });
-
   }
 };
 </script>
