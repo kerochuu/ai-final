@@ -35,6 +35,7 @@ export default {
 
 <style scoped>
 #portfolioCard {
+font-family: 'Do Hyeon', sans-serif !important; 
   border-radius: 4px;
   border: 3px solid #F2ECE5;
 }

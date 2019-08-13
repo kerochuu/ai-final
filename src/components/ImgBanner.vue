@@ -1,7 +1,8 @@
 <template>
   <div>
-    <v-img id="bannerImg" :src="require('../assets/backgndImg/wallpaper.png')"
+        <v-img id="bannerImg" :src="require('../assets/backgndImg/wallpaper.png')"
      aspect-ratio="1.7">
+
       <!-- <v-layout align-center justify-center row fill-height>
         <v-flex text-xs-center>
           <span class="text-shadow display-2 font-weight-light">

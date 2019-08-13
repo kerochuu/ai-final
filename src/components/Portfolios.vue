@@ -34,6 +34,9 @@ export default {
 </script>
 
 <style scoped>
+div{
+  font-family: 'Do Hyeon', sans-serif !important;
+}
 .portfolioCard {
   border-radius: 4px;
   border: 5px solid #F2ECE5;
@@ -42,7 +45,6 @@ export default {
   transform: scale(1.2, 1.2);
 }
 #title {
-  font-family: "Montserrat", sans-serif !important;
   font-weight: bold;
   width: 150px;
   overflow: hidden;
@@ -50,7 +52,6 @@ export default {
   white-space: nowrap;
 }
 #content {
-  font-family: "Montserrat", sans-serif !important;
   font-size: 16px;
   display: -webkit-box;
   -webkit-line-clamp: 1;

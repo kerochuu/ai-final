@@ -1,10 +1,15 @@
 <template>
   <div>
     <i class="fas fa-pencil-alt"></i>
+
     <!-- <div v-on:click="changeBannerImg"> -->
     <ImgBanner>
       <div id="introduce" style="line-height:1.2em; color:#333;" slot="text"></div>
     </ImgBanner>
+    <!-- 배경음악 -->
+    <audio autoplay controls>
+      <source type="audio/mp3" />
+    </audio>
     <!-- </div> -->
 
     <!-- <v-container> -->
@@ -32,12 +37,12 @@
     </v-container>-->
 
     <!-- Post -->
-    <!-- <v-layout my-5>
+    <v-layout my-5>
           <v-flex xs12>
             <h2 class="headline my-5 text-xs-center">Post</h2>
             <PostList :column="1"></PostList>
           </v-flex>
-    </v-layout>-->
+    </v-layout>
 
     <!-- Github -->
     <v-container>
@@ -94,11 +99,15 @@ export default {
 
 
 <style scoped>
+audio{
+  width: 120px;
+}
 h2 {
+  font-family: "Jua", sans-serif !important;
+  letter-spacing: 3px !important;
   font-size: 43px !important;
-  font-family: "Montserrat", sans-serif !important;
-  font-weight: 1000;
-  text-shadow: 4px 4px #069BE5;
+  font-weight: 900;
+  text-shadow: 4px 4px #069be5;
 }
 #aboutUs {
   padding: 50px;
@@ -120,4 +129,7 @@ h2 {
   color: black;
   opacity: 1;
 }
+/* audio {
+  display: none;
+} */
 </style>

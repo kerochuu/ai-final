@@ -146,7 +146,7 @@ h1{
   background-color: #fff;
 }
 
-@media screen {
+@media screen and (min-width:600px){
   .postWrite{
     margin: 100px 5rem;
   }
@@ -168,27 +168,4 @@ h1{
     margin: 5px 50px;
   }
 }
-@media screen and (min-width: 1264px) {
-  .postWrite {
-    margin: 100px 23rem;
-  }
-  h1{
-    font-size: 70px;
-  }
-  .postCard{
-    margin: 10px 60px;
-  }
-}
-@media screen and (min-width: 1904px) {
-  .postWrite {
-    margin: 100px 30rem;
-  }
-  h1{
-    font-size: 70px;
-  }
-  .postCard{
-    margin: 10px 80px;
-  }
-}
-
 </style>

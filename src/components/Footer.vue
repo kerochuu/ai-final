@@ -36,7 +36,7 @@ div {
   background-color: #f0f0f0 ;
 }
 footer {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Jua", sans-serif;
   color: #777;
   font-size: 20px;
   font-weight: 700;

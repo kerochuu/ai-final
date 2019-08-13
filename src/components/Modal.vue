@@ -132,6 +132,7 @@ export default {
 }
 .modal-mask {
   position: fixed;
+  font-family: "Jua", sans-serif;
   z-index: 9998;
   top: 0;
   left: 0;

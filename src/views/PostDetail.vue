@@ -41,7 +41,7 @@
                       color="red"
                       size="19px"
                       v-on:click="deleteCommentByAdmin(data.commentId)"
-                    >remove</v-icon>
+                    >delete</v-icon>
                   </v-flex>
                 </v-layout>
               </div>
@@ -62,7 +62,7 @@
                       color="red"
                       size="19px"
                       v-on:click="deleteCommentByAdmin(data.commentId)"
-                    >remove</v-icon>
+                    >delete</v-icon>
                   </v-flex>
                 </v-layout>
               </div>
@@ -268,6 +268,9 @@ h1 {
 ​.commentInput {
   display: inline-block;
   width: 80%;
+}
+.editBtn{
+  margin-left: 3px;
 }
 @media screen and (min-width: 1904px) {
   .post {

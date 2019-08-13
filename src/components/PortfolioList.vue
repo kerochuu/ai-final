@@ -14,7 +14,8 @@
               :pid="portfolios[i-1].pid"
             />
           </div>
-          </swiper-slide>
+          <span class="titleTooltip">{{portfolios[i-1].title}}</span>
+        </swiper-slide>
         <!-- <div class="swiper-button-prev" slot="button-prev"></div>
         <div class="swiper-button-next" slot="button-next"></div>-->
       </swiper>
@@ -53,7 +54,6 @@ export default {
       range: [],
       swiperOption: {
         // 카드 사이즈 줄이고 각 사진간 간격 늘리기
-        // default parameters
         mousewheel: {
           invert: true
         },
@@ -77,12 +77,6 @@ export default {
           enabled: true,
           onlyInViewPort: false
         },
-        cubeEffect: {
-          slideShadows: false,
-          shadow: true,
-          shadowOffset: 20,
-          shadowScale: 0.94
-        },
 
         // responsive breakpoints
         breakpoints: {
@@ -102,7 +96,7 @@ export default {
 };
 </script>
 <style>
-.swiper-container{
+.swiper-container {
   width: 100%;
   height: 250px;
 }
@@ -114,7 +108,7 @@ export default {
 
 .swiper-slide > div:hover {
   filter: brightness(30%);
-} 
+}
 #portfoiloCard {
   width: 200px;
 }

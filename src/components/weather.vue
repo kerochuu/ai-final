@@ -79,6 +79,7 @@ export default{
 li{
   font-size : 9pt;
   list-style : none;
+  font-family: "Jua", sans-serif;
 }
 ul{
   color: #555;

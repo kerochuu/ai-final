@@ -103,17 +103,18 @@ export default {
 
 .link-text {
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Jua", sans-serif;
   font-weight: bolder;
   font-size: 20px;
   color: #333 ;
   font-weight: 700;
 }
 .hbmenu {
+  font-family: "Jua", sans-serif;
   font-weight: 700;
 }
 #title {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Jua", sans-serif;
   font-weight: 700;
   font-size: 23px;
   color: #333 ;
