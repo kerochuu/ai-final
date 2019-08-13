@@ -26,7 +26,7 @@
         <v-btn  v-if="this.pid" color="info" dark v-on:click="updatePosts">
           <v-icon size="25" class="mr-2">fa-plus</v-icon>수정
         </v-btn>
-        <v-btn  v-else color="info" dark v-on:click="postPost">
+        <v-btn  v-else color="info" dark v-on:click="postPosts">
           <v-icon size="25" class="mr-2">fa-plus</v-icon>입력
         </v-btn>
       </v-flex>
@@ -69,6 +69,7 @@ export default {
     async postPosts() {
       FirebaseService.postPost(this.title, this.body).then(
         () => {
+          alert("???");
           this.$router.push({
             name: "post"
           });
