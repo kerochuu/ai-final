@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%">
     <v-toolbar color="orange" flat>
-      <v-toolbar-title>최근 게시물</v-toolbar-title>
+      <v-toolbar-title>Posts 최근 게시물</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-btn icon>
@@ -9,18 +9,17 @@
       </v-btn>
     </v-toolbar>
     <v-list two-line>
-      <template v-for="(item, index) in items">
-
+      <template v-for="(item, index) in parsedData">
         <v-divider v-if="item.divider" :inset="item.inset" :key="index"></v-divider>
 
-        <v-list-tile v-else :key="item.title" avatar @click>
+        <v-list-tile v-else :key="item.title" avatar>
           <v-list-tile-avatar>
             <img :src="item.avatar" />
           </v-list-tile-avatar>
-
+          
           <v-list-tile-content>
             <v-list-tile-title v-html="item.title"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+            <v-list-tile-sub-title v-html="item.body"></v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </template>
@@ -29,35 +28,47 @@
 </template>
 
 <script>
+import FirebaseService from '@/services/FirebaseService';
+
 export default {
   name: "PostCard",
   mounted() {
-      
+    this.getPosts().then(() => {
+      this.loadPosts()
+    })
+  },
+  methods: {
+    async getPosts() {
+      this.posts = await FirebaseService.getPosts()
+    },
+    async loadPosts() {
+      const length = this.posts.length > 3 ? 3 : this.posts.length;
+      for (let i = 0; i < length; i++) {
+        console.log(this.posts[i].uid)
+        await FirebaseService.getUserDatabyQuery('email', this.posts[i].uid)
+        .then((docSnapshots) => {
+          docSnapshots.docs.map((doc) => {
+            let data = doc.data()
+            this.parsedData.push({
+              avatar: data.photoURL === "" ? "img/guest.6e699da6.png" : data.photoURL,
+              title: this.posts[i].title,
+              body: "<span class='text--primary'>" + data.email + "</span> - " + this.posts[i].body
+            })
+          })
+          console.log(i)
+          console.log(length)
+          if(i !== length - 1) {
+            console.log(i)
+            this.parsedData.push({ divider: true, inset: true })
+          }
+        })
+      }
+    }
   },
   data() {
     return {
-      items: [
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-          title: "Brunch this weekend?",
-          subtitle:
-            "<span class='text--primary'>Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
-        },
-        { divider: true, inset: true },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-          title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-          subtitle:
-            "<span class='text--primary'>to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend."
-        },
-        { divider: true, inset: true },
-        {
-          avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-          title: "Oui oui",
-          subtitle:
-            "<span class='text--primary'>Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?"
-        }
-      ]
+      posts : [],
+      parsedData : []
     };
   }
 };

@@ -7,14 +7,14 @@
           <img :src="portfolio.img" alt="Portfolio Image" />
         </div>
       </v-flex>
-      <v-flex xs12 lg6 class="information">
+      <v-flex xs12 lg6 class="information" style="padding: 60px">
         <h1>{{portfolio.title}}</h1>
         <hr style="margin-top:1px;" />
         <br />
         <p>{{portfolio.created_at}}</p>
         <p id="contents" style="text-align: justify;">{{portfolio.body}}</p>
       </v-flex>
-
+​
       <!-- comments -->
       <v-flex xs12>
         <hr style="margin-bottom: 40px;" />
@@ -25,62 +25,62 @@
             <v-icon size="25">fa-plus</v-icon>
           </v-btn>
         </div>
-
+​
         <!-- 댓글 수정 아이콘 수정할 것 -->
         <div class="commentList">
           <h1 style="text-align:center;">Comments</h1>
           <hr style="margin:10px 0 15px;" />
-
+​
           <v-flex style="margin-top:20px; width: 100%;" v-for="data in comments" :key="data.uid">
             <div v-if="'Admin' == isAdmin()">
               <!-- <div class="content"> -->
-                <div class="data_uid">{{data.uid}}</div>
-                <v-layout>
-                  <span class="data_body">{{data.body }}</span>
-                  <v-flex class="editBtn">
-                    <v-icon
-                      color="green"
-                      size="19px"
-                      v-on:click="updateComment(data.body, data.commentId, data.password)"
-                    >edit</v-icon>
-                    <v-icon
-                      color="red"
-                      size="19px"
-                      v-on:click="deleteCommentByAdmin(data.commentId)"
-                    >remove</v-icon>
-                  </v-flex>
-                </v-layout>
+              <div class="data_uid">{{data.uid}}</div>
+              <v-layout>
+                <span class="data_body">{{data.body }}</span>
+                <v-flex class="editBtn">
+                  <v-icon
+                    color="green"
+                    size="19px"
+                    v-on:click="updateComment(data.body, data.commentId, data.password)"
+                  >edit</v-icon>
+                  <v-icon
+                    color="red"
+                    size="19px"
+                    v-on:click="deleteCommentByAdmin(data.commentId)"
+                  >remove</v-icon>
+                </v-flex>
+              </v-layout>
               <!-- </div> -->
             </div>
 
             <div v-else-if="data.uid == isPossible()">
               <!-- <div class="content"> -->
-                <div class="data_uid">{{data.uid}}</div>
-                <v-layout>
-                  <span class="data_body">{{data.body}}</span>
-                  <v-flex class="editBtn">
-                    <v-icon
-                      color="green"
-                      size="19px"
-                      v-on:click="updateComment(data.body, data.commentId, data.password)"
-                    >edit</v-icon>
-                    <v-icon
-                      color="red"
-                      size="19px"
-                      v-on:click="deleteCommentByAdmin(data.commentId)"
-                    >remove</v-icon>
-                  </v-flex>
-                </v-layout>
+              <div class="data_uid">{{data.uid}}</div>
+              <v-layout>
+                <span class="data_body">{{data.body}}</span>
+                <v-flex class="editBtn">
+                  <v-icon
+                    color="green"
+                    size="19px"
+                    v-on:click="updateComment(data.body, data.commentId, data.password)"
+                  >edit</v-icon>
+                  <v-icon
+                    color="red"
+                    size="19px"
+                    v-on:click="deleteCommentByAdmin(data.commentId)"
+                  >remove</v-icon>
+                </v-flex>
+              </v-layout>
               <!-- </div> -->
             </div>
 
             <div class="commentInfo" v-else>
               <!-- <div class="content"> -->
-                <div class="data_uid">{{data.uid}}</div>
-                <v-layout>
-                  <span class="data_body">{{data.body}}</span>
-                </v-layout>
-              </div>
+              <div class="data_uid">{{data.uid}}</div>
+              <v-layout>
+                <span class="data_body">{{data.body}}</span>
+              </v-layout>
+            </div>
             <!-- </div> -->
           </v-flex>
         </div>
@@ -98,7 +98,7 @@
     </v-layout>
   </v-container>
 </template>
-
+​
 <script>
 import FirebaseService from "@/services/FirebaseService";
 export default {
@@ -203,7 +203,7 @@ export default {
 h1 {
   font-size: 30px;
 }
-​ button {
+button {
   border-radius: 5px;
 }
 .portfolio {
@@ -212,12 +212,12 @@ h1 {
   border-radius: 6px;
   margin: 100px 2rem;
 }
-​ .img-box {
+.img-box {
   display: flex;
   align-items: center;
   padding: 40px 10px;
 }
-​ .Content {
+.Content {
   width: 80%;
   margin: 0 auto;
   height: auto;
@@ -228,11 +228,11 @@ h1 {
   border-radius: 5px;
   /* padding: 20px; */
 }
-​ .containerBox {
+.containerBox {
   margin: 10vh 10vw 0 10vw;
 }
 ​.information {
-  padding: 60px;
+  padding: 60px !important;
 }
 ​#commentInputBtn {
   height: 57px;
