@@ -1,10 +1,18 @@
+const POSTS = 'POSTS'
+const PORTFOLIOS = 'PORTFOLIOS'
+const SUBSCRIBER = 'SUBSCRIBER'
 const functions = require('firebase-functions');
-exports.newComment = functions.firestore.document('comment/{documentId}').onCreate((snap, context) => {
+const admin = require('firebase-admin');
+const axios = require('axios')
+admin.initializeApp();
+const firestore = admin.firestore()
+
+exports.newComment = functions.firestore.document('PORTFOLIOS/{documentId}/COMMENTS/{commentId}').onCreate((snap, context) => {
     const newValue = snap.data();
     const key = 'AAAAMEGt6WY:APA91bGYzHueKCzlCKDxg0OID0i1tWy0e-UsfTRIBygT5cjE2HJFpKfRSfSHtooex7LXZh1d1lTc-eKWg7S_0BZRIFtCH4I3YEmKlEYYpCJK-MRK58xa5uHIp6jARmqVa3R5WJ8YCXj8';
     var notification = {
-        'title': newValue.writer + '님이 댓글을 작성하셨습니다',
-        'body': 'Title : ' + newValue.text,
+        'title': newValue.uid + '님이 댓글을 작성하셨습니다',
+        'body': 'Title : ' + newValue.body,
     };
     let list = []
     let cnt = 0
@@ -37,13 +45,13 @@ exports.newComment = functions.firestore.document('comment/{documentId}').onCrea
             console.log(err);
         })
 })
-exports.newPost = functions.firestore.document('posts/{documentId}').onCreate((snap, context) => {
+exports.newPost = functions.firestore.document('POSTS/{documentId}').onCreate((snap, context) => {
     const newValue = snap.data();
     const key = 'AAAAMEGt6WY:APA91bGYzHueKCzlCKDxg0OID0i1tWy0e-UsfTRIBygT5cjE2HJFpKfRSfSHtooex7LXZh1d1lTc-eKWg7S_0BZRIFtCH4I3YEmKlEYYpCJK-MRK58xa5uHIp6jARmqVa3R5WJ8YCXj8';
     const notification = {
-        'title': newValue.displayName + '님이 Post를 작성하셨습니다',
+        'title': newValue.uid + '님이 Post를 작성하셨습니다',
         'body': 'Title : ' + newValue.title,
-        'click_action' : 'https://webproject-myblog.firebaseapp.com',
+        'click_action' : 'https://project2-460cc.firebaseapp.com',
     };
     let list = []
     let cnt = 0
@@ -61,11 +69,11 @@ exports.newPost = functions.firestore.document('posts/{documentId}').onCreate((s
             return notify(key, notification, list)
         })
 });
-exports.newPortfolio = functions.firestore.document('portfolios/{documentId}').onCreate((snap, context) => {
+exports.newPortfolio = functions.firestore.document('PORTFOLIOS/{documentId}').onCreate((snap, context) => {
     const newValue = snap.data();
     const key = 'AAAAMEGt6WY:APA91bGYzHueKCzlCKDxg0OID0i1tWy0e-UsfTRIBygT5cjE2HJFpKfRSfSHtooex7LXZh1d1lTc-eKWg7S_0BZRIFtCH4I3YEmKlEYYpCJK-MRK58xa5uHIp6jARmqVa3R5WJ8YCXj8';
     const notification = {
-        'title': newValue.displayName + '님이 Portfolio를 작성하셨습니다',
+        'title': newValue.uid + '님이 Portfolio를 작성하셨습니다',
         'body': 'Title : ' + newValue.title,
     };
     let list = []
