@@ -47,12 +47,6 @@ export default {
     return {
       user: {}
     };
-  },
-  mounted() {
-    FirebaseService.getInfo().then(res => {
-      this.user = res;
-      alert("user!! = " + user);
-    });
   }
 };
 </script>

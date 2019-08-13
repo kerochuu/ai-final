@@ -7,7 +7,7 @@
           <img :src="portfolio.img" alt="Portfolio Image" />
         </div>
       </v-flex>
-      <v-flex xs12 lg6 class="information" style="padding: 60px;">
+      <v-flex xs12 lg6 class="information">
         <h1>{{portfolio.title}}</h1>
         <hr style="margin-top:1px;" />
         <br />
@@ -33,7 +33,7 @@
 
           <v-flex style="margin-top:20px; width: 100%;" v-for="data in comments" :key="data.uid">
             <div v-if="'Admin' == isAdmin()">
-              <div class="content">
+              <!-- <div class="content"> -->
                 <div class="data_uid">{{data.uid}}</div>
                 <v-layout>
                   <span class="data_body">{{data.body }}</span>
@@ -50,11 +50,11 @@
                     >remove</v-icon>
                   </v-flex>
                 </v-layout>
-              </div>
+              <!-- </div> -->
             </div>
 
             <div v-else-if="data.uid == isPossible()">
-              <div class="content">
+              <!-- <div class="content"> -->
                 <div class="data_uid">{{data.uid}}</div>
                 <v-layout>
                   <span class="data_body">{{data.body}}</span>
@@ -71,16 +71,17 @@
                     >remove</v-icon>
                   </v-flex>
                 </v-layout>
-              </div>
+              <!-- </div> -->
             </div>
+
             <div class="commentInfo" v-else>
-              <div class="content">
+              <!-- <div class="content"> -->
                 <div class="data_uid">{{data.uid}}</div>
                 <v-layout>
                   <span class="data_body">{{data.body}}</span>
                 </v-layout>
               </div>
-            </div>
+            <!-- </div> -->
           </v-flex>
         </div>
         <hr style="background:#D9D9D9; height:0.4px; border-height:0.3px; border-width:0.3px;" />
@@ -146,9 +147,6 @@ export default {
       alert(cid);
       FirebaseService.deleteComment(this.$route.params.pid, cid, pw);
       this.$router.push("/pass");
-
-      // FirebaseService.deleteComment(this.$route.params.);
-      //this.$router.push('/pass');
     },
     deleteCommentByAdmin: function(cid) {
       alert(cid);
@@ -158,9 +156,6 @@ export default {
     updateComment: function(body, cid, pw) {
       FirebaseService.updateComment(this.$route.params.pid, body, cid, pw);
       this.$router.push("/pass");
-
-      // FirebaseService.deleteComment(this.$route.params.);
-      //this.$router.push('/pass');
     },
     getUidForId: function(uid) {
       const user = FirebaseService.getUidForId(uid);
