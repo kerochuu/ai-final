@@ -1,7 +1,7 @@
 <template>
   <v-card height="100%">
     <v-toolbar color="orange" flat>
-      <v-toolbar-title>최근 게시물</v-toolbar-title>
+      <v-toolbar-title>Portfolios 최근 게시물</v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-btn icon>
@@ -43,21 +43,23 @@ export default {
     },
     loadPortfolios() {
       const length = this.portfolios.length > 3 ? 3 : this.portfolios.length;
-      let userdata = null
       for (let i = 0; i < length; i++) {
-        FirebaseService.getUserDatabyQuery('email', this.portfolios[i].email)
-        .then(res => {
-          console.log(res)
-          userdata = res.data()
+        console.log(this.portfolios[i].uid)
+        FirebaseService.getUserDatabyQuery('email', this.portfolios[i].uid)
+        .then((docSnapshots) => {
+          docSnapshots.docs.map((doc) => {
+            let data = doc.data()
+            this.parsedData.push({
+              avatar: data.photoURL === "" ? "img/guest.6e699da6.png" : data.photoURL,
+              title: this.portfolios[i].title,
+              body: "<span class='text--primary'>" + data.email + "</span> - " + this.portfolios[i].body
+            })
+          })
+          if(i !== length - 1) {
+            this.parsedData.push({ divider: true, inset: true })
+          }
         })
-        this.portfolios.uid = userdata
-        this.parsedData.push({
-          title: this.portfolios[i].title,
-          body: this.portfolios[i].body
-        })
-        this.parsedData.push({ divider: true, inset: true })
       }
-      this.parsedData.pop()
     }
   },
   data() {

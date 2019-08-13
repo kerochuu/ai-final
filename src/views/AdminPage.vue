@@ -154,3 +154,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+.v-card {
+  border-radius: 5px;
+}
+
+</style>
