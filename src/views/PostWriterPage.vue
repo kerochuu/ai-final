@@ -22,9 +22,12 @@
         </v-flex>
                
 
-      <v-flex xs12 text-xs-center round my-5>
-        <v-btn color="info" dark v-on:click="postPosts">
-          <v-icon size="25" class="mr-2">fa-plus</v-icon>Upload
+     <v-flex xs12 text-xs-center round my-5>
+        <v-btn  v-if="this.pid" color="info" dark v-on:click="updatePosts">
+          <v-icon size="25" class="mr-2">fa-plus</v-icon>수정
+        </v-btn>
+        <v-btn  v-else color="info" dark v-on:click="postPost">
+          <v-icon size="25" class="mr-2">fa-plus</v-icon>입력
         </v-btn>
       </v-flex>
     </v-layout>
@@ -47,6 +50,9 @@ export default {
     authority: {
       type: String,
       default: ""
+    },
+    pid: {
+      type: String
     }
   },
   components: {
@@ -68,6 +74,24 @@ export default {
           });
         }
       );
+    },
+    async updatePosts() {
+      FirebaseService.updatePost(this.title, this.body, this.pid).then(
+        () => {
+          this.$router.push({
+            name: "post"
+          });
+        }
+      );
+    },
+    async getInfo() {
+      await FirebaseService.getPostById(this.$route.params.pid)
+      .then(res => {
+        console.log(res)
+        this.title = res[0].title;
+        this.body = res[0].body;
+        this.pid = res[0].postId;
+      })
     },
     // async getInfo() {
     //   await FirebaseService.getPortfolioById(this.$route.params.pid)

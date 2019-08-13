@@ -87,10 +87,10 @@
       </v-flex>
 
       <v-flex v-if="'Anonymous' != isGuest()" xs12 text-xs-center round my-5>
-        <v-btn color="success" dark v-on:click="updateProfile">
+        <v-btn color="success" dark v-on:click="updatePortfolio">
           <v-icon size="25" class="mr-2">fa-plus</v-icon>변경
         </v-btn>
-        <v-btn color="red" dark v-on:click="deleteProfile">
+        <v-btn color="red" dark v-on:click="deletePortfolio">
           <v-icon size="25" class="mr-2">fa-minus</v-icon>삭제
         </v-btn>
       </v-flex>
@@ -166,7 +166,7 @@ export default {
       const user = FirebaseService.getUidForId(uid);
       return this.user;
     },
-    updateProfile: function() {
+    updatePortfolio: function() {
       const user = FirebaseService.getUserInfo();
       if (user == null) {
         alert("로그인이 필요합니다.");
@@ -178,7 +178,7 @@ export default {
       });
     },
 
-    deleteProfile: function() {
+    deletePortfolio: function() {
       const user = FirebaseService.getUserInfo();
       if (user == null) {
         alert("로그인이 필요합니다.");

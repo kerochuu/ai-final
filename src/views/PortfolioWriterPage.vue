@@ -20,13 +20,16 @@
         <v-flex xs12>
           <div v-html="compiledMarkdown"></div>
           <ImageUpload ref="imgUpload" />
-          <img v-if="this.img != null" id="preview" :src="this.img" height="200px">원본이미지</img>
+          <img v-if="this.pid" id="preview" :src="this.img" height="200px"/>
         </v-flex>
                
 
       <v-flex xs12 text-xs-center round my-5>
-        <v-btn color="info" dark v-on:click="postPortfolios">
-          <v-icon size="25" class="mr-2">fa-plus</v-icon>Upload
+        <v-btn  v-if="this.pid" color="info" dark v-on:click="updatePortfolios">
+          <v-icon size="25" class="mr-2">fa-plus</v-icon>수정
+        </v-btn>
+        <v-btn  v-else color="info" dark v-on:click="postPortfolios">
+          <v-icon size="25" class="mr-2">fa-plus</v-icon>입력
         </v-btn>
       </v-flex>
     </v-layout>
@@ -53,6 +56,9 @@ export default {
     authority: {
       type: String,
       default: ""
+    },
+    pid: {
+      type:String
     }
   },
   components: {
@@ -77,6 +83,16 @@ export default {
         }
       );
     },
+    async updatePortfolios() {
+      //this.img = await this.$refs.imgUpload.imageUpload();
+      FirebaseService.updatePortfolio(this.title, this.body, this.img, this.pid).then(
+        () => {
+          this.$router.push({
+            name: "portfolio"
+          });
+        }
+      );
+    },
     async getInfo() {
       await FirebaseService.getPortfolioById(this.$route.params.pid)
       .then(res => {
@@ -84,6 +100,7 @@ export default {
         this.title = res[0].title;
         this.body = res[0].body;
         this.img = res[0].img;
+        this.pid = res[0].portId;
       })
     },
     // handleFileUpload(img) {
