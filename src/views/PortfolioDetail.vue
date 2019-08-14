@@ -21,7 +21,7 @@
         <h1 style="text-align:center; margin-bottom: 20px; font-size:30px; font-family: 'Do Hyeon', sans-serif;">댓글을 입력하세요</h1>
         <div class="commentInput">
           <v-text-field label="comment" outline v-model="comment"></v-text-field>
-          <v-btn id="commentInputBtn" color="info" dark v-on:click="addComment">
+          <v-btn depressed id="commentInputBtn" style="height: 57px; width: 40px; margin-top: -1px; border-radius: 5px;" color="info" dark v-on:click="addComment">
             <v-icon size="25">fa-plus</v-icon>
           </v-btn>
         </div>
@@ -282,6 +282,13 @@ button {
   }
 }
 @media screen and (min-width: 960px) {
+  .commentInput {
+    display: flex;
+    width: 70%;
+    margin-left: 15%;
+  }
+}
+@media screen and (max-width: 960px) {
   .commentInput {
     display: flex;
     width: 70%;
