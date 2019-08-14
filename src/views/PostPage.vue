@@ -10,10 +10,7 @@
         <v-btn
           v-if="'Anonymous' != isGuest()"
           class="postWriteBtn"
-          color="success"
-          fab
-          dark
-          big
+          color="info"
           @click="movePostWriter"
         >
           <v-icon dark>edit</v-icon>
@@ -63,7 +60,9 @@ export default {
 .postPage {
   margin: 100px auto;
 }
-
+button {
+  border-radius: 10px;
+}
 @media screen and (min-width: 600px) {
   .postPage {
     margin: 100px auto;

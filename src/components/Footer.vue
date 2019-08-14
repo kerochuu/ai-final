@@ -14,6 +14,9 @@
     </div>
     <!-- 날씨 정보 -->
     <weather></weather>
+        <audio autoplay controls>
+      <source src="../assets/music/PinkNWhite.mp3" type="audio/mpeg" />
+    </audio>
   </div>
 </template>
 
@@ -57,5 +60,8 @@ strong {
   float: right;
   margin-right: 140px;
   margin-top: 10px;
+ }
+ audio{
+   width: 500px;
  }
 </style>

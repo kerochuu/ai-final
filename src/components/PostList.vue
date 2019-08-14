@@ -59,25 +59,10 @@ export default {
 
   background-color: #f0f0f0;
   border-radius: 5px;
-  margin-top: 20px;
+  margin: 20px 70px;
   padding: 10px 30px;
 }
 .postList:hover {
-  transform: scale(1.2, 1.2);
+  filter: brightness(80%);
 }
-/* @media screen and (min-width: 600px) {
-  .postList {
-    width: 500px;
-  }
-}
-@media screen and (min-width: 960px) {
-  .postList {
-    width: 850px;
-  }
-}
-@media screen and (min-width: 1904px) {
-  .postList {
-    width: 1000px;
-  }
-} */
 </style>

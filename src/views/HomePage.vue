@@ -6,23 +6,13 @@
     <ImgBanner>
       <div id="introduce" style="line-height:1.2em; color:#333;" slot="text"></div>
     </ImgBanner>
-    <!-- 배경음악 -->
-    <audio autoplay controls>
-      <source src="../assets/music/PinkNWhite.mp3" type="audio/mpeg">
-    </audio>
-    <!-- </div> -->
-
-    <!-- <v-container> -->
     <!-- About Us -->
-    <!-- <div id="aboutUsbox">
+    <div id="aboutUsbox">
       <div id="aboutUs">
-        <h2 class="headline mb-3 text-xs-center">About US</h2>
-        <p class="mr-4 text-sm-center">
-          안녕하세요, 서울 SSAFY 1기 10조입니다.
-          <br />아보카도 좋아하세요?
-        </p>
+        <h2 class="headline text-xs-center" style="margin: 50px 0;">About Us</h2>
+        <AboutUs></AboutUs>
       </div>
-    </div>-->
+    </div>
 
     <!-- Portfolio -->
     <!-- <v-container>
@@ -38,10 +28,10 @@
 
     <!-- Post -->
     <v-layout my-5>
-          <v-flex xs12>
-            <h2 class="headline my-5 text-xs-center">Post</h2>
-            <PostList :column="1"></PostList>
-          </v-flex>
+      <v-flex xs12>
+        <h2 class="headline my-5 text-xs-center">Post</h2>
+        <PostList :column="1"></PostList>
+      </v-flex>
     </v-layout>
 
     <!-- Github -->
@@ -63,6 +53,7 @@ import PortfolioList from "../components/PortfolioList";
 import PostList from "../components/PostList";
 import RepositoryList from "../components/RepositoryList";
 import ImageUpload from "../components/ImageUpload";
+import AboutUs from "../components/AboutUs";
 
 export default {
   name: "HomePage",
@@ -78,7 +69,8 @@ export default {
     PortfolioList,
     PostList,
     RepositoryList,
-    ImageUpload
+    ImageUpload,
+    AboutUs
   },
   methods: {
     // getImgUrl(img) {
@@ -126,5 +118,4 @@ h2 {
   color: black;
   opacity: 1;
 }
-
 </style>
