@@ -593,9 +593,9 @@ export default {
 			}
 		})
 	},
-	changeAuthority(user, authority) {
+	changeAuthority(uid, authority) {
 		const data = { 'authority': authority }
-		firestore.collection(USERS).doc(user.uid).update(data)
+		firestore.collection(USERS).doc(uid).update(data)
 	},
 	async getUserData(userid) {
 		return await firestore.collection(USERS).doc(userid).get()
@@ -606,7 +606,7 @@ export default {
 	getAllUserData() {
 		const usersCollection = firestore.collection(USERS)
 		return usersCollection
-			.orderBy('created_at', 'asc')
+			.orderBy('authority', 'asc')
 			.get()
 			.then((docSnapshots) => {
 				return docSnapshots.docs.map((doc) => {
@@ -628,5 +628,16 @@ export default {
 	},
 	spawnNotification(title, option) {
 		var n = new Notification(title, option);
-	}
+	},
+	getSubscribers() {
+		const subscribersCollection = firestore.collection(SUBSCRIBER)
+		return subscribersCollection
+			.get()
+			.then((docSnapshots) => {
+				return docSnapshots.docs.map((doc) => {
+					let data = doc.data()
+					return data
+				})
+			})
+	},
 }
