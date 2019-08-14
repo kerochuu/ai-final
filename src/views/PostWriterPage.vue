@@ -69,7 +69,6 @@ export default {
     async postPosts() {
       FirebaseService.postPost(this.title, this.body).then(
         () => {
-          alert("???");
           this.$router.push({
             name: "post"
           });

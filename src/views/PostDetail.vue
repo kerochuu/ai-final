@@ -136,7 +136,6 @@ export default {
       this.$router.push("/pass");
     },
     deleteComment: function(cid, pw) {
-      alert(cid);
       FirebaseService.deletePostComment(this.$route.params.pid, cid, pw);
       this.$router.push("/pass");
 
@@ -144,7 +143,6 @@ export default {
       //this.$router.push('/pass');
     },
     deleteCommentByAdmin: function(cid) {
-      alert(cid);
       FirebaseService.deletePostCommentByAdmin(this.$route.params.pid, cid);
       this.$router.push("/pass");
     },
