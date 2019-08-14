@@ -10,9 +10,9 @@
     </v-toolbar>
     <v-list two-line>
       <template v-for="(item, index) in parsedData">
-        <v-divider v-if="item.divider" :inset="item.inset" :key="index"></v-divider>
+        <v-divider v-if="item.divider && index !== parsedData.length - 1" :inset="item.inset" :key="index"></v-divider>
 
-        <v-list-tile v-else :key="item.title" avatar>
+        <v-list-tile v-else-if="item.avatar" :key="item.title" avatar>
           <v-list-tile-avatar>
             <img :src="item.avatar" />
           </v-list-tile-avatar>
@@ -29,6 +29,7 @@
 
 <script>
 import FirebaseService from '@/services/FirebaseService';
+import guest from '../../assets/icon/guest.png'
 
 export default {
   name: "PostCard",
@@ -44,23 +45,17 @@ export default {
     async loadPosts() {
       const length = this.posts.length > 3 ? 3 : this.posts.length;
       for (let i = 0; i < length; i++) {
-        console.log(this.posts[i].uid)
         await FirebaseService.getUserDatabyQuery('email', this.posts[i].uid)
         .then((docSnapshots) => {
           docSnapshots.docs.map((doc) => {
             let data = doc.data()
             this.parsedData.push({
-              avatar: data.photoURL === "" ? "img/guest.6e699da6.png" : data.photoURL,
+              avatar: data.photoURL === "" ? guest : data.photoURL,
               title: this.posts[i].title,
               body: "<span class='text--primary'>" + data.email + "</span> - " + this.posts[i].body
             })
-          })
-          console.log(i)
-          console.log(length)
-          if(i !== length - 1) {
-            console.log(i)
             this.parsedData.push({ divider: true, inset: true })
-          }
+          })
         })
       }
     }
