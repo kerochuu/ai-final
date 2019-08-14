@@ -98,7 +98,6 @@ export default {
 	postPost(title, body) {
 		var postId = firestore.collection(POSTS).doc().id;
 		var doc = firestore.collection(POSTS).doc(postId);
-		alert(postId + " , " + doc);
 		return doc.set({
 		  postId: postId,
 		  viewCount: 0,
@@ -118,7 +117,7 @@ export default {
 			})
 	},
 	updatePost(title, body, postId) {
-		alert("updatePost 들어왔음")
+		
 		var doc = firestore.collection(POSTS).doc(postId);
 		return doc.set({
 		  postId: postId,
@@ -231,7 +230,7 @@ export default {
   	postPortfolio(title, body, img) {
 		var portId = firestore.collection(PORTFOLIOS).doc().id;
 		var doc = firestore.collection(PORTFOLIOS).doc(portId);
-		alert(portId + " , " + doc);
+		//alert(portId + " , " + doc);
 		return doc.set({
 			portId: portId,
 			viewCount: 0,
