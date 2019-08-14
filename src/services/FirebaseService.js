@@ -349,10 +349,11 @@ export default {
 			// alert(email+" 댓글수정!");
 			var newBody = prompt("새로운 내용을 입력하세요!", body);
 			var newUpw = prompt("새로운 비밀번호를 입력하세요!", upw);
-			return comment.update({
-				body:newBody,
-				password:newUpw
-			});
+			if(newBody != null)
+				return comment.update({
+					body:newBody,
+					password:newUpw
+				});
 			
 		} else {
 			alert("비밀번호가 일치하지 않습니다!!");
@@ -392,9 +393,10 @@ export default {
 		email = uid.email;
 		// alert(email+" 회원 댓글수정!");
 		var newBody = prompt("새로운 내용을 입력하세요!", body);
-		return comment.update({
-			body:newBody
-		});
+		if(newBody != null) 
+			return comment.update({
+				body:newBody
+			});
 	}
   },
   deleteComment(pid, cid, pw) { 
