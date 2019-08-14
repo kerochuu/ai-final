@@ -12,17 +12,17 @@
 
       <!-- comments -->
       <v-flex xs12 lg6 class="comments">
-        <h1 style="text-align:center; margin-bottom: 20px; font-size:26px;">Write what you think</h1>
+        <h1 style="text-align:center; margin-bottom: 20px; font-size:30px; font-family: 'Do Hyeon', sans-serif;">댓글을 입력하세요</h1>
         <div class="commentInput">
           <v-text-field label="comment" outline v-model="comment"></v-text-field>
-          <v-btn id="commentInputBtn" color="info" dark v-on:click="addComment">
+          <v-btn depressed id="commentInputBtn" style="height: 57px; width: 40px; margin-top: -1px; border-radius: 5px;" color="info" dark v-on:click="addComment">
             <v-icon size="25">fa-plus</v-icon>
           </v-btn>
         </div>
 
         <!-- 댓글 수정 아이콘 수정할 것 -->
         <div class="commentList">
-          <h1 style="text-align:center;">Comments</h1>
+          <h1 style="text-align:center; font-family: 'Do Hyeon', sans-serif;">댓글 목록</h1>
           <hr style="margin:10px 0 15px;" />
 
           <v-flex style="margin-top:20px; width: 100%;" v-for="data in comments" :key="data.uid">

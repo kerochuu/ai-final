@@ -2,13 +2,8 @@
   <router-link :to="{name:'postDetail', params: {pid} }">
     <v-layout py-4 h-100>
       <v-flex row>
-        <!-- 글쓴이, 작성일  추가-->
-        <!-- <div class="caption">{{formatedDate}}</div> -->
-
           <h2 class="title">{{title}}</h2>
           <p class="date">{{formatedDate}}</p>
-
-        <!-- <p id="content" class="mb-1 color-666 font-weight-light subheading">{{body}}</p> -->
       </v-flex>
     </v-layout>
   </router-link>

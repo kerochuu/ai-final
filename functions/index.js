@@ -75,6 +75,7 @@ exports.newPortfolio = functions.firestore.document('PORTFOLIOS/{documentId}').o
     const notification = {
         'title': newValue.uid + '님이 Portfolio를 작성하셨습니다',
         'body': 'Title : ' + newValue.title,
+        'click_action' : 'https://project2-460cc.firebaseapp.com',
     };
     let list = []
     let cnt = 0

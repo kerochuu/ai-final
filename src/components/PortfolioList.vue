@@ -16,8 +16,6 @@
           </div>
           <span class="titleTooltip">{{portfolios[i-1].title}}</span>
         </swiper-slide>
-        <!-- <div class="swiper-button-prev" slot="button-prev"></div>
-        <div class="swiper-button-next" slot="button-next"></div>-->
       </swiper>
     </md-card-media>
   </md-card>
@@ -113,29 +111,4 @@ export default {
   width: 200px;
 }
 
-/* .mw-700 {
-  max-width: 700px;
-  margin: auto;
-}
-.swiper-wrapper > div {
-  width: 23.7% !important;
-}
-
-@media(max-width:600px){
-  .swiper-wrapper > div {
-    width : 96% !important
-  }
-}
-
-@media(min-width:601px) and (max-width: 1080px){
-  .swiper-wrapper > div {
-    width : 48% !important
-  }
-}
-
-@media(min-width:1081px) and (max-width: 1600px){
-  .swiper-wrapper > div {
-    width : 30% !important;
-  }
-} */
 </style>
