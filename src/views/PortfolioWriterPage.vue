@@ -20,7 +20,6 @@
         <v-flex xs12>
           <div v-html="compiledMarkdown"></div>
           <ImageUpload ref="imgUpload" />
-          <img v-if="this.pid" id="preview" :src="this.img" height="200px"/>
         </v-flex>
                
 
@@ -77,7 +76,6 @@ export default {
     async postPortfolios() {
       //this.img = await this.$refs.imgUpload.imageUpload();
       this.img = await this.$refs.imgUpload.imageUpload();
-      alert(this.img);
       FirebaseService.postPortfolio(this.title, this.body, this.img).then(
         () => {
           this.$router.push({
@@ -88,6 +86,7 @@ export default {
     },
     async updatePortfolios() {
       //this.img = await this.$refs.imgUpload.imageUpload();
+      this.img = await this.$refs.imgUpload.imageUpload();
       FirebaseService.updatePortfolio(this.title, this.body, this.img, this.pid).then(
         () => {
           this.$router.push({

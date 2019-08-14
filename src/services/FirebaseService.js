@@ -231,7 +231,7 @@ export default {
   	postPortfolio(title, body, img) {
 		var portId = firestore.collection(PORTFOLIOS).doc().id;
 		var doc = firestore.collection(PORTFOLIOS).doc(portId);
-		alert(portId + " , " + doc);
+		//alert(portId + " , " + doc);
 		return doc.set({
 			portId: portId,
 			viewCount: 0,

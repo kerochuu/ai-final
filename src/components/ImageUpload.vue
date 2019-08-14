@@ -42,6 +42,19 @@ export default {
     };
   },
   methods: {
+     async getInfo() {
+       if(this.$route.params.pid) {
+           await FirebaseService.getPortfolioById(this.$route.params.pid)
+            .then(res => {
+              console.log(res)
+        
+              document.querySelector("#preview").src = res[0].img;
+              document.getElementById("preview").style.display = "block";
+              this.randomImage = true;
+        
+            })
+       }
+    },
     async imageUpload() {
       console.log(this.$refs.file.files.length);
       console.log(this.randomImage);
@@ -81,7 +94,6 @@ export default {
       this.randomImage = false;
     },
     randomImageUpload() {
-      alert("!?!?!?!?!?!?!?!?!??!?!?!?!?!?!?!?!?!?!");
       const axios = require("axios");
       const instance = axios
         .get(
@@ -96,6 +108,13 @@ export default {
           console.log(error);
         });
     }
+  },
+  mounted() {
+    if (this.authority == "Anonymous") {
+      alert("로그인이 필요합니다.");
+      this.$router.back(1);
+    }
+    this.getInfo();
   }
 };
 </script>
