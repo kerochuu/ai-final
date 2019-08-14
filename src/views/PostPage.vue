@@ -1,5 +1,5 @@
 <template>
-  <v-container wrap row class="postPage">
+  <v-container class="postPage">
     <v-layout>
       <v-flex xs12>
         <h1 style="font-size:8vh; text-align:center;">Post Page</h1>
@@ -61,26 +61,24 @@ export default {
   margin: 20px 0;
 }
 .postPage {
-  margin: 100px 20px;
+  margin: 100px auto;
 }
-/* .postPage posts{
-  width: 80%;
-} */
+
 @media screen and (min-width: 600px) {
   .postPage {
-    margin: 100px 40px;
+    margin: 100px auto;
   }
 }
 
 @media screen and (min-width: 960px) {
   .postPage {
-    margin: 100px 100px;
+    margin: 100px auto;
   }
 }
 
 @media screen and (min-width: 1264px) {
   .postPage {
-    margin: 100px 300px;
+    margin: 100px auto;
   }
 }
 </style>

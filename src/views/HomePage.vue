@@ -8,7 +8,7 @@
     </ImgBanner>
     <!-- 배경음악 -->
     <audio autoplay controls>
-      <source type="audio/mp3" />
+      <source src="../assets/music/PinkNWhite.mp3" type="audio/mpeg">
     </audio>
     <!-- </div> -->
 
@@ -99,9 +99,6 @@ export default {
 
 
 <style scoped>
-audio{
-  width: 120px;
-}
 h2 {
   font-family: "Jua", sans-serif !important;
   letter-spacing: 3px !important;
@@ -129,7 +126,5 @@ h2 {
   color: black;
   opacity: 1;
 }
-/* audio {
-  display: none;
-} */
+
 </style>
